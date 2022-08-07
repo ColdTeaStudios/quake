@@ -1,0 +1,177 @@
+//======================================================================
+// PARTICLE DEF file
+// 
+// MOD    : AD v1.80 - (Arcane Dimensions)
+// Date   : August 2020
+// Author : Simon "Sock" OCallaghan
+// Website: www.simonoc.com
+//
+//======================================================================
+
+// Original ID weapon/explosions
+//effect TE_GUNSHOT
+//effect TE_SPIKE
+//effect TE_SUPERSPIKE
+//effect TR_ROCKET
+//effect TR_GRENADE
+//effect TE_EXPLOSION
+
+//======================================================================
+// NEW weapon trails (Chunky dots)
+effect TR_LASER
+trailspacing 3
+type smoke
+color 0x903010 0xFFD030			// red/yellow
+tex 62 64						// Solid Dots
+size 0.25 0.5
+sizeincrease 3
+stretchfactor 2					// and stretch
+velocityjitter 16 16 32			// move up
+lightradius 32
+lightcolor 1 0.9 0.5
+
+effect TR_PLASMA
+trailspacing 3
+type smoke
+color 0x8b8bc1 0xeae74d			// light blue/light yellow
+tex 62 64						// Solid Dots
+size 0.25 0.5
+sizeincrease 3
+stretchfactor 2					// and stretch
+velocityjitter 16 16 32			// move up
+lightradius 32
+lightcolor 1 0.9 0.5
+
+//======================================================================
+// New impacts
+effect TE_PLASMA
+effect TE_PLASMABIG
+effect TR_POISON
+effect TE_POISON
+effect TE_POISONBIG
+effect TE_BSMOKE
+effect TE_BFLAME
+effect TE_BPOISON
+
+// Monster Effects
+//effect TE_LAVASPLASH
+//effect TR_KNIGHTSPIKE
+//effect TE_KNIGHTSPIKE
+//effect TR_WIZSPIKE
+//effect TE_WIZSPIKE
+//effect TR_VORESPIKE
+//effect TE_TAREXPLOSION
+effect TR_BOSSCHTHON
+effect TR_BOSSCHTHONGRN
+effect DPP_ITSWRAITHEXPLODE
+effect DPP_ITSPYROFLAME1
+
+//======================================================================
+// STANDARD BLOOD IMPACT (from damage)
+//----------------------------------------------------------------------
+effect TE_BLOOD
+effect TR_SLIGHTBLOOD
+effect TR_BLOOD
+effect TR_SBLOOD
+effect TR_PBLOOD
+effect TR_ITSBLOOD
+
+//----------------------------------------------------------------------
+effect TE_SPARK
+//effect TE_TELEPORT
+
+//======================================================================
+// specific particle effects (QC generated)
+//----------------------------------------------------------------------
+effect DPP_ITSPORTALFRONT
+effect DPP_ITSPORTALSIDE
+effect DPP_ITSPORTALDOWN
+effect DPP_ITSPORTALUP
+effect DPP_ITSFCIRCLE
+effect DPP_ITSBFCIRCLE
+effect DPP_ITSFCIRCLE_RING
+effect DPP_ITSJUMPPAD
+effect DPP_ITSBOOKBLUE
+effect DPP_ITSBOOKRED
+effect DPP_ITSBOOKGOLD
+effect DPP_ITSOPENBOOKBLUE
+effect DPP_ITSOPENBOOKRED
+effect DPP_ITSOPENBOOKGOLD
+effect DPP_ITSELECTRIC
+effect DPP_ITSSFLAME
+effect DPP_ITSTFLAME
+effect DPP_ITSLFLAME
+effect DPP_ITSSKILLPILLAR
+effect DPP_ITSBSKILLPILLAR
+effect DPP_ITSGSKILLPILLAR
+effect DPP_ITSPSKILLPILLAR
+effect DPP_ITSVELSMOKEGREY1
+effect DPP_ITSVELSMOKEGREY2
+effect DPP_ITSVELSMOKEWHITE
+effect DPP_ITSVELSMOKETOXIC
+effect DPP_ITSVELSMOKEGREEN
+effect DPP_ITSVELSMOKEPURPLE
+effect DPP_ITSVELSMOKERED
+effect DPP_ITSVELSMOKEFIRE
+effect DPP_ITSALTARRED
+effect DPP_ITSALTARGREY
+effect DPP_ITSRESPAWN
+effect DPP_ITSMEGAH
+effect DPP_ITSARMOR1
+effect DPP_ITSARMOR2
+effect DPP_ITSARMOR2BLUE
+effect DPP_ITSARMOR3
+effect DPP_ITSSILVERKEY
+effect DPP_ITSGOLDKEY
+effect DPP_ITSREDKEY
+effect DPP_ITSGREENKEY
+effect DPP_ITSPURPLEKEY
+effect DPP_ITSWHITEKEY
+effect DPP_ITSSIGIL
+effect DPP_ITSBACKPACK
+effect DPP_ITSBACKPACKB
+effect DPP_ITSBACKPACKG
+effect DPP_ITSBACKPACKR
+effect DPP_ITSBACKPACKY
+effect DPP_ITSTOMEOFP
+effect DPP_ITSSUIT
+effect DPP_ITSPENT
+effect DPP_ITSQUAD
+effect DPP_ITSSRING
+effect DPP_ITSSHARP
+effect DPP_ITSSHARPG
+effect DPP_ITSPIERCE
+effect DPP_ITSLAVASHIELD
+effect DPP_ITSWETSUIT
+effect DPP_ITSBLASTBELT
+effect DPP_ITSBLASTBELT2
+effect DPP_ITSJBOOTS
+effect DPP_ITSPART_RINGY
+effect DPP_ITSPART_RINGG
+effect DPP_ITSPART_RINGR
+effect DPP_ITSPART_RINGB
+effect DPP_ITSPART_RINGP
+effect DPP_ITSPART_RINGW
+effect DPP_ITSPART_BURSTY
+effect DPP_ITSPART_BURSTG
+effect DPP_ITSPART_BURSTR
+effect DPP_ITSPART_BURSTB
+effect DPP_ITSPART_BURSTP
+effect DPP_ITSPART_BURSTW
+effect DPP_ITSPART_FFIELDY
+effect DPP_ITSPART_FFIELDG
+effect DPP_ITSPART_FFIELDR
+effect DPP_ITSPART_FFIELDB
+effect DPP_ITSPART_FFIELDP
+effect DPP_ITSPART_FFIELDW
+effect DPP_ITSPART_TRAILY
+effect DPP_ITSPART_TRAILG
+effect DPP_ITSPART_TRAILR
+effect DPP_ITSPART_TRAILB
+effect DPP_ITSPART_TRAILP
+effect DPP_ITSPART_TRAILW
+effect DPP_ITSFLAME_BURST
+effect DPP_ITSSIGIL_PICKUP
+effect DPP_ITSBURSTSHOCKWAVE1
+effect DPP_ITSBURSTSHOCKWAVE2
+effect DPP_ITSINTERACTIVE
