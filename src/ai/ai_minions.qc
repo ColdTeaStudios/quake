@@ -160,9 +160,9 @@ float(vector org) find_minionspace =
  * Wait for egg to bounce and settle
  * Spawn (rotating) minion inside egg and then explode
 ======================================================================*/
-void(vector minion_org, entity minion_targ) minion_spider;
+/* void(vector minion_org, entity minion_targ) minion_spider;
 void(vector minion_org, entity minion_targ) minion_scorpion;
-void(vector minion_org, entity minion_targ) minion_voreling;
+void(vector minion_org, entity minion_targ) minion_voreling; */
 
 //----------------------------------------------------------------------------
 void() Explode_Egg =
@@ -186,6 +186,8 @@ void() Explode_Egg =
 //----------------------------------------------------------------------
 void() Hatch_Egg =
 {
+    dprint("hatchegg disabled");
+    return;
 	// Block this functions
 	if (self.state == STATE_DISABLED) return;
 	// Has the egg been marked for removal?
@@ -237,11 +239,11 @@ void() Hatch_Egg =
 	
 	// Spawn minion inside of egg model
 	// self.owner is re-assigned to minion to avoid shell gibs interacting
-	if (self.owner.classtype == CT_MONWRAITH) {
+	/* if (self.owner.classtype == CT_MONWRAITH) {
 		if (self.owner.spawnflags & MON_WRAITH_SCORPIONS) minion_scorpion(self.oldorigin, self.enemy);
 		else minion_spider(self.oldorigin, self.enemy);
 	}
-	else if (self.owner.classtype == CT_MONSHAL) minion_voreling(self.oldorigin, self.enemy);
+	else if (self.owner.classtype == CT_MONSHAL) minion_voreling(self.oldorigin, self.enemy); */
 
 	// Skip a couple of frames
 	self.think = Explode_Egg;

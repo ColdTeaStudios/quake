@@ -975,9 +975,6 @@ void() trigger_changelevel_fire =
 	if (!CheckZeroVector(self.mapvar_update))
 		mapvar_range(self.mapvar_update);
 	
-	// LEVEL CHANGE = Reset randomizer seed
-	rnd_ResetRandomSeed(RND_NORESETCHLVL);
-	
 	// Reset player inventory back to ID default (shotgun+25shells)
 	if (self.spawnflags & TRIG_CMAPRESETINV) {
 		dprint("\b[CHANGELVL]\b Resetting client inventory!\n"); 

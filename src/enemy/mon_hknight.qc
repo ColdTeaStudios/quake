@@ -617,8 +617,6 @@ void() hknight_pointuse =
 ======================================================================*/
 void() monster_hell_knight =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -693,7 +691,7 @@ void() monster_hell_knight =
 	self.solid = SOLID_NOT;					// No interaction with world
 	self.movetype = MOVETYPE_NONE;			// Static item, no movement
 	if (self.bboxtype < 1) self.bboxtype = BBOX_TALL;
-	if (self.health < 1) self.health = HP_MONHELLK;
+	if (self.health < 1) self.health = 250;
 	self.gibhealth = -40;					// Not easy to gib
 	self.gibbed = FALSE;					// Still in one piece
 	self.pain_flinch = 40;					// Medium pain threshold

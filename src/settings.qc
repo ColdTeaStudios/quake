@@ -66,12 +66,6 @@ void() display_monsleft;	// Display a list of monsters left
 void() display_monsqty;		// Display a table of monster type/qty
 void() display_ammostats;	// Display a list of ammo stats
 
-// Randomizer info and settings
-void() display_randomizer;	// Display current random seed
-void() display_randflags;	// Display current settings
-void() display_randupgrade;	// Display weapon upgrades
-void() reset_randomizer;	// Reset seed for randomizer
-
 /*======================================================================
  Show MOD name and version
 ======================================================================*/
@@ -341,11 +335,6 @@ void() ImpulseCommands =
 	else if (self.impulse == 185) display_monsqty();	// Display a table of monster type/qty
 	else if (self.impulse == 186) display_ammostats();	// Display a list of Ammo Stats
 
-	else if (self.impulse == 190) display_randomizer();	// Display current random seed
-	else if (self.impulse == 192) display_randflags();	// Display current settings
-	else if (self.impulse == 194) display_randupgrade();// Display weapon upgrades
-	else if (self.impulse == 196) reset_randomizer();	// Reset seed for Chaos system
-	
 	// Only works developer only)
 	else if (self.impulse == 200) toggleupgradeaxe();	// Toggle Axe Upgrade
 	else if (self.impulse == 202) toggleupgradehook();	// Toggle GrappleHook Upgrade
@@ -1189,49 +1178,6 @@ void() togglenotargetblock =
 	else sprint(self, "ON)\n");
 };
 
-//----------------------------------------------------------------------
-void() display_randomizer =
-{
-	if (impulse_activecameras()) return;	// Are cameras active
-	if (impulse_playeronly()) return;		// Player only
-
-	self.impulse = 0;
-	// All error checks and messages done in function
-	displaycenter_randomseed();
-};
-
-//----------------------------------------------------------------------
-void() display_randflags =
-{
-	if (impulse_activecameras()) return;	// Are cameras active
-	if (impulse_playeronly()) return;		// Player only
-
-	self.impulse = 0;
-	// All error checks and messages done in function
-	displaydebug_randflags();
-};
-
-//----------------------------------------------------------------------
-void() display_randupgrade =
-{
-	if (impulse_activecameras()) return;	// Are cameras active
-	if (impulse_playeronly()) return;		// Player only
-
-	self.impulse = 0;
-	// All error checks and messages done in function
-	displaydebug_weaponupgrades();
-};
-
-//----------------------------------------------------------------------
-void() reset_randomizer =
-{
-	if (impulse_activecameras()) return;	// Are cameras active
-	if (impulse_playeronly()) return;		// Player only
-
-	self.impulse = 0;
-	// All error checks and messages done in function
-	rnd_ResetRandomSeed(RND_ACTIVERESET);
-};
 
 /*======================================================================
  Require DEVELOPER mode to be active

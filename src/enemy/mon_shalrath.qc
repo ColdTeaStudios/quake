@@ -326,8 +326,6 @@ void() shal_die =
 ======================================================================*/
 void() monster_shalrath =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -370,7 +368,7 @@ void() monster_shalrath =
 	self.idmins = VEC_HULL2_MIN;	// -32 -32 -24, 32 32 64
 	self.idmaxs = VEC_HULL2_MAX;
 	if (self.bboxtype < 1) self.bboxtype = BBOX_WIDE;
-	if (self.health < 1) self.health = HP_MONSHALRATH;
+	if (self.health < 1) self.health = 400;
 	self.gibhealth = -90;			// Rarely gib (explosives required)
 	self.gibbed = FALSE;			// Still in one piece
 	self.pain_flinch = 70;			// take a lot of damage before pain

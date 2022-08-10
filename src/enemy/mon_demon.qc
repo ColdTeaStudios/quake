@@ -255,8 +255,6 @@ QUAKED monster_demon1 (1 0 0) (-32 -32 -24) (32 32 64) Ambush
 ======================================================================*/
 void() monster_demon1 =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -310,7 +308,7 @@ void() monster_demon1 =
 	if (CheckZeroVector(self.idmins)) self.idmins = VEC_HULL2_MIN;
 	if (CheckZeroVector(self.idmaxs)) self.idmaxs = VEC_HULL2_MAX;
 	if (self.bboxtype < 1) self.bboxtype = BBOX_WIDE;
-	if (self.health < 1) self.health = HP_MONDEMON1;
+	if (self.health < 1) self.health = 300;
 	self.gibhealth = -80;
 	self.gibbed = FALSE;
 	self.pain_flinch = 200;				// takes alot to pain

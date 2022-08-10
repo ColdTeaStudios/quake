@@ -12,7 +12,7 @@ float MONAI_ZOMBIELOW_DAM = 9;	// Pain threshold for animations
 float MONAI_ZOMBIEHGH_DAM = 28;	// Has to be higher than SG (7x4)
 
 void(float frameno) zombie_onground;
-void(float frameno) zombiek_onground;
+// void(float frameno) zombiek_onground;
 
 //----------------------------------------------------------------------
 // Pre-defined bounding boxes for monsters
@@ -831,8 +831,9 @@ void() monster_spawn =
 	// It will allow onfloor monsters to exist in tight spaces, shallow graves
 	//----------------------------------------------------------------------
 	if (self.spawnflags & MON_ONFLOOR && self.classgroup == CG_ZOMBIE) {
-		if (self.classtype == CT_MONZOMBIEK) zombiek_onground(MONAI_ZOMBIEFLR);
-		else zombie_onground(MONAI_ZOMBIEFLR);
+		/* if (self.classtype == CT_MONZOMBIEK) zombiek_onground(MONAI_ZOMBIEFLR);
+		else zombie_onground(MONAI_ZOMBIEFLR); */
+        zombie_onground(MONAI_ZOMBIEFLR);
 		return;
 	}
 

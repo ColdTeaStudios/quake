@@ -368,8 +368,6 @@ void() monster_base_enforcer =
 //----------------------------------------------------------------------
 void() monster_enforcer =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 	
@@ -383,7 +381,7 @@ void() monster_enforcer =
 		precache_model (MODEL_PROJ_LASERGRN);
 	}
 	
-	if (self.health < 1) self.health = HP_MONENFORCER;
+	if (self.health < 1) self.health = 80;
 	if (self.ammo_cells < 0) self.ammo_cells = 0;
 	else if (self.ammo_cells == 0) self.ammo_cells = 3;
 	self.exactskin = rint((random()*3)-0.5);

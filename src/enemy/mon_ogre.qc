@@ -504,8 +504,6 @@ void() monster_ogre_precache =
 //----------------------------------------------------------------------
 void() monster_ogre =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -530,7 +528,7 @@ void() monster_ogre =
 	self.deathstring = " was destroyed by an Ogre\n";
 
 	// Standard ogre health 200 with green+ option
-	if (self.health < 1) self.health = HP_MONOGRE;
+	if (self.health < 1) self.health = 200;
 	if (self.spawnflags & MON_OGRE_GREEN) {
 		self.health = self.health + MON_OGRE_GRNUPG;
 		self.skin = 1;

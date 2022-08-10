@@ -639,8 +639,6 @@ If crucified, stick the bounding box 12 pixels back into a wall to look right.
 ======================================================================*/
 void() monster_zombie =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -707,7 +705,7 @@ void() monster_zombie =
 	if (self.spawnflags & MON_CRUCIFIED) zombie_cruc_setup();
 	else {
 		// Setup zombie ready for placement
-		self.health = HP_MONZOMBIE;				// Basic health (cannot override)
+		self.health = 60;				// Basic health (cannot override)
 		self.gibhealth = -60;					// Gib value, not used
 		self.gibbed = FALSE;					// In one piece
 		self.pain_flinch = MONAI_ZOMBIEHGH_DAM;
