@@ -363,8 +363,6 @@ void() dog_die =
 ======================================================================*/
 void() monster_dog =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -395,7 +393,7 @@ void() monster_dog =
 	self.idmins = '-32 -32 -24';		// Original mega large bbox
 	self.idmaxs = '32 32 40';
 	if (self.bboxtype < 1) self.bboxtype = BBOX_DOG;
-	if (self.health < 1) self.health = HP_MONDOG;
+	if (self.health < 1) self.health = 25;
 	self.gibhealth = -35;
 	self.gibbed = FALSE;
 	self.pain_flinch = 10;				// Easy response to pain

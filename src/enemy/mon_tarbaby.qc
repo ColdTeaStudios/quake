@@ -266,8 +266,6 @@ void() tbaby_die =
 //======================================================================
 void() monster_tarbaby =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -292,7 +290,7 @@ void() monster_tarbaby =
 	self.solid = SOLID_NOT;				// No interaction with world
 	self.movetype = MOVETYPE_NONE;		// Static item, no movement
 	if (self.bboxtype < 1) self.bboxtype = BBOX_TALL;
-	if (self.health < 1) self.health = HP_MONTARBABY;
+	if (self.health < 1) self.health = 80;
 	self.gibhealth = MON_NEVERGIB;		// Cannot be gibbed by weapons
 	self.gibbed = FALSE;
 	self.pain_flinch = 20;
@@ -321,11 +319,5 @@ void() monster_tarbaby =
 	self.classgroup = CG_SPAWN;
 	self.classmove = MON_MOVEWALK;
 	
-	// Delay spawn randomized tarbabies a couple of frame
-	// To avoid telefrags issues of bad placement of HP packs
-	if (self.randomized > 0) {
-		self.nextthink = time + 0.1 + (random()*0.2);
-		self.think = monster_start;
-	}
-	else monster_start();
+	monster_start();
 };

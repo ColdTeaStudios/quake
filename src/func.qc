@@ -847,69 +847,6 @@ void() func_pillar_particles =
 };
 
 //----------------------------------------------------------------------
-void() func_chaos_check = 
-{
-	// If blocked by entity state system do nothing
-	if (self.estate & ESTATE_BLOCK) return;
-	if (!(self.spawnflags & FUNC_SKILLCHAOSMODE)) return;
-
-	// Read console variable
-	self.randomized = read_randflags();
-	// Has the console variable been changed?
-	if (self.lefty != self.randomized) {
-		// Update current flag (lefty)
-		self.lefty = self.randomized;
-		// Is Chaos mode active?
-		if (self.style == self.randomized) self.frame = 0;	// +0 frame (on)
-		else self.frame = 1;					// A frame (off)
-
-		// Update all particle emitters
-		func_pillar_particles();
-	}
-	// Keep thinking/checking
-	self.nextthink = time + 0.1;
-	self.think = func_chaos_check;
-};
-
-//----------------------------------------------------------------------
-void() func_chaos_touch =
-{
-	// If blocked by entity state system do nothing
-	if (self.estate & ESTATE_BLOCK) return;
-	if (self.spawnflags & ENT_STARTOFF) return;
-	if ( !(other.flags & FL_CLIENT) ) return;
-	if ( other.health < 1 ) return;
-	// Chaos mode only
-	if (!(self.spawnflags & FUNC_SKILLCHAOSMODE)) return;
-	// Slowdown touch functionality
-	if (self.pausetime > time) return;
-
-	// Slowdown touch functionality
-	self.pausetime = time + self.waitmin;
-
-	// Read chaos mode flag (scratch3)
-	self.randomized = read_randflags();
-	// Switch chaos mode on/off
-	if (self.randomized == self.style) {
-		disable_randflags();
-	}
-	else {
-		set_randflags(self.style);
-		if (self.message2 != "") centerprint(other, self.message2);
-		else centerprint(other,"Chaos mode has been enabled!\n");
-		stuffcmd (other, "bf\n");
-	}
-	
-	// Force quick update
-	func_chaos_check();
-	
-	// Any other targets to fire when touch/damaged
-	if (self.target2 != "") trigger_strs(self.target2, other);
-	// Play touch sound regardless of chaos change
-	sound (self, CHAN_VOICE, self.noise3, self.volume, ATTN_NORM);
-};
-
-//----------------------------------------------------------------------
 void() func_skill_check =
 {
 	// If blocked by entity state system do nothing
@@ -1079,14 +1016,14 @@ void() func_skill =
 	// New random chaos mode
 	if (self.spawnflags & FUNC_SKILLCHAOSMODE) {
 		self.classtype = CT_FUNCCHAOS;
-		self.touch2 = func_chaos_touch;
-		self.th_wakeup = func_chaos_check;
+		// self.touch2 = func_chaos_touch;
+		// self.th_wakeup = func_chaos_check;
 		// Reset default/override for chaos system
-		if (self.style <= 0) self.style = 0;
+		// if (self.style <= 0) self.style = 0;
 		// Read randomizer (scratch3) flag
-		self.lefty = check_randflags();
-		if (self.lefty == FALSE) self.frame = 1;	// +A (off)
-		else self.frame = 0;						// +0 (on)
+		// self.lefty = check_randflags();
+		// if (self.lefty == FALSE) self.frame = 1;	// +A (off)
+		// else self.frame = 0;						// +0 (on)
 	}
 	else {
 		self.classtype = CT_FUNCSKILL;	// Type

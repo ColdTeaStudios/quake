@@ -418,8 +418,6 @@ void() knight_statue =
 ======================================================================*/
 void() monster_knight =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -483,7 +481,7 @@ void() monster_knight =
 	self.solid = SOLID_NOT;				// No interaction with world
 	self.movetype = MOVETYPE_NONE;		// Static item, no movement
 	if (self.bboxtype < 1) self.bboxtype = BBOX_SHORT;
-	if (self.health < 1) self.health = HP_MONKNIGHT;
+	if (self.health < 1) self.health = 75;
 	self.gibhealth = -40;				// Not easy to gib
 	self.gibbed = FALSE;				// Still in one peice
 	self.pain_flinch = 20;				// Light pain threshold

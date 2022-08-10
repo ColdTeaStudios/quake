@@ -17,7 +17,7 @@ estate.qc
 hiprot.qc
 hipspawn.qc
 globalfog.qc
-chaosmode.qc
+// chaosmode.qc
 settings.qc
 breakable.qc
 pushable.qc
@@ -98,57 +98,57 @@ enemy/mon_wizard.qc
 enemy/mon_zombie.qc
 
 // New Monsters
-enemy/mon_boil.qc
-enemy/mon_centurion.qc
-enemy/mon_dcrossbow.qc
-enemy/mon_deflector.qc
-enemy/mon_dfury.qc
-enemy/mon_dguard.qc
-enemy/mon_dguardquoth.qc
-enemy/mon_dknight.qc
-enemy/mon_dlord.qc
-enemy/mon_dprince.qc
-enemy/mon_drole.qc
-enemy/mon_dsergeant.qc
-enemy/mon_eel.qc
-enemy/mon_floyd.qc
-enemy/mon_freddie.qc
-enemy/mon_gargoyle.qc
-enemy/mon_gaunt.qc
-enemy/mon_golem.qc
-enemy/mon_hogre.qc
-enemy/mon_hogreham.qc
-enemy/mon_hogremac.qc
-enemy/mon_invsword.qc
-enemy/mon_jim.qc
-enemy/mon_lostsoul.qc
-enemy/mon_minotaur.qc
-enemy/mon_pyro.qc
-enemy/mon_scorpion.qc
-enemy/mon_seeker.qc
-enemy/mon_sentinel.qc
-enemy/mon_skullwiz.qc
-enemy/mon_spider.qc
-enemy/mon_steelclaw.qc
-enemy/mon_swampling.qc
-enemy/mon_voreling.qc
-enemy/mon_wraith.qc
-enemy/mon_zombiek.qc
+// enemy/mon_boil.qc
+// enemy/mon_centurion.qc
+// enemy/mon_dcrossbow.qc
+// enemy/mon_deflector.qc
+// enemy/mon_dfury.qc
+// enemy/mon_dguard.qc
+// enemy/mon_dguardquoth.qc
+// enemy/mon_dknight.qc
+// enemy/mon_dlord.qc
+// enemy/mon_dprince.qc
+// enemy/mon_drole.qc
+// enemy/mon_dsergeant.qc
+// enemy/mon_eel.qc
+// enemy/mon_floyd.qc
+// enemy/mon_freddie.qc
+// enemy/mon_gargoyle.qc
+// enemy/mon_gaunt.qc
+// enemy/mon_golem.qc
+// enemy/mon_hogre.qc
+// enemy/mon_hogreham.qc
+// enemy/mon_hogremac.qc
+// enemy/mon_invsword.qc
+// enemy/mon_jim.qc
+// enemy/mon_lostsoul.qc
+// enemy/mon_minotaur.qc
+// enemy/mon_pyro.qc
+// enemy/mon_scorpion.qc
+// enemy/mon_seeker.qc
+// enemy/mon_sentinel.qc
+// enemy/mon_skullwiz.qc
+// enemy/mon_spider.qc
+// enemy/mon_steelclaw.qc
+// enemy/mon_swampling.qc
+// enemy/mon_voreling.qc
+// enemy/mon_wraith.qc
+// enemy/mon_zombiek.qc
 // Replaced with justice
-//enemy/mon_baron.qc
+//enemy/mon_baron.qc // already commented out
 
 // Xmas Monsters
-enemy/mon_xmas_elf.qc
-enemy/mon_xmas_raindeer.qc
-enemy/mon_xmas_snowman.qc
-enemy/mon_xmas_santa.qc
+// enemy/mon_xmas_elf.qc
+// enemy/mon_xmas_raindeer.qc
+// enemy/mon_xmas_snowman.qc
+// enemy/mon_xmas_santa.qc
 
 // Hypnogogia Monsters
-enemy/mon_sweeper.qc
-enemy/mon_turretbal.qc
-enemy/mon_bossmammoth.qc
-//enemy/mon_bossphobetor.qc
-//enemy/mon_bosspsyder.qc
+// enemy/mon_sweeper.qc
+// enemy/mon_turretbal.qc
+// enemy/mon_bossmammoth.qc
+//enemy/mon_bossphobetor.qc // already commented out
+//enemy/mon_bosspsyder.qc //already commented out
 
 // ID Bosses
 enemy/mon_bossidchthon.qc
@@ -157,10 +157,10 @@ enemy/mon_bossxxchthon.qc
 enemy/mon_bossxxshub.qc
 
 // New Bosses
-enemy/mon_bossboglord.qc
-enemy/mon_bosseidolon.qc
-enemy/mon_bossfiretop.qc
-enemy/mon_bossicegolem.qc
-// +enemy/mon_justice
-enemy/mon_bossjudicator.qc
-enemy/mon_bossnour.qc
+// enemy/mon_bossboglord.qc
+// enemy/mon_bosseidolon.qc
+// enemy/mon_bossfiretop.qc
+// enemy/mon_bossicegolem.qc
+// +enemy/mon_justice // already commented out
+// enemy/mon_bossjudicator.qc
+// enemy/mon_bossnour.qc

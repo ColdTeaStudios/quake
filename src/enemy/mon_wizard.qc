@@ -244,8 +244,6 @@ QUAKED monster_wizard (1 0 0) (-16 -16 -24) (16 16 40) Ambush
 void() setup_wizard;
 void() monster_wizard =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -304,7 +302,7 @@ void() setup_wizard =
 	self.solid = SOLID_NOT;				// No interaction with world
 	self.movetype = MOVETYPE_NONE;		// Static item, no movement
 	if (self.bboxtype < 1) self.bboxtype = BBOX_TALL;
-	if (self.health < 1) self.health = HP_MONWIZARD;
+	if (self.health < 1) self.health = 80;
 	self.gibhealth = -30;
 	self.gibbed = FALSE;				// Not falling apart
 	self.pain_flinch = 70;				// high pain threshold

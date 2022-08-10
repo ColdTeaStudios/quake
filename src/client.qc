@@ -815,9 +815,6 @@ void() PutClientInServer =
 	update_hud_totals(HUD_MONSTERS);	// Make screen total is correct
 	update_hud_totals(HUD_SECRETS);		// Update monsters and secrets
 
-	// Reset randomizer counters
-	self.randomshells = self.randomcells = 0;
-	
 	//	spot = SelectSpawnPoint ();
 	self.origin = spot.origin + '0 0 1';
 	if (spot.mangle) self.angles = spot.mangle;
@@ -891,54 +888,6 @@ void(entity targ) Client_LadderSounds =
 //----------------------------------------------------------------------
 void() PlayerPreThink =
 {
-	//----------------------------------------------------------------------
-	// This is just a fucked up messy situation ...
-	// The savegame data is not live until after frame 0 has finished
-	// The only variable read from a savegame early is skill level!
-	// So instead of detecting Chaos mode changes at frame 0 and fixing them
-	// have to wait for savegame data to be live and client/server stable
-	// This function also detects savegames (framecount>0)
-	if (chaoscount <= 2) {
-		// Increase counter early because of return later
-		chaoscount = chaoscount + 1;
-		// Save games don't usually start at framecount 0
-		if (framecount > RND_FRAMECOUNT) {
-			// Catch quickload (read 'oskill') and reset skill level
-			Client_SyncPrevEvilmode();
-
-			// Detect skill 4 + Chaos savegame!
-			// Cannot kill player here, client is not properly setup
-			if (rnd_CheckNoQuickLoad()) {
-				dprint("\b[RND_SYNC]\b FC ("); dprint(ftos(framecount));
-				dprint(") Skill 4 death detected!\n");
-				// Stop this function and wait for postclient
-				chaoscount = 10;
-				// Make sure death happens in PostClient check
-				framecount = framecount + RND_FRAMECOUNT;
-			}
-			else {
-				// Save game found, highlight on dev console
-				dprint("\b[RND_SYNC]\b FC ("); dprint(ftos(framecount));
-				dprint(") Save Game Found!\n");
-			}
-		}
-		// Wait for frame1 to validate current/savegame chaos setup
-		// The Restart command cannot be done on frame 0
-		// It will break the client/server setup sequence
-		if (chaoscount == 2) {
-			// Returns true if restart required
-			if (rnd_CheckSaveGameReboot()) {
-				// Works better if restart here instead of above function
-				// Cannot use map or changelevel command because of savegame
-				localcmd ("restart\n");
-				// Block any pre/post functions
-				prethink = postthink = TRUE;
-				// Finish PlayerPreThink function
-				return;
-			}
-		}
-	}
-	
 	//----------------------------------------------------------------------
 	// Once the map has loaded (frame>0) set loadflag (never saved)
 	if (prethink == FALSE) {
@@ -1110,17 +1059,6 @@ void() PlayerPostThink =
 			postthink = TRUE;			// postthink flag complete
 			mapvar_cvar = TRUE;			// Map Variable are live
 
-			// Cannot load skill 4 + Chaos save games!
-			// Only kill the player once the client/server is setup
-			// This also catches the savegame resetting Chaos mode
-			if (rnd_CheckNoQuickLoad() && framecount > RND_FRAMECOUNT) {
-				// Classic death message
-				self.deathtype = "loadingevil";
-				centerprint(self,"Cannot resurrect EVIL mode!?!\n");
-				T_Damage(self, world, world, MEGADEATH, NOARMOR);
-				return;
-			}
-
 			// Reset any screen cshift parameters, eng often leaves them
 			if (!self.cshift_upd) self.cshift_time = -1;
 			
@@ -1154,9 +1092,6 @@ void() PlayerPostThink =
 			//showbits_configflag();
 			display_configflag();
 			display_version();	
-			
-			// Warn about chaos mode
-			warning_chaosmode();
 		}
 	}
 
@@ -1639,9 +1574,6 @@ void() set_suicide_frame;		// In player.qc
 //----------------------------------------------------------------------
 void() ClientRespawn =
 {
-	// CLIENT DIED = Reset randomizer seed
-	rnd_ResetRandomSeed(RND_NORESETDEATH);
-	
 	if (coop) {
 		CopyToBodyQue (self);	// make a copy of the dead body for appearances sake
 		setspawnparms (self);	// get the spawn parms as they were at level start

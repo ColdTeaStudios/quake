@@ -464,8 +464,6 @@ QUAKED monster_shambler (1 0 0) (-32 -32 -24) (32 32 64) Ambush
 ======================================================================*/
 void() monster_shambler =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -530,7 +528,7 @@ void() monster_shambler =
 	self.solid = SOLID_NOT;				// No interaction with world
 	self.movetype = MOVETYPE_NONE;		// Static item, no movement
 	if (self.bboxtype < 1) self.bboxtype = BBOX_MASSIVE;
-	if (self.health < 1) self.health = HP_MONSHAMBLER;
+	if (self.health < 1) self.health = 600;
 	self.gibhealth = -60;
 	self.gibbed = FALSE;				// In one peice
 	self.pain_flinch = 400;				// Really low chance of pain

@@ -212,8 +212,6 @@ QUAKED monster_fish (1 0 0) (-16 -16 -24) (16 16 24) Ambush
 ======================================================================*/
 void() monster_fish =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -255,7 +253,7 @@ void() monster_fish =
 	// Tiny fish are easier to kill
 	if (self.spawnflags & MON_FISH_SMALL) {
 		if (self.bboxtype < 1) self.bboxtype = BBOX_FISHS;
-		if (self.health < 1) self.health = HP_MONFISH/2;
+		if (self.health < 1) self.health = 25/2;
 		// The small fish moving really fast looks odd
 		// reverted speed and movement back to original
 		//self.move_state = '0 12 16';
@@ -263,7 +261,7 @@ void() monster_fish =
 	}
 	else {
 		if (self.bboxtype < 1) self.bboxtype = BBOX_FISH;
-		if (self.health < 1) self.health = HP_MONFISH;
+		if (self.health < 1) self.health = 25;
 		self.move_state = '0 8 12';
 	}
 	

@@ -344,8 +344,6 @@ void() army_die =
 ======================================================================*/
 void() monster_army =
 {
-	// Check for any random monster setups
-	if (monster_checkrandomizer() == TRUE) return;
 	// Check all spawn exceptions (monsters.qc)
 	if (monster_checkspawn() == TRUE) return;
 
@@ -391,7 +389,7 @@ void() monster_army =
 	self.solid = SOLID_NOT;				// No interaction with world
 	self.movetype = MOVETYPE_NONE;		// Static item, no movement
 	if (self.bboxtype < 1) self.bboxtype = BBOX_SHORT;
-	if (self.health < 1) self.health = HP_MONARMY;
+	if (self.health < 1) self.health = 30;
 	self.gibhealth = -35;				// Easy to gib
 	self.gibbed = FALSE;				// Still together
 	self.pain_flinch = 20;				// Easy to pain

@@ -648,9 +648,6 @@ void() health_touch =
 		if (!T_Heal(other, self.healamount, 0)) return;
 	}
 		
-	// Check for randomizer megahealth
-	health_touchrandomizer();
-
 	// Healing the player negates some debuffs
 	ResetDebuffBurning(other);
 	ResetDebuffPoisoned(other);
@@ -704,9 +701,6 @@ Health box gives 15, 25 or 100 points depending on spawnflags.
 //----------------------------------------------------------------------
 void() item_health =
 {
-	// Check for any random monster setups
-	if (health_checkrandomizer() == TRUE) return;
-	
 	if (self.spawnflags & H_ROTTEN) {
 		// worldtype 0 = medieval, 1 = metal, 2 = base
 		if (item_skintype(self) == SKIN_MEDIEVAL) {
@@ -867,9 +861,6 @@ void() armor_touch =
 	// Cannot pickup armour if wearing something better!
 	if (armor_pickupcondition(other, self)) return;
 
-	// Check for randomizer pickup conditions
-	armour_touchrandomizer();
-	
 	other.armortype = self.armortype;
 	other.armorvalue = self.armorvalue;
 	other.items = other.items - (other.items & (IT_ARMOR1 | IT_ARMOR2 | IT_ARMOR3)) + self.items;
@@ -930,9 +921,6 @@ Green Armour with 100 points of protection
 ======================================================================*/
 void() item_armor1 =
 {
-	// Check for any random setups
-	if (armour_checkrandomizer() == TRUE) return;
-	
 	// Check for custom model setup?
 	item_debugcustomdl();
 	// Setup default model
@@ -974,9 +962,6 @@ Yellow Armour with 150 points of protection
 ======================================================================*/
 void() item_armor2 =
 {
-	// Check for any random setups
-	if (armour_checkrandomizer() == TRUE) return;
-	
 	// Check for custom model setup?
 	item_debugcustomdl();
 	// Setup default model
@@ -1028,9 +1013,6 @@ Red Armour with 200 points of protection
 ======================================================================*/
 void() item_armorInv =
 {
-	// Check for any random setups
-	if (armour_checkrandomizer() == TRUE) return;
-	
 	// Check for custom model setup?
 	item_debugcustomdl();
 	// Setup default model
@@ -1867,9 +1849,6 @@ void() ammo_touch =
 		sound (other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
 	stuffcmd (other, "bf\n");
 
-	// Check for randomizer pickup conditions
-	ammo_touchrandomizer();
-	
 	// if the player was using his best weapon, 
 	// change up to the new one if better		
 	best = W_BestWeapon(other);
@@ -1976,9 +1955,6 @@ NOEFFECTS : No particle or effects active
 ======================================================================*/
 void() item_shells =
 {
-	// Check for any random monster setups
-	if (ammo_checkrandomizer() == TRUE) return;
-	
 	// Check for custom model setup?
 	item_debugcustomdl();
 	if (self.spawnflags & A_LARGE) {
@@ -2043,9 +2019,6 @@ NOEFFECTS : No particle or effects active
 ======================================================================*/
 void() item_spikes =
 {
-	// Check for any random monster setups
-	if (ammo_checkrandomizer() == TRUE) return;
-	
 	// Check for custom model setup?
 	item_debugcustomdl();
 	if (self.spawnflags & A_LARGE) {
@@ -2109,9 +2082,6 @@ NOEFFECTS : No particle or effects active
 ======================================================================*/
 void() item_rockets =
 {
-	// Check for any random monster setups
-	if (ammo_checkrandomizer() == TRUE) return;
-	
 	// Check for custom model setup?
 	item_debugcustomdl();
 	if (self.spawnflags & A_LARGE) {
@@ -2161,9 +2131,6 @@ NOEFFECTS : No particle or effects active
 ======================================================================*/
 void() item_cells =
 {
-	// Check for any random monster setups
-	if (ammo_checkrandomizer() == TRUE) return;
-	
 	// Check for custom model setup?
 	item_debugcustomdl();
 	if (self.spawnflags & A_LARGE) {
@@ -2211,9 +2178,6 @@ NOEFFECTS : No particle or effects active
 ======================================================================*/
 void() item_plasma =
 {
-	// Check for any random monster setups
-	if (ammo_checkrandomizer() == TRUE) return;
-	
 	// Check for custom model setup?
 	item_debugcustomdl();
 	if (self.spawnflags & A_LARGE) {
@@ -2974,9 +2938,6 @@ void() artifact_touch =
 	activator = other;
 	SUB_UseTargets();
 
-	// Check for randomizer pickup conditions
-	artifact_touchrandomizer();
-	
 	// Quick exit, no need for following stuff
 	if (self.progspawnlist) return;
 
@@ -3041,9 +3002,6 @@ Immume to Fire Attack, but take small damage instead
 ======================================================================*/
 void() item_artifact_envirosuit =
 {
-	// Check for any random setups
-	if (artifact_checkrandomizer() == TRUE) return;
-
 	// Check for custom model setup?
 	item_debugcustomdl();
 	// cshifts 0,255,0,20
@@ -3089,9 +3047,6 @@ Player is invisible for 30 seconds
 ======================================================================*/
 void() item_artifact_invisibility =
 {
-	// Check for any random setups
-	if (artifact_checkrandomizer() == TRUE) return;
-
 	// Check for custom model setup?
 	item_debugcustomdl();
 	// cshifts 100,100,100,100

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - [Internal] Refactor src directory, move monsters and ai to subfolders.
+- Remove 'Chaos Mode' inherited from AD.
+- Remove all non-base monsters for now.
 
 ## [0.0.1] - 2022-08-08
 ### Changed

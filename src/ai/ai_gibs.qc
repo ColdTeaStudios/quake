@@ -800,7 +800,6 @@ void() monster_check_gib =
 	// Is it time to throw a gib party?
 	if ( self.health < (self.gibhealth + 1) || self.gibondeath) {
 		monster_ThrowGib();
-		monster_gibrandomizer();
 	}
 };
 

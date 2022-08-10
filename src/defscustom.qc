@@ -7,7 +7,7 @@ nosave float configflag;		// Temp cvar used to hold serverflags until live
 nosave float temp1flag;			// Temp cvar used to hold temp1 console flag
 nosave float prethink; 			// runs everytime the map is start/load/quickload
 nosave float postthink;			// runs after the prethink conditions in postplayer
-nosave float chaoscount;		//
+// nosave float chaoscount;		//
 nosave float coop_cvar;			// Has the coop cvar been read from console
 nosave float skill_cvar;		// Has the skill cvar been read from console
 nosave float autoaim_cvar;		// What is the current state of autoaim
