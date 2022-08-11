@@ -82,12 +82,12 @@ void() golem_stand21 =[ $wait21, golem_stand1 ] {ai_stand();};
 
 //============================================================================
 void() golem_ai_walk = {
-	if (self.frame == $walk1 || self.frame == $walk17)
-		{ ai_walk(0); monster_footstep(FALSE); }
-	else if (self.frame == $walk2 || self.frame == $walk18) ai_walk(1);
-	else ai_walk(2); 
-	self.nextthink = time + 0.05;
-	if (self.frame == $walk8 || self.frame == $walk25) monster_idle_sound();
+    if (self.frame == $walk1 || self.frame == $walk17)
+        { ai_walk(0); monster_footstep(FALSE); }
+    else if (self.frame == $walk2 || self.frame == $walk18) ai_walk(1);
+    else ai_walk(2); 
+    self.nextthink = time + 0.05;
+    if (self.frame == $walk8 || self.frame == $walk25) monster_idle_sound();
 };
 
 void() golem_walk1 =[ $walk1, golem_walk2 ] {golem_ai_walk();};
@@ -127,12 +127,12 @@ void() golem_walk34 =[ $walk34, golem_walk1 ] {golem_ai_walk();};
 
 //============================================================================
 void() golem_ai_run = {
-	if (self.frame == $run1 || self.frame == $run13)
-		{ ai_run(0); monster_footstep(FALSE); }
-	else if (self.frame == $run2 || self.frame == $run14) ai_run(3);
-	else ai_run(5); 
-	self.nextthink = time + 0.05;
-	if (self.frame == $run7 || self.frame == $run18) monster_idle_sound();
+    if (self.frame == $run1 || self.frame == $run13)
+        { ai_run(0); monster_footstep(FALSE); }
+    else if (self.frame == $run2 || self.frame == $run14) ai_run(3);
+    else ai_run(5); 
+    self.nextthink = time + 0.05;
+    if (self.frame == $run7 || self.frame == $run18) monster_idle_sound();
 };
 
 void() golem_run1 =[ $run1, golem_run2 ] {golem_ai_run();};
@@ -174,13 +174,13 @@ void() golem_punch6 = [ $punch6, golem_punch7 ] {golem_mcharge(5);};
 void() golem_punch7 = [ $punch7, golem_punch8 ] {golem_mcharge(5);};
 void() golem_punch8 = [ $punch8, golem_punch9 ] {golem_mcharge(5);};
 void() golem_punch9 = [ $punch9, golem_punch10 ] {golem_mcharge(5);
-	sound (self, CHAN_VOICE, "golem/melee_swipe.wav", 1, ATTN_IDLE);};
+    sound (self, CHAN_VOICE, "golem/melee_swipe.wav", 1, ATTN_IDLE);};
 void() golem_punch10 = [ $punch10, golem_punch11 ] {golem_mcharge(4);};
 void() golem_punch11 = [ $punch11, golem_punch12 ] {golem_mcharge(3);monster_footstep(FALSE);};
 void() golem_punch12 = [ $punch12, golem_punch13 ] {golem_mcharge(2);
-	self.meleehitsound = "golem/melee_pound.wav";
-	self.meleecontact = TRUE;ai_meleesmash(20);
-	self.meleecontact = FALSE;
+    self.meleehitsound = "golem/melee_pound.wav";
+    self.meleecontact = TRUE;ai_meleesmash(20);
+    self.meleecontact = FALSE;
 };
 void() golem_punch13 = [ $punch13, golem_punch14 ] {golem_mcharge(1);};
 void() golem_punch14 = [ $punch14, golem_punch15 ] {golem_mcharge(1);};
@@ -205,13 +205,13 @@ void() golem_pound6 = [ $pound6, golem_pound7 ] {golem_mcharge(5);};
 void() golem_pound7 = [ $pound7, golem_pound8 ] {golem_mcharge(5);};
 void() golem_pound8 = [ $pound8, golem_pound9 ] {golem_mcharge(5);};
 void() golem_pound9 = [ $pound9, golem_pound10 ] {golem_mcharge(5);
-	sound (self, CHAN_VOICE, "golem/melee_swipe.wav", 1, ATTN_IDLE);};
+    sound (self, CHAN_VOICE, "golem/melee_swipe.wav", 1, ATTN_IDLE);};
 void() golem_pound10 = [ $pound10, golem_pound11 ] {golem_mcharge(4);};
 void() golem_pound11 = [ $pound11, golem_pound12 ] {golem_mcharge(3);monster_footstep(FALSE);};
 void() golem_pound12 = [ $pound12, golem_pound13 ] {golem_mcharge(2);
-	self.meleehitsound = "golem/melee_pound.wav";
-	self.meleecontact = TRUE;ai_meleesmash(40);
-	self.meleecontact = FALSE;
+    self.meleehitsound = "golem/melee_pound.wav";
+    self.meleecontact = TRUE;ai_meleesmash(40);
+    self.meleecontact = FALSE;
 };
 void() golem_pound13 = [ $pound13, golem_pound14 ] {golem_mcharge(1);};
 void() golem_pound14 = [ $pound14, golem_pound15 ] {golem_mcharge(1);};
@@ -239,23 +239,23 @@ void() golem_knock9 = [ $knock9, golem_knock10 ] {golem_mcharge(7);};
 void() golem_knock10 = [ $knock10, golem_knock11 ] {golem_mcharge(6);};
 void() golem_knock11 = [ $knock11, golem_knock12 ] {golem_mcharge(5);monster_footstep(FALSE);};
 void() golem_knock12 = [ $knock12, golem_knock13 ] {golem_mcharge(5);
-	sound (self, CHAN_VOICE, "golem/melee_swipe.wav", 1, ATTN_IDLE);};
+    sound (self, CHAN_VOICE, "golem/melee_swipe.wav", 1, ATTN_IDLE);};
 void() golem_knock13 = [ $knock13, golem_knock14 ] {golem_mcharge(4);};
 void() golem_knock14 = [ $knock14, golem_knock15 ] {golem_mcharge(3);};
 void() golem_knock15 = [ $knock15, golem_knock16 ] {golem_mcharge(2);};
 void() golem_knock16 = [ $knock16, golem_knock17 ] {golem_mcharge(1);
-	self.meleehitsound = "golem/melee_punch.wav";
-	self.meleecontact = TRUE;ai_meleesmash(30);
-	// If punch made contact, lift the enemy off ground
-	if (self.meleecontact == FALSE) {
-		self.pos1 = self.enemy.origin - self.origin;
-		self.pos1_z = 0;
-		self.pos1 = normalize(self.pos1);
-		self.enemy.velocity = self.enemy.velocity + self.pos1 * 400;
-		self.enemy.velocity_z = self.enemy.velocity_z + 250;
-		self.enemy.flags = self.enemy.flags - (self.enemy.flags & FL_ONGROUND);
-	}
-	self.meleecontact = FALSE;
+    self.meleehitsound = "golem/melee_punch.wav";
+    self.meleecontact = TRUE;ai_meleesmash(30);
+    // If punch made contact, lift the enemy off ground
+    if (self.meleecontact == FALSE) {
+        self.pos1 = self.enemy.origin - self.origin;
+        self.pos1_z = 0;
+        self.pos1 = normalize(self.pos1);
+        self.enemy.velocity = self.enemy.velocity + self.pos1 * 400;
+        self.enemy.velocity_z = self.enemy.velocity_z + 250;
+        self.enemy.flags = self.enemy.flags - (self.enemy.flags & FL_ONGROUND);
+    }
+    self.meleecontact = FALSE;
 };
 void() golem_knock17 = [ $knock17, golem_knock18 ] {golem_mcharge(1);};
 void() golem_knock18 = [ $knock18, golem_knock19 ] {golem_mcharge(2);};
@@ -265,24 +265,24 @@ void() golem_knock21 = [ $knock21, golem_knock22 ] {golem_mcharge(5);};
 void() golem_knock22 = [ $knock22, golem_knock23 ] {golem_mcharge(5);};
 void() golem_knock23 = [ $knock23, golem_knock24 ] {golem_mcharge(5);};
 void() golem_knock24 = [ $knock24, golem_run1 ] {
-	golem_mcharge(5); 
-	// Make sure golem can do range attacks (melee only ver exists)
-	if (self.enemy.health > 1 && !(self.spawnflags & MON_GOLEM_MELEEONLY)) {
-		// If the enemy is visible, quickly go for range attack
-		if (!visblocked_wide(self.enemy, '0 0 34', '0 0 24')) {
-			SUB_AttackFinished (2 + 2*random());
-			self.think = self.th_missile;
-		}
-	}
+    golem_mcharge(5); 
+    // Make sure golem can do range attacks (melee only ver exists)
+    if (self.enemy.health > 1 && !(self.spawnflags & MON_GOLEM_MELEEONLY)) {
+        // If the enemy is visible, quickly go for range attack
+        if (!visblocked_wide(self.enemy, '0 0 34', '0 0 24')) {
+            SUB_AttackFinished (2 + 2*random());
+            self.think = self.th_missile;
+        }
+    }
 };
 
 //----------------------------------------------------------------------
 void() golem_footstomp = {self.nextthink = time + 0.05;};
 
 void() golem_stomp1 = [ $stomp1, golem_stomp2 ] {golem_footstomp();
-	self.pain_finished = time + self.pain_timeout;};
+    self.pain_finished = time + self.pain_timeout;};
 void() golem_stomp2 = [ $stomp2, golem_stomp3 ] {golem_footstomp();
-	sound (self, CHAN_VOICE, self.sight_sound, 1, ATTN_IDLE);};
+    sound (self, CHAN_VOICE, self.sight_sound, 1, ATTN_IDLE);};
 void() golem_stomp3 = [ $stomp3, golem_stomp4 ] {golem_footstomp();};
 void() golem_stomp4 = [ $stomp4, golem_stomp5 ] {golem_footstomp();};
 void() golem_stomp5 = [ $stomp5, golem_stomp6 ] {golem_footstomp();monster_idle_sound();};
@@ -294,8 +294,8 @@ void() golem_stomp10 = [ $stomp10, golem_stomp11 ] {golem_footstomp();};
 void() golem_stomp11 = [ $stomp11, golem_stomp12 ] {golem_footstomp();};
 void() golem_stomp12 = [ $stomp12, golem_stomp13 ] {golem_footstomp();};
 void() golem_stomp13 = [ $stomp13, golem_stomp14 ] {
-	golem_footstomp(); self.meleehitsound = "golem/groundslam.wav";
-	ai_shockwave(MONAI_STOMPIMPACT, MONAI_STOMPDAMAGE, MONAI_STOMPRADIUS, MONAI_STOMPFORWARD, MONAI_STOMPUP);
+    golem_footstomp(); self.meleehitsound = "golem/groundslam.wav";
+    ai_shockwave(MONAI_STOMPIMPACT, MONAI_STOMPDAMAGE, MONAI_STOMPRADIUS, MONAI_STOMPFORWARD, MONAI_STOMPUP);
 };
 void() golem_stomp14 = [ $stomp14, golem_stomp15 ] {golem_footstomp();};
 void() golem_stomp15 = [ $stomp15, golem_stomp16 ] {golem_footstomp();};
@@ -308,29 +308,29 @@ void() golem_stomp21 = [ $stomp21, golem_stomp22 ] {golem_footstomp();};
 void() golem_stomp22 = [ $stomp22, golem_stomp23 ] {golem_footstomp();};
 void() golem_stomp23 = [ $stomp23, golem_stomp24 ] {golem_footstomp();};
 void() golem_stomp24 = [ $stomp24, golem_run1 ] {
-	golem_footstomp(); monster_footstep(FALSE);
-	// Double check enemy is still alive?
-	// Make sure golem can do range attacks (melee only ver exists)
-	if (self.enemy.health > 1 && !(self.spawnflags & MON_GOLEM_MELEEONLY)) {
-		// If the enemy is visible, quickly go for range attack
-		if (!visblocked_wide(self.enemy, '0 0 34', '0 0 24')) {
-			SUB_AttackFinished (2 + 2*random());
-			self.think = self.th_missile;
-		}
-	}
+    golem_footstomp(); monster_footstep(FALSE);
+    // Double check enemy is still alive?
+    // Make sure golem can do range attacks (melee only ver exists)
+    if (self.enemy.health > 1 && !(self.spawnflags & MON_GOLEM_MELEEONLY)) {
+        // If the enemy is visible, quickly go for range attack
+        if (!visblocked_wide(self.enemy, '0 0 34', '0 0 24')) {
+            SUB_AttackFinished (2 + 2*random());
+            self.think = self.th_missile;
+        }
+    }
 };
 
 
 //----------------------------------------------------------------------
 void() golem_melee =
 {
-	if (self.enemy.flags & FL_MONSTER) golem_knock1();
-	else {
-		self.meleeattack = random();
-		if (self.meleeattack < 0.2) golem_knock1();
-		else if (self.meleeattack < 0.6) golem_punch1();
-		else golem_pound1();
-	}
+    if (self.enemy.flags & FL_MONSTER) golem_knock1();
+    else {
+        self.meleeattack = random();
+        if (self.meleeattack < 0.2) golem_knock1();
+        else if (self.meleeattack < 0.6) golem_punch1();
+        else golem_pound1();
+    }
 }
 
 //============================================================================
@@ -338,48 +338,48 @@ void() golem_melee =
 //============================================================================
 void() golem_rockstorm = 
 {
-	local float shotcount, zpart;
-	local vector org, dir, yrand, zrand;
+    local float shotcount, zpart;
+    local vector org, dir, yrand, zrand;
 
-	if (!self.enemy) return;
-	if (self.health < 1) return;
+    if (!self.enemy) return;
+    if (self.health < 1) return;
 
-	// Make sure facing the right direction
-	ai_face();
-	makevectors(self.angles);
+    // Make sure facing the right direction
+    ai_face();
+    makevectors(self.angles);
 
-	// Spawn a mist of particles where projectiles came from
-	org = self.origin + v_forward*20;
-	zpart = 25 + rint(random()*25);
-	particle_explode(org, zpart, 2, PARTICLE_BURST_WHITE, PARTICLE_BURST_UPWARD);
+    // Spawn a mist of particles where projectiles came from
+    org = self.origin + v_forward*20;
+    zpart = 25 + rint(random()*25);
+    particle_explode(org, zpart, 2, PARTICLE_BURST_WHITE, PARTICLE_BURST_UPWARD);
 
-	// Randomize quantity each time called
-	if (random() < 0.5) shotcount = 2;
-	else shotcount = 3;
+    // Randomize quantity each time called
+    if (random() < 0.5) shotcount = 2;
+    else shotcount = 3;
 
-	while (shotcount > 0) {
-		// Randomly spawn projectiles from golems chest
-		yrand = (crandom()*30)*v_right;
-		zrand = (crandom()*30)*v_up;
-		org = self.origin + attack_vector(self.attack_offset) + yrand + zrand;
+    while (shotcount > 0) {
+        // Randomly spawn projectiles from golems chest
+        yrand = (crandom()*30)*v_right;
+        zrand = (crandom()*30)*v_up;
+        org = self.origin + attack_vector(self.attack_offset) + yrand + zrand;
 
-		// Straight line velocity from source to target
-		dir = (self.enemy.origin - org) + (v_right*(crandom()*50));
-		dir = normalize (dir);
+        // Straight line velocity from source to target
+        dir = (self.enemy.origin - org) + (v_right*(crandom()*50));
+        dir = normalize (dir);
 
-		// Variable speed based on skill level with extra random spice
-		self.attack_speed = SPEED_GOLEMSPIKE + (skill * SPEED_GOLEMSKILL) + random()*10;
-		launch_projectile (org, dir, CT_PROJ_GROCK, self.attack_speed);
-		shotcount = shotcount - 1;
-	}
+        // Variable speed based on skill level with extra random spice
+        self.attack_speed = SPEED_GOLEMSPIKE + (skill * SPEED_GOLEMSKILL) + random()*10;
+        launch_projectile (org, dir, CT_PROJ_GROCK, self.attack_speed);
+        shotcount = shotcount - 1;
+    }
 };
 
 //----------------------------------------------------------------------
 void() golem_magtime = {self.nextthink = time + 0.05;};
 
 void() golem_magic1 = [ $magic1, golem_magic2 ] {golem_magtime();ai_face();
-	self.pain_finished = time + 1.5;
-	sound (self, CHAN_WEAPON, "golem/rockstorm.wav", 1, ATTN_NORM);
+    self.pain_finished = time + 1.5;
+    sound (self, CHAN_WEAPON, "golem/rockstorm.wav", 1, ATTN_NORM);
 };
 void() golem_magic2 = [ $magic2, golem_magic3 ] {golem_magtime();};
 void() golem_magic3 = [ $magic3, golem_magic4 ] {golem_magtime();ai_face();};
@@ -409,56 +409,56 @@ void() golem_magic24 = [ $magic24, golem_run1 ] {golem_magtime();};
 // PAIN
 //============================================================================
 // Short & fast pain animation
-void() 	golem_painA1 =[ $birth8, golem_painA2 ] {};
-void() 	golem_painA2 =[ $birth10, golem_painA3 ] {};
-void() 	golem_painA3 =[ $birth12, golem_painA4 ] {};
-void() 	golem_painA4 =[ $birth14, golem_painA5 ] {};
-void() 	golem_painA5 =[ $birth16, golem_run1 ] {};
+void()  golem_painA1 =[ $birth8, golem_painA2 ] {};
+void()  golem_painA2 =[ $birth10, golem_painA3 ] {};
+void()  golem_painA3 =[ $birth12, golem_painA4 ] {};
+void()  golem_painA4 =[ $birth14, golem_painA5 ] {};
+void()  golem_painA5 =[ $birth16, golem_run1 ] {};
 
 // Long slow pain animation
-void() 	golem_painB1 =[ $birth8, golem_painB2 ] {};
-void() 	golem_painB2 =[ $birth9, golem_painB3 ] {};
-void() 	golem_painB3 =[ $birth10, golem_painB4 ] {};
-void() 	golem_painB4 =[ $birth11, golem_painB5 ] {};
-void() 	golem_painB5 =[ $birth12, golem_painB6 ] {};
-void() 	golem_painB6 =[ $birth13, golem_painB7 ] {};
-void() 	golem_painB7 =[ $birth14, golem_painB8 ] {};
-void() 	golem_painB8 =[ $birth15, golem_painB9 ] {};
-void() 	golem_painB9 =[ $birth16, golem_run1 ] {};
+void()  golem_painB1 =[ $birth8, golem_painB2 ] {};
+void()  golem_painB2 =[ $birth9, golem_painB3 ] {};
+void()  golem_painB3 =[ $birth10, golem_painB4 ] {};
+void()  golem_painB4 =[ $birth11, golem_painB5 ] {};
+void()  golem_painB5 =[ $birth12, golem_painB6 ] {};
+void()  golem_painB6 =[ $birth13, golem_painB7 ] {};
+void()  golem_painB7 =[ $birth14, golem_painB8 ] {};
+void()  golem_painB8 =[ $birth15, golem_painB9 ] {};
+void()  golem_painB9 =[ $birth16, golem_run1 ] {};
 
 //----------------------------------------------------------------------
 void(entity inflictor, entity attacker, float damage) golem_pain =
 {
-	// Check all pain conditions and set up what to do next
-	monster_pain_check(attacker, damage);
+    // Check all pain conditions and set up what to do next
+    monster_pain_check(attacker, damage);
 
-	// Any pain animation/sound required?
-	if (self.pain_check > 0) {
-		if (random() < 0.5) sound (self, CHAN_VOICE, self.pain_sound, 1, ATTN_NORM);
-		else sound (self, CHAN_VOICE, self.pain_sound2, 1, ATTN_NORM);
-		if (self.pain_check == 1) {
-			if (self.lip < 0.4) golem_painB1();	// Long
-			else golem_painA1();				// Short
-		}
-		else if (self.pain_check == 2) {
-			// reset axe hit and setup short pain recovery
-			self.axhitme = 0;
-			self.pain_finished = time + 0.9;
-			golem_painB1 ();
-		}
-	}
+    // Any pain animation/sound required?
+    if (self.pain_check > 0) {
+        if (random() < 0.5) sound (self, CHAN_VOICE, self.pain_sound, 1, ATTN_NORM);
+        else sound (self, CHAN_VOICE, self.pain_sound2, 1, ATTN_NORM);
+        if (self.pain_check == 1) {
+            if (self.lip < 0.4) golem_painB1(); // Long
+            else golem_painA1();                // Short
+        }
+        else if (self.pain_check == 2) {
+            // reset axe hit and setup short pain recovery
+            self.axhitme = 0;
+            self.pain_finished = time + 0.9;
+            golem_painB1 ();
+        }
+    }
 };
 
 //============================================================================
-void() golem_death1	= [ $death1, golem_death2 ] {};
-void() golem_death2	= [ $death2, golem_death3 ] {};
-void() golem_death3	= [ $death3, golem_death4 ] {ai_forward(1);self.solid = SOLID_NOT;};
-void() golem_death4	= [ $death4, golem_death5 ] {ai_forward(3);};
-void() golem_death5	= [ $death5, golem_death6 ] {ai_forward(3);};
-void() golem_death6	= [ $death6, golem_death7 ] {ai_forward(6);};
-void() golem_death7	= [ $death7, golem_death8 ] {ai_forward(8);monster_footstep(FALSE);};
-void() golem_death8	= [ $death8, golem_death9 ] {ai_forward(6);};
-void() golem_death9	= [ $death9, golem_death10] {};
+void() golem_death1 = [ $death1, golem_death2 ] {};
+void() golem_death2 = [ $death2, golem_death3 ] {};
+void() golem_death3 = [ $death3, golem_death4 ] {ai_forward(1);self.solid = SOLID_NOT;};
+void() golem_death4 = [ $death4, golem_death5 ] {ai_forward(3);};
+void() golem_death5 = [ $death5, golem_death6 ] {ai_forward(3);};
+void() golem_death6 = [ $death6, golem_death7 ] {ai_forward(6);};
+void() golem_death7 = [ $death7, golem_death8 ] {ai_forward(8);monster_footstep(FALSE);};
+void() golem_death8 = [ $death8, golem_death9 ] {ai_forward(6);};
+void() golem_death9 = [ $death9, golem_death10] {};
 void() golem_death10 = [ $death10, golem_death11] {};
 void() golem_death11 = [ $death11, golem_death12] {};
 void() golem_death12 = [ $death12, golem_death13] {};
@@ -476,55 +476,55 @@ void() golem_death22 = [ $death22, golem_death22] {monster_deadbody_check();};
 //----------------------------------------------------------------------
 void() golem_die =
 {
-	// Pre-check routine to tidy up extra entities
-	monster_death_precheck();
-	
-	// Spawn some extra rubble before dying
-	SpawnProjectileSmoke(self.origin, 200, 50, 150);
-	SpawnProjectileSmoke(self.origin, 300, 50, 150);
-	SpawnProjectileSmoke(self.origin, 200, 50, 250);
+    // Pre-check routine to tidy up extra entities
+    monster_death_precheck();
+    
+    // Spawn some extra rubble before dying
+    SpawnProjectileSmoke(self.origin, 200, 50, 150);
+    SpawnProjectileSmoke(self.origin, 300, 50, 150);
+    SpawnProjectileSmoke(self.origin, 200, 50, 250);
 
-	// regular death
-	if (!self.gibbed) {
-		sound (self, CHAN_VOICE, "golem/death.wav", 1, ATTN_NORM);
-		golem_death1 ();
-	}
+    // regular death
+    if (!self.gibbed) {
+        sound (self, CHAN_VOICE, "golem/death.wav", 1, ATTN_NORM);
+        golem_death1 ();
+    }
 };
 
 //============================================================================
 // Wakeup From Statue form
 //============================================================================
 void() golem_birth = {
-	if (random() < 0.8) SpawnProjectileSmoke(self.origin, 200, 50, 250);
-	self.nextthink = time + 0.05;
+    if (random() < 0.8) SpawnProjectileSmoke(self.origin, 200, 50, 250);
+    self.nextthink = time + 0.05;
 };
 
 //----------------------------------------------------------------------
 void() golem_wakefinished =
 {
-	// No longer need statue spawnflag, remove it
-	if (self.spawnflags & MON_STATUE) 
-		self.spawnflags = self.spawnflags - MON_STATUE;
-	self.spawnstatue = FALSE;		// No longer stationary
+    // No longer need statue spawnflag, remove it
+    if (self.spawnflags & MON_STATUE) 
+        self.spawnflags = self.spawnflags - MON_STATUE;
+    self.spawnstatue = FALSE;       // No longer stationary
 
-	self.th_stand = golem_stand1;	// Idling on feet
-	self.th_walk = golem_walk1;		// Walking
-	self.th_run = golem_run1;		// Running
-	self.th_melee = golem_melee;	// Fist attack
-	// Check for melee + stomp attack only version
-	if (!(self.spawnflags & MON_GOLEM_MELEEONLY)) 
-		self.th_missile = golem_magic1;
-	self.th_slide = golem_stomp1;	// Floor stomp
-	self.th_pain = golem_pain;		// Stumble and pain
-	self.th_die = golem_die;		// Face meets floor
-	self.takedamage = DAMAGE_AIM;	// Can receive damage
-	monster_targets();				// Check for targets
-	golem_birth();					// more rubble
+    self.th_stand = golem_stand1;   // Idling on feet
+    self.th_walk = golem_walk1;     // Walking
+    self.th_run = golem_run1;       // Running
+    self.th_melee = golem_melee;    // Fist attack
+    // Check for melee + stomp attack only version
+    if (!(self.spawnflags & MON_GOLEM_MELEEONLY)) 
+        self.th_missile = golem_magic1;
+    self.th_slide = golem_stomp1;   // Floor stomp
+    self.th_pain = golem_pain;      // Stumble and pain
+    self.th_die = golem_die;        // Face meets floor
+    self.takedamage = DAMAGE_AIM;   // Can receive damage
+    monster_targets();              // Check for targets
+    golem_birth();                  // more rubble
 };
 
 //----------------------------------------------------------------------
 void() golem_wake1 =[ $birth1, golem_wake2 ] {golem_birth();
-	sound (self, CHAN_BODY, "golem/wakestatue.wav", 1, ATTN_NORM);};
+    sound (self, CHAN_BODY, "golem/wakestatue.wav", 1, ATTN_NORM);};
 void() golem_wake2 =[ $birth2, golem_wake3 ] {golem_birth();ai_forward(2);};
 void() golem_wake3 =[ $birth3, golem_wake4 ] {golem_birth();ai_forward(3);};
 void() golem_wake4 =[ $birth4, golem_wake5 ] {golem_birth();ai_forward(4);};
@@ -558,40 +558,40 @@ void() golem_tranB13 = [ $tranB13, golem_run14 ] {golem_wakefinished(); monster_
 //----------------------------------------------------------------------
 void() golem_wakeup =
 {
-	// Check for sudden death!
-	if (self.health < 0) return;
-	
-	// Only call wakeup function once
-	self.use = SUB_Null;
-	self.th_stand = self.th_walk = self.th_run = SUB_Null;
-	self.skin = 0;	// Glowing eyes!
-	golem_wake1();
+    // Check for sudden death!
+    if (self.health < 0) return;
+    
+    // Only call wakeup function once
+    self.use = SUB_Null;
+    self.th_stand = self.th_walk = self.th_run = SUB_Null;
+    self.skin = 0;  // Glowing eyes!
+    golem_wake1();
 };
 
 //----------------------------------------------------------------------
 void() golem_statue =
 {
-	local float targ_angle, new_frame;
+    local float targ_angle, new_frame;
 
-	// Check for sudden death!
-	if (self.health < 0) return;
-	
-	if (random() < MON_IDLE_SOUND && self.pos1_z > 1) {
-		new_frame = TRUE;
-		self.oldenemy = checkclient();
-		if (self.oldenemy.flags & FL_CLIENT) {
-			targ_angle  = viewangle(self.origin, self.oldenemy.origin, 0, TRUE, self.oldenemy.v_angle_y);
-			if (targ_angle < 135 || targ_angle > 225) new_frame = FALSE;
-		}
-		self.lip = self.pos1_x + rint(random()*self.pos1_z);
-		if (new_frame) {
-			sound (self, CHAN_VOICE, self.idle_sound, 1, ATTN_NORM);
-			self.frame = self.lip;
-		}
-	}
-	
- 	self.think = golem_statue;
- 	self.nextthink = time + 5 + random()*5;
+    // Check for sudden death!
+    if (self.health < 0) return;
+    
+    if (random() < MON_IDLE_SOUND && self.pos1_z > 1) {
+        new_frame = TRUE;
+        self.oldenemy = checkclient();
+        if (self.oldenemy.flags & FL_CLIENT) {
+            targ_angle  = viewangle(self.origin, self.oldenemy.origin, 0, TRUE, self.oldenemy.v_angle_y);
+            if (targ_angle < 135 || targ_angle > 225) new_frame = FALSE;
+        }
+        self.lip = self.pos1_x + rint(random()*self.pos1_z);
+        if (new_frame) {
+            sound (self, CHAN_VOICE, self.idle_sound, 1, ATTN_NORM);
+            self.frame = self.lip;
+        }
+    }
+    
+    self.think = golem_statue;
+    self.nextthink = time + 5 + random()*5;
 };
 
 /*======================================================================
@@ -599,122 +599,122 @@ QUAKED monster_golem (1 0.2 0) (-16 -16 -24) (16 16 24)
 ======================================================================*/
 void() monster_golem =
 {
-	// Check all spawn exceptions (monsters.qc)
-	if (monster_checkspawn() == TRUE) return;
+    // Check all spawn exceptions (monsters.qc)
+    if (monster_checkspawn() == TRUE) return;
 
-	self.mdl = "progs/mon_golem.mdl";
-	precache_model (self.mdl);
-	precache_model (MODEL_PROJ_RINGSHOCK);
-	precache_model (MODEL_PROJ_GROCK1);
-	precache_model (MODEL_PROJ_GROCK2);
-	
-	self.gibtype = GIBTYPE_STONE;		// Stoney gibs!
-	self.gib1mdl = MODEL_PROJ_GROCK1;	// small golem rock
-	self.gib2mdl = MODEL_PROJ_GROCK2;	// medium golem rock
-	self.gib1frame = self.gib2frame = 9;
+    self.mdl = "progs/mon_golem.mdl";
+    precache_model (self.mdl);
+    precache_model (MODEL_PROJ_RINGSHOCK);
+    precache_model (MODEL_PROJ_GROCK1);
+    precache_model (MODEL_PROJ_GROCK2);
+    
+    self.gibtype = GIBTYPE_STONE;       // Stoney gibs!
+    self.gib1mdl = MODEL_PROJ_GROCK1;   // small golem rock
+    self.gib2mdl = MODEL_PROJ_GROCK2;   // medium golem rock
+    self.gib1frame = self.gib2frame = 9;
 
-	// Idle1a-1b (long sound) idle2a-2b (short sound)
-	self.idle_sound = "golem/idle1a.wav";
-	self.idle_sound2 = "golem/idle1b.wav";
-	self.idle_soundcom = "golem/idle2a.wav";
-	self.idle_soundcom2 = "golem/idle2b.wav";
-	precache_sound (self.idle_sound);
-	precache_sound (self.idle_sound2);
-	precache_sound (self.idle_soundcom);
-	precache_sound (self.idle_soundcom2);
-	
-	// Break free of statue pose
-	precache_sound ("golem/wakestatue.wav");
-	
-	// Several melee smack sounds and giant ground slam
-	precache_sound ("golem/melee_swipe.wav");
-	precache_sound ("golem/melee_punch.wav");
-	precache_sound ("golem/melee_pound.wav");
-	precache_sound ("golem/groundslam.wav");
-	
-	// Rockstorm - range attack
-	precache_sound ("golem/rockstorm.wav");
-	precache_sound (SOUND_IMP_ROCK1);
-	precache_sound (SOUND_IMP_ROCK2);
-	precache_sound (SOUND_IMP_ROCK3);
-	precache_sound (SOUND_IMP_ROCK4);
-	
-	self.pain_sound = "golem/pain1.wav";
-	self.pain_sound2 = "golem/pain2.wav";
-	precache_sound (self.pain_sound);
-	precache_sound (self.pain_sound2);
-	precache_sound ("golem/death.wav");
+    // Idle1a-1b (long sound) idle2a-2b (short sound)
+    self.idle_sound = "golem/idle1a.wav";
+    self.idle_sound2 = "golem/idle1b.wav";
+    self.idle_soundcom = "golem/idle2a.wav";
+    self.idle_soundcom2 = "golem/idle2b.wav";
+    precache_sound (self.idle_sound);
+    precache_sound (self.idle_sound2);
+    precache_sound (self.idle_soundcom);
+    precache_sound (self.idle_soundcom2);
+    
+    // Break free of statue pose
+    precache_sound ("golem/wakestatue.wav");
+    
+    // Several melee smack sounds and giant ground slam
+    precache_sound ("golem/melee_swipe.wav");
+    precache_sound ("golem/melee_punch.wav");
+    precache_sound ("golem/melee_pound.wav");
+    precache_sound ("golem/groundslam.wav");
+    
+    // Rockstorm - range attack
+    precache_sound ("golem/rockstorm.wav");
+    precache_sound (SOUND_IMP_ROCK1);
+    precache_sound (SOUND_IMP_ROCK2);
+    precache_sound (SOUND_IMP_ROCK3);
+    precache_sound (SOUND_IMP_ROCK4);
+    
+    self.pain_sound = "golem/pain1.wav";
+    self.pain_sound2 = "golem/pain2.wav";
+    precache_sound (self.pain_sound);
+    precache_sound (self.pain_sound2);
+    precache_sound ("golem/death.wav");
 
-	// Roar!
-	self.sight_sound = "golem/sight.wav";
-	precache_sound (self.sight_sound);
+    // Roar!
+    self.sight_sound = "golem/sight.wav";
+    precache_sound (self.sight_sound);
 
-	self.solid = SOLID_NOT;			// No interaction with world
-	self.movetype = MOVETYPE_NONE;	// Static item, no movement
-	if (self.bboxtype < 1) self.bboxtype = BBOX_GOLEM;
-	if (self.health < 1) self.health = 500;
-	self.gibhealth = -60;			// Same as shambler
-	self.gibbed = FALSE;			// Still in one piece
-	self.pain_flinch = 200;			// Demon level
-	self.pain_longanim = FALSE;		// resistant to shadow axe
-	self.pain_timeout = 2;			// Does not repeat pain
-	self.infightextra = 3;			// Triple damage to other monsters
-	self.steptype = FS_TYPEGIANT;	// Giant sound
-	self.blockudeath = TRUE;		// No humanoid death
-	self.bleedcolour = 16;			// Brown dust/dirt
-	self.no_liquiddmg = TRUE;		// Immune to slime/lava
-	self.meleerange = MONAI_MELEEGOLEM;
-	self.attack_offset = '10 0 30';		// Rock storm
-	self.poisonous = FALSE;				// Stone is not poisonous
-	self.deathstring = " was crushed by a Golem\n";
-	
-	self.th_checkattack = GolemCheckAttack;
-	self.th_die = golem_die;
+    self.solid = SOLID_NOT;         // No interaction with world
+    self.movetype = MOVETYPE_NONE;  // Static item, no movement
+    if (self.bboxtype < 1) self.bboxtype = BBOX_GOLEM;
+    if (self.health < 1) self.health = 500;
+    self.gibhealth = -60;           // Same as shambler
+    self.gibbed = FALSE;            // Still in one piece
+    self.pain_flinch = 200;         // Demon level
+    self.pain_longanim = FALSE;     // resistant to shadow axe
+    self.pain_timeout = 2;          // Does not repeat pain
+    self.infightextra = 3;          // Triple damage to other monsters
+    self.steptype = FS_TYPEGIANT;   // Giant sound
+    self.blockudeath = TRUE;        // No humanoid death
+    self.bleedcolour = 16;          // Brown dust/dirt
+    self.no_liquiddmg = TRUE;       // Immune to slime/lava
+    self.meleerange = MONAI_MELEEGOLEM;
+    self.attack_offset = '10 0 30';     // Rock storm
+    self.poisonous = FALSE;             // Stone is not poisonous
+    self.deathstring = " was crushed by a Golem\n";
+    
+    self.th_checkattack = GolemCheckAttack;
+    self.th_die = golem_die;
 
-	// Always reset Ammo Resistance to be consistent
-	self.resist_shells = 0; self.resist_nails = 0.5;
-	self.resist_rockets = self.resist_cells = 0;
-	self.reflectnails = TRUE;		// Reflect nail projectiles
+    // Always reset Ammo Resistance to be consistent
+    self.resist_shells = 0; self.resist_nails = 0.5;
+    self.resist_rockets = self.resist_cells = 0;
+    self.reflectnails = TRUE;       // Reflect nail projectiles
 
-	//----------------------------------------------------------------------
-	// Detect statues and setup different parameters
-	// Tougher skin, less pain, heavy feet etc	
-	//----------------------------------------------------------------------
-	if (self.spawnflags & MON_STATUE) {
-		// statues can change position when the player is not looking
-		// Specify a start/finish frame using pos1 or use frame
-		if (!self.pos1_x) {
-			self.pos1_x = $magic1;		// Default pose (wakeup)
-			self.pos1_y = $magic24;
-		}
-		// A frame has been specified, create a small range from that
-		if (self.frame > 0) {
-			self.pos1_x = self.pos1_y = self.frame;
-		}
-		// Work out range, make sure no negative values
-		self.pos1_z = fabs(self.pos1_y - self.pos1_x);
-		self.frame = self.pos1_x;		// Setup frame / pose
-		
-		self.spawnstatue = TRUE;		// Start as a statue
-		self.th_stand = golem_statue;	// Stone idle sound
-		self.think1 = golem_wakeup;		// Wakeup statue angry at player
-		self.skin = 1;					// Statue skin (+grey, no eyes)
-	}
-	else {
-		self.th_stand = golem_stand1;
-		self.th_walk = golem_walk1;
-		self.th_run = golem_run1;
-		self.th_melee = golem_melee;
-		// Check for melee + stomp attack only version
-		if (!(self.spawnflags & MON_GOLEM_MELEEONLY)) 
-			self.th_missile = golem_magic1;
-		self.th_slide = golem_stomp1;
-		self.th_pain = golem_pain;
-	}
-		
-	self.classtype = CT_MONGOLEM;
-	self.classgroup = CG_STONE;
-	self.classmove = MON_MOVEWALK;
+    //----------------------------------------------------------------------
+    // Detect statues and setup different parameters
+    // Tougher skin, less pain, heavy feet etc  
+    //----------------------------------------------------------------------
+    if (self.spawnflags & MON_STATUE) {
+        // statues can change position when the player is not looking
+        // Specify a start/finish frame using pos1 or use frame
+        if (!self.pos1_x) {
+            self.pos1_x = $magic1;      // Default pose (wakeup)
+            self.pos1_y = $magic24;
+        }
+        // A frame has been specified, create a small range from that
+        if (self.frame > 0) {
+            self.pos1_x = self.pos1_y = self.frame;
+        }
+        // Work out range, make sure no negative values
+        self.pos1_z = fabs(self.pos1_y - self.pos1_x);
+        self.frame = self.pos1_x;       // Setup frame / pose
+        
+        self.spawnstatue = TRUE;        // Start as a statue
+        self.th_stand = golem_statue;   // Stone idle sound
+        self.think1 = golem_wakeup;     // Wakeup statue angry at player
+        self.skin = 1;                  // Statue skin (+grey, no eyes)
+    }
+    else {
+        self.th_stand = golem_stand1;
+        self.th_walk = golem_walk1;
+        self.th_run = golem_run1;
+        self.th_melee = golem_melee;
+        // Check for melee + stomp attack only version
+        if (!(self.spawnflags & MON_GOLEM_MELEEONLY)) 
+            self.th_missile = golem_magic1;
+        self.th_slide = golem_stomp1;
+        self.th_pain = golem_pain;
+    }
+        
+    self.classtype = CT_MONGOLEM;
+    self.classgroup = CG_STONE;
+    self.classmove = MON_MOVEWALK;
 
-	monster_start();
+    monster_start();
 };

@@ -16,16 +16,16 @@
 // Defined with the addstat/clientstat command DP/FTE
 //----------------------------------------------------------------------
 
-const float CLIENT_HEALTH = 0;			// Player's health
-const float CLIENT_WEAPONMODELI = 2;	// Modelindex of current viewmodel
-const float CLIENT_AMMO = 3;			// player.currentammo
+const float CLIENT_HEALTH = 0;          // Player's health
+const float CLIENT_WEAPONMODELI = 2;    // Modelindex of current viewmodel
+const float CLIENT_AMMO = 3;            // player.currentammo
 const float CLIENT_ARMOR = 4;
 const float CLIENT_WEAPONFRAME = 5;
 const float CLIENT_SHELLS = 6;
 const float CLIENT_NAILS = 7;
 const float CLIENT_ROCKETS = 8;
 const float CLIENT_CELLS = 9;
-const float CLIENT_ACTIVEWEAPON = 10;	// player.weapon
+const float CLIENT_ACTIVEWEAPON = 10;   // player.weapon
 const float CLIENT_TOTALSECRETS = 11;
 const float CLIENT_TOTALMONSTERS = 12;
 const float CLIENT_FOUNDSECRETS = 13;
@@ -33,61 +33,61 @@ const float CLIENT_KILLEDMONSTERS = 14;
 // getstatbits(CLIENT_ITEMS,0,23) to read self.items
 // getstatbits(CLIENT_ITEMS,23,11) to read self.items2
 // or getstatbits(CLIENT_ITEMS,28,4) to read the visible part of serverflags
-const float CLIENT_ITEMS = 15;			// self.items | (self.items2<<23)
-const float CLIENT_VIEWHEIGHT = 16;		// player.view_ofs_z
-const float CLIENT_VIEW2 = 20;			// Entity Qty in server's .view2 field
-const float CLIENT_VIEWZOOM = 21;		// Scales fov and sensitiity
+const float CLIENT_ITEMS = 15;          // self.items | (self.items2<<23)
+const float CLIENT_VIEWHEIGHT = 16;     // player.view_ofs_z
+const float CLIENT_VIEW2 = 20;          // Entity Qty in server's .view2 field
+const float CLIENT_VIEWZOOM = 21;       // Scales fov and sensitiity
 const float CLIENT_IDEALPITCH = 25;
 const float CLIENT_PUNCHANGLE_X = 26;
 const float CLIENT_PUNCHANGLE_Y = 27;
 const float CLIENT_PUNCHANGLE_Z = 28;
 // 32-127 is custom variables (defined here and linked in world.qc)
-const float CLIENT_MODITEMS = 40;		// self.moditems (AD extra stuff)
-const float CLIENT_CKEYNAME1 = 50;		// self.ckeyname1
-const float CLIENT_CKEYNAME2 = 51;		// self.ckeyname2
-const float CLIENT_CKEYNAME3 = 52;		// self.ckeyname3
-const float CLIENT_CKEYNAME4 = 53;		// self.ckeyname4
-const float CLIENT_CKEYSKIN1 = 55;		// self.ckeyskin1
-const float CLIENT_CKEYSKIN2 = 56;		// self.ckeyskin2
-const float CLIENT_CKEYSKIN3 = 57;		// self.ckeyskin3
-const float CLIENT_CKEYSKIN4 = 58;		// self.ckeyskin4
+const float CLIENT_MODITEMS = 40;       // self.moditems (AD extra stuff)
+const float CLIENT_CKEYNAME1 = 50;      // self.ckeyname1
+const float CLIENT_CKEYNAME2 = 51;      // self.ckeyname2
+const float CLIENT_CKEYNAME3 = 52;      // self.ckeyname3
+const float CLIENT_CKEYNAME4 = 53;      // self.ckeyname4
+const float CLIENT_CKEYSKIN1 = 55;      // self.ckeyskin1
+const float CLIENT_CKEYSKIN2 = 56;      // self.ckeyskin2
+const float CLIENT_CKEYSKIN3 = 57;      // self.ckeyskin3
+const float CLIENT_CKEYSKIN4 = 58;      // self.ckeyskin4
 
 //----------------------------------------------------------------------
 // Duplicate of IT_ references in defs.qc
 //----------------------------------------------------------------------
-const float CSQC_SHOTGUN = 1<<0;			// 1
-const float CSQC_SUPER_SHOTGUN = 1<<1;		// 2
-const float CSQC_NAILGUN = 1<<2;			// 4
-const float CSQC_SUPER_NAILGUN = 1<<3;		// 8
-const float CSQC_GRENADE_LAUNCHER = 1<<4;	// 16
-const float CSQC_ROCKET_LAUNCHER = 1<<5;	// 32
-const float CSQC_LIGHTNING = 1<<6;			// 64
-// const float CSQC_EXTRA_WEAPON = 1<<7;	// 128
+const float CSQC_SHOTGUN = 1<<0;            // 1
+const float CSQC_SUPER_SHOTGUN = 1<<1;      // 2
+const float CSQC_NAILGUN = 1<<2;            // 4
+const float CSQC_SUPER_NAILGUN = 1<<3;      // 8
+const float CSQC_GRENADE_LAUNCHER = 1<<4;   // 16
+const float CSQC_ROCKET_LAUNCHER = 1<<5;    // 32
+const float CSQC_LIGHTNING = 1<<6;          // 64
+// const float CSQC_EXTRA_WEAPON = 1<<7;    // 128
 
-const float CSQC_SHELLS = 1<<8;				// 256
-const float CSQC_NAILS = 1<<9;				// 512
-const float CSQC_ROCKETS = 1<<10;			// 1024
-const float CSQC_CELLS = 1<<11;				// 2048
-const float CSQC_AXE = 1<<12;				// 4096
+const float CSQC_SHELLS = 1<<8;             // 256
+const float CSQC_NAILS = 1<<9;              // 512
+const float CSQC_ROCKETS = 1<<10;           // 1024
+const float CSQC_CELLS = 1<<11;             // 2048
+const float CSQC_AXE = 1<<12;               // 4096
 
-const float CSQC_ARMOR1 = 1<<13;			// 8192
-const float CSQC_ARMOR2 = 1<<14;			// 16384
-const float CSQC_ARMOR3 = 1<<15;			// 32768
-// const float CSQC_SUPERHEALTH = 1<<16;	// 65536
+const float CSQC_ARMOR1 = 1<<13;            // 8192
+const float CSQC_ARMOR2 = 1<<14;            // 16384
+const float CSQC_ARMOR3 = 1<<15;            // 32768
+// const float CSQC_SUPERHEALTH = 1<<16;    // 65536
 
-const float CSQC_KEY1 = 1<<17;				// 131072
-const float CSQC_KEY2 = 1<<18;				// 262144
+const float CSQC_KEY1 = 1<<17;              // 131072
+const float CSQC_KEY2 = 1<<18;              // 262144
 
-const float CSQC_INVISIBILITY = 1<<19;		// 524288
-const float CSQC_INVULNERABILITY = 1<<20;	// 1048576
-const float CSQC_SUIT = 1<<21;				// 2097152
-const float CSQC_QUAD = 1<<22;				// 4194304
+const float CSQC_INVISIBILITY = 1<<19;      // 524288
+const float CSQC_INVULNERABILITY = 1<<20;   // 1048576
+const float CSQC_SUIT = 1<<21;              // 2097152
+const float CSQC_QUAD = 1<<22;              // 4194304
 
 // Runes in Serverflags
-const float CSQC_RUNE1 = 1<<5;	// 32
-const float CSQC_RUNE2 = 1<<6;	// 64
-const float CSQC_RUNE3 = 1<<7;	// 128
-const float CSQC_RUNE4 = 1<<8;	// 256
+const float CSQC_RUNE1 = 1<<5;  // 32
+const float CSQC_RUNE2 = 1<<6;  // 64
+const float CSQC_RUNE3 = 1<<7;  // 128
+const float CSQC_RUNE4 = 1<<8;  // 256
 
 // Variable types
 const float EV_VOID = 0;

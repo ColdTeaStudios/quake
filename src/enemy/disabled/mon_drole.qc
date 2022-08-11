@@ -57,131 +57,131 @@ $frame death25 death26
 $frame base1 base2 base3
 
 //============================================================================
-void()	drole_standA1	=[	$standA1,	drole_standA2	] {monster_idle_sound(); ai_stand();};
-void()	drole_standA2	=[	$standA2,	drole_standA3	] {ai_stand();};
-void()	drole_standA3	=[	$standA3,	drole_standA4	] {ai_stand();};
-void()	drole_standA4	=[	$standA4,	drole_standA5	] {ai_stand();};
-void()	drole_standA5	=[	$standA5,	drole_standA6	] {ai_stand();};
-void()	drole_standA6	=[	$standA6,	drole_standA7	] {ai_stand();};
-void()	drole_standA7	=[	$standA7,	drole_standA8	] {ai_stand();};
-void()	drole_standA8	=[	$standA8,	drole_standA9	] {ai_stand();};
-void()	drole_standA9	=[	$standA9,	drole_standA10	] {ai_stand();};
-void()	drole_standA10	=[	$standA10,	drole_standA11	] {ai_stand();};
-void()	drole_standA11	=[	$standA11,	drole_standA12	] {ai_stand();};
-void()	drole_standA12	=[	$standA12,	drole_standA13	] {ai_stand();};
-void()	drole_standA13	=[	$standA13,	drole_standA14	] {ai_stand();};
-void()	drole_standA14	=[	$standA14,	drole_standA15	] {ai_stand();};
-void()	drole_standA15	=[	$standA15,	drole_standA16	] {ai_stand();};
-void()	drole_standA16	=[	$standA16,	drole_standA17	] {ai_stand();};
-void()	drole_standA17	=[	$standA17,	drole_standA18	] {ai_stand();};
-void()	drole_standA18	=[	$standA18,	drole_standA19	] {ai_stand();};
-void()	drole_standA19	=[	$standA19,	drole_standA20	] {ai_stand();};
-void()	drole_standA20	=[	$standA20,	drole_standA21	] {ai_stand();};
-void()	drole_standA21	=[	$standA21,	drole_standA22	] {ai_stand();};
-void()	drole_standA22	=[	$standA22,	drole_standA23	] {ai_stand();};
-void()	drole_standA23	=[	$standA23,	drole_standA24	] {ai_stand();};
-void()	drole_standA24	=[	$standA24,	drole_standA25	] {ai_stand();};
-void()	drole_standA25	=[	$standA25,	drole_standA26	] {ai_stand();};
-void()	drole_standA26	=[	$standA26,	drole_standA27	] {ai_stand();};
-void()	drole_standA27	=[	$standA27,	drole_standA28	] {ai_stand();};
-void()	drole_standA28	=[	$standA28,	drole_standA29	] {ai_stand();};
-void()	drole_standA29	=[	$standA29,	drole_standA30	] {ai_stand();};
-void()	drole_standA30	=[	$standA30,	drole_standC1	] {ai_stand();};
+void()  drole_standA1   =[  $standA1,   drole_standA2   ] {monster_idle_sound(); ai_stand();};
+void()  drole_standA2   =[  $standA2,   drole_standA3   ] {ai_stand();};
+void()  drole_standA3   =[  $standA3,   drole_standA4   ] {ai_stand();};
+void()  drole_standA4   =[  $standA4,   drole_standA5   ] {ai_stand();};
+void()  drole_standA5   =[  $standA5,   drole_standA6   ] {ai_stand();};
+void()  drole_standA6   =[  $standA6,   drole_standA7   ] {ai_stand();};
+void()  drole_standA7   =[  $standA7,   drole_standA8   ] {ai_stand();};
+void()  drole_standA8   =[  $standA8,   drole_standA9   ] {ai_stand();};
+void()  drole_standA9   =[  $standA9,   drole_standA10  ] {ai_stand();};
+void()  drole_standA10  =[  $standA10,  drole_standA11  ] {ai_stand();};
+void()  drole_standA11  =[  $standA11,  drole_standA12  ] {ai_stand();};
+void()  drole_standA12  =[  $standA12,  drole_standA13  ] {ai_stand();};
+void()  drole_standA13  =[  $standA13,  drole_standA14  ] {ai_stand();};
+void()  drole_standA14  =[  $standA14,  drole_standA15  ] {ai_stand();};
+void()  drole_standA15  =[  $standA15,  drole_standA16  ] {ai_stand();};
+void()  drole_standA16  =[  $standA16,  drole_standA17  ] {ai_stand();};
+void()  drole_standA17  =[  $standA17,  drole_standA18  ] {ai_stand();};
+void()  drole_standA18  =[  $standA18,  drole_standA19  ] {ai_stand();};
+void()  drole_standA19  =[  $standA19,  drole_standA20  ] {ai_stand();};
+void()  drole_standA20  =[  $standA20,  drole_standA21  ] {ai_stand();};
+void()  drole_standA21  =[  $standA21,  drole_standA22  ] {ai_stand();};
+void()  drole_standA22  =[  $standA22,  drole_standA23  ] {ai_stand();};
+void()  drole_standA23  =[  $standA23,  drole_standA24  ] {ai_stand();};
+void()  drole_standA24  =[  $standA24,  drole_standA25  ] {ai_stand();};
+void()  drole_standA25  =[  $standA25,  drole_standA26  ] {ai_stand();};
+void()  drole_standA26  =[  $standA26,  drole_standA27  ] {ai_stand();};
+void()  drole_standA27  =[  $standA27,  drole_standA28  ] {ai_stand();};
+void()  drole_standA28  =[  $standA28,  drole_standA29  ] {ai_stand();};
+void()  drole_standA29  =[  $standA29,  drole_standA30  ] {ai_stand();};
+void()  drole_standA30  =[  $standA30,  drole_standC1   ] {ai_stand();};
 
 //============================================================================
-void()	drole_standB1	=[	$standB1,	drole_standB2	] {monster_idle_sound(); ai_stand();};
-void()	drole_standB2	=[	$standB2,	drole_standB3	] {ai_stand();};
-void()	drole_standB3	=[	$standB3,	drole_standB4	] {ai_stand();};
-void()	drole_standB4	=[	$standB4,	drole_standB5	] {ai_stand();};
-void()	drole_standB5	=[	$standB5,	drole_standB6	] {ai_stand();};
-void()	drole_standB6	=[	$standB6,	drole_standB7	] {ai_stand();};
-void()	drole_standB7	=[	$standB7,	drole_standB8	] {ai_stand();};
-void()	drole_standB8	=[	$standB8,	drole_standB9	] {ai_stand();};
-void()	drole_standB9	=[	$standB9,	drole_standB10	] {ai_stand();};
-void()	drole_standB10	=[	$standB10,	drole_standB11	] {ai_stand();};
-void()	drole_standB11	=[	$standB11,	drole_standB12	] {ai_stand();};
-void()	drole_standB12	=[	$standB12,	drole_standB13	] {ai_stand();};
-void()	drole_standB13	=[	$standB13,	drole_standB14	] {ai_stand();};
-void()	drole_standB14	=[	$standB14,	drole_standB15	] {ai_stand();};
-void()	drole_standB15	=[	$standB15,	drole_standB16	] {ai_stand();};
-void()	drole_standB16	=[	$standB16,	drole_standB17	] {ai_stand();};
-void()	drole_standB17	=[	$standB17,	drole_standB18	] {ai_stand();};
-void()	drole_standB18	=[	$standB18,	drole_standB19	] {ai_stand();};
-void()	drole_standB19	=[	$standB19,	drole_standB20	] {ai_stand();};
-void()	drole_standB20	=[	$standB20,	drole_standB21	] {ai_stand();};
-void()	drole_standB21	=[	$standB21,	drole_standB22	] {ai_stand();};
-void()	drole_standB22	=[	$standB22,	drole_standB23	] {ai_stand();};
-void()	drole_standB23	=[	$standB23,	drole_standB24	] {ai_stand();};
-void()	drole_standB24	=[	$standB24,	drole_standB25	] {ai_stand();};
-void()	drole_standB25	=[	$standB25,	drole_standB26	] {ai_stand();};
-void()	drole_standB26	=[	$standB26,	drole_standB27	] {ai_stand();};
-void()	drole_standB27	=[	$standB27,	drole_standB28	] {ai_stand();};
-void()	drole_standB28	=[	$standB28,	drole_standB29	] {ai_stand();};
-void()	drole_standB29	=[	$standB29,	drole_standB30	] {ai_stand();};
-void()	drole_standB30	=[	$standB30,	drole_standB31	] {ai_stand();};
-void()	drole_standB31	=[	$standB31,	drole_standB32	] {ai_stand();};
-void()	drole_standB32	=[	$standB32,	drole_standB33	] {ai_stand();};
-void()	drole_standB33	=[	$standB33,	drole_standB34	] {ai_stand();};
-void()	drole_standB34	=[	$standB34,	drole_standB35	] {ai_stand();};
-void()	drole_standB35	=[	$standB35,	drole_standB36	] {ai_stand();};
-void()	drole_standB36	=[	$standB36,	drole_standB37	] {ai_stand();};
-void()	drole_standB37	=[	$standB37,	drole_standB38	] {ai_stand();};
-void()	drole_standB38	=[	$standB38,	drole_standB39	] {ai_stand();};
-void()	drole_standB39	=[	$standB39,	drole_standB40	] {ai_stand();};
-void()	drole_standB40	=[	$standB40,	drole_standC1	] {ai_stand();};
+void()  drole_standB1   =[  $standB1,   drole_standB2   ] {monster_idle_sound(); ai_stand();};
+void()  drole_standB2   =[  $standB2,   drole_standB3   ] {ai_stand();};
+void()  drole_standB3   =[  $standB3,   drole_standB4   ] {ai_stand();};
+void()  drole_standB4   =[  $standB4,   drole_standB5   ] {ai_stand();};
+void()  drole_standB5   =[  $standB5,   drole_standB6   ] {ai_stand();};
+void()  drole_standB6   =[  $standB6,   drole_standB7   ] {ai_stand();};
+void()  drole_standB7   =[  $standB7,   drole_standB8   ] {ai_stand();};
+void()  drole_standB8   =[  $standB8,   drole_standB9   ] {ai_stand();};
+void()  drole_standB9   =[  $standB9,   drole_standB10  ] {ai_stand();};
+void()  drole_standB10  =[  $standB10,  drole_standB11  ] {ai_stand();};
+void()  drole_standB11  =[  $standB11,  drole_standB12  ] {ai_stand();};
+void()  drole_standB12  =[  $standB12,  drole_standB13  ] {ai_stand();};
+void()  drole_standB13  =[  $standB13,  drole_standB14  ] {ai_stand();};
+void()  drole_standB14  =[  $standB14,  drole_standB15  ] {ai_stand();};
+void()  drole_standB15  =[  $standB15,  drole_standB16  ] {ai_stand();};
+void()  drole_standB16  =[  $standB16,  drole_standB17  ] {ai_stand();};
+void()  drole_standB17  =[  $standB17,  drole_standB18  ] {ai_stand();};
+void()  drole_standB18  =[  $standB18,  drole_standB19  ] {ai_stand();};
+void()  drole_standB19  =[  $standB19,  drole_standB20  ] {ai_stand();};
+void()  drole_standB20  =[  $standB20,  drole_standB21  ] {ai_stand();};
+void()  drole_standB21  =[  $standB21,  drole_standB22  ] {ai_stand();};
+void()  drole_standB22  =[  $standB22,  drole_standB23  ] {ai_stand();};
+void()  drole_standB23  =[  $standB23,  drole_standB24  ] {ai_stand();};
+void()  drole_standB24  =[  $standB24,  drole_standB25  ] {ai_stand();};
+void()  drole_standB25  =[  $standB25,  drole_standB26  ] {ai_stand();};
+void()  drole_standB26  =[  $standB26,  drole_standB27  ] {ai_stand();};
+void()  drole_standB27  =[  $standB27,  drole_standB28  ] {ai_stand();};
+void()  drole_standB28  =[  $standB28,  drole_standB29  ] {ai_stand();};
+void()  drole_standB29  =[  $standB29,  drole_standB30  ] {ai_stand();};
+void()  drole_standB30  =[  $standB30,  drole_standB31  ] {ai_stand();};
+void()  drole_standB31  =[  $standB31,  drole_standB32  ] {ai_stand();};
+void()  drole_standB32  =[  $standB32,  drole_standB33  ] {ai_stand();};
+void()  drole_standB33  =[  $standB33,  drole_standB34  ] {ai_stand();};
+void()  drole_standB34  =[  $standB34,  drole_standB35  ] {ai_stand();};
+void()  drole_standB35  =[  $standB35,  drole_standB36  ] {ai_stand();};
+void()  drole_standB36  =[  $standB36,  drole_standB37  ] {ai_stand();};
+void()  drole_standB37  =[  $standB37,  drole_standB38  ] {ai_stand();};
+void()  drole_standB38  =[  $standB38,  drole_standB39  ] {ai_stand();};
+void()  drole_standB39  =[  $standB39,  drole_standB40  ] {ai_stand();};
+void()  drole_standB40  =[  $standB40,  drole_standC1   ] {ai_stand();};
 
 //============================================================================
-void()	drole_standC1	=[	$standC1,	drole_standC2	] {monster_idle_sound(); ai_stand();};
-void()	drole_standC2	=[	$standC2,	drole_standC3	] {ai_stand();};
-void()	drole_standC3	=[	$standC3,	drole_standC4	] {ai_stand();};
-void()	drole_standC4	=[	$standC4,	drole_standC5	] {ai_stand();};
-void()	drole_standC5	=[	$standC5,	drole_standC6	] {ai_stand();};
-void()	drole_standC6	=[	$standC6,	drole_standC7	] {ai_stand();};
-void()	drole_standC7	=[	$standC7,	drole_standC8	] {ai_stand();};
-void()	drole_standC8	=[	$standC8,	drole_standC9	] {ai_stand();};
-void()	drole_standC9	=[	$standC9,	drole_standC10	] {ai_stand();};
-void()	drole_standC10	=[	$standC10,	drole_standC11	] {ai_stand();};
-void()	drole_standC11	=[	$standC11,	drole_standC12	] {ai_stand();};
-void()	drole_standC12	=[	$standC12,	drole_standC13	] {ai_stand();};
-void()	drole_standC13	=[	$standC13,	drole_standC14	] {ai_stand();};
-void()	drole_standC14	=[	$standC14,	drole_standC15	] {ai_stand();};
-void()	drole_standC15	=[	$standC15,	drole_standC16	] {ai_stand();};
-void()	drole_standC16	=[	$standC16,	drole_standC17	] {ai_stand();};
-void()	drole_standC17	=[	$standC17,	drole_standC18	] {ai_stand();};
-void()	drole_standC18	=[	$standC18,	drole_standC19	] {ai_stand();};
-void()	drole_standC19	=[	$standC19,	drole_standC20	] {ai_stand();};
-void()	drole_standC20	=[	$standC20,	drole_standC21	] {ai_stand();};
-void()	drole_standC21	=[	$standC21,	drole_standC22	] {ai_stand();};
-void()	drole_standC22	=[	$standC22,	drole_standC23	] {ai_stand();};
-void()	drole_standC23	=[	$standC23,	drole_standC24	] {ai_stand();};
-void()	drole_standC24	=[	$standC24,	drole_standC25	] {ai_stand();};
-void()	drole_standC25	=[	$standC25,	drole_standC26	] {ai_stand();};
-void()	drole_standC26	=[	$standC26,	drole_standC27	] {ai_stand();};
-void()	drole_standC27	=[	$standC27,	drole_standC28	] {ai_stand();};
-void()	drole_standC28	=[	$standC28,	drole_standC29	] {ai_stand();};
-void()	drole_standC29	=[	$standC29,	drole_standC30	] {ai_stand();};
-void()	drole_standC30	=[	$standC30,	drole_standC1	] {
-	self.idlebusy = FALSE; 
-	if (random() < MON_IDLE_ANIMATION) {
-		self.idlebusy = TRUE;
-		self.lefty = random();
-		if (self.lefty < 0.3) self.think = drole_standA1;
-		else if (self.lefty < 0.6) self.think = drole_standB1;
-		else self.think = drole_standC1;
-	}
-	ai_stand();
+void()  drole_standC1   =[  $standC1,   drole_standC2   ] {monster_idle_sound(); ai_stand();};
+void()  drole_standC2   =[  $standC2,   drole_standC3   ] {ai_stand();};
+void()  drole_standC3   =[  $standC3,   drole_standC4   ] {ai_stand();};
+void()  drole_standC4   =[  $standC4,   drole_standC5   ] {ai_stand();};
+void()  drole_standC5   =[  $standC5,   drole_standC6   ] {ai_stand();};
+void()  drole_standC6   =[  $standC6,   drole_standC7   ] {ai_stand();};
+void()  drole_standC7   =[  $standC7,   drole_standC8   ] {ai_stand();};
+void()  drole_standC8   =[  $standC8,   drole_standC9   ] {ai_stand();};
+void()  drole_standC9   =[  $standC9,   drole_standC10  ] {ai_stand();};
+void()  drole_standC10  =[  $standC10,  drole_standC11  ] {ai_stand();};
+void()  drole_standC11  =[  $standC11,  drole_standC12  ] {ai_stand();};
+void()  drole_standC12  =[  $standC12,  drole_standC13  ] {ai_stand();};
+void()  drole_standC13  =[  $standC13,  drole_standC14  ] {ai_stand();};
+void()  drole_standC14  =[  $standC14,  drole_standC15  ] {ai_stand();};
+void()  drole_standC15  =[  $standC15,  drole_standC16  ] {ai_stand();};
+void()  drole_standC16  =[  $standC16,  drole_standC17  ] {ai_stand();};
+void()  drole_standC17  =[  $standC17,  drole_standC18  ] {ai_stand();};
+void()  drole_standC18  =[  $standC18,  drole_standC19  ] {ai_stand();};
+void()  drole_standC19  =[  $standC19,  drole_standC20  ] {ai_stand();};
+void()  drole_standC20  =[  $standC20,  drole_standC21  ] {ai_stand();};
+void()  drole_standC21  =[  $standC21,  drole_standC22  ] {ai_stand();};
+void()  drole_standC22  =[  $standC22,  drole_standC23  ] {ai_stand();};
+void()  drole_standC23  =[  $standC23,  drole_standC24  ] {ai_stand();};
+void()  drole_standC24  =[  $standC24,  drole_standC25  ] {ai_stand();};
+void()  drole_standC25  =[  $standC25,  drole_standC26  ] {ai_stand();};
+void()  drole_standC26  =[  $standC26,  drole_standC27  ] {ai_stand();};
+void()  drole_standC27  =[  $standC27,  drole_standC28  ] {ai_stand();};
+void()  drole_standC28  =[  $standC28,  drole_standC29  ] {ai_stand();};
+void()  drole_standC29  =[  $standC29,  drole_standC30  ] {ai_stand();};
+void()  drole_standC30  =[  $standC30,  drole_standC1   ] {
+    self.idlebusy = FALSE; 
+    if (random() < MON_IDLE_ANIMATION) {
+        self.idlebusy = TRUE;
+        self.lefty = random();
+        if (self.lefty < 0.3) self.think = drole_standA1;
+        else if (self.lefty < 0.6) self.think = drole_standB1;
+        else self.think = drole_standC1;
+    }
+    ai_stand();
 };
 
 //============================================================================
-void()	drole_walk1 =[	$walk1, drole_walk2 ] {monster_footstep(FALSE); 
+void()  drole_walk1 =[  $walk1, drole_walk2 ] {monster_footstep(FALSE); 
 monster_idle_sound(); ai_walk(10);};
-void()	drole_walk2 =[	$walk2, drole_walk3 ] {ai_walk(9);};
-void()	drole_walk3 =[	$walk3, drole_walk4 ] {ai_walk(9);};
-void()	drole_walk4 =[	$walk4, drole_walk5 ] {ai_walk(5);};
-void()	drole_walk5 =[	$walk5, drole_walk6 ] {monster_footstep(FALSE); ai_walk(6);};
-void()	drole_walk6 =[	$walk6, drole_walk7 ] {ai_walk(12);};
-void()	drole_walk7 =[	$walk7, drole_walk8 ] {ai_walk(8);};
-void()	drole_walk8 =[	$walk8, drole_walk1 ] {ai_walk(3);};
+void()  drole_walk2 =[  $walk2, drole_walk3 ] {ai_walk(9);};
+void()  drole_walk3 =[  $walk3, drole_walk4 ] {ai_walk(9);};
+void()  drole_walk4 =[  $walk4, drole_walk5 ] {ai_walk(5);};
+void()  drole_walk5 =[  $walk5, drole_walk6 ] {monster_footstep(FALSE); ai_walk(6);};
+void()  drole_walk6 =[  $walk6, drole_walk7 ] {ai_walk(12);};
+void()  drole_walk7 =[  $walk7, drole_walk8 ] {ai_walk(8);};
+void()  drole_walk8 =[  $walk8, drole_walk1 ] {ai_walk(3);};
 
 //============================================================================
 // Drole's have two run speeds, regular and rage
@@ -213,8 +213,8 @@ void() drole_run8 = [ $walk8, drole_run ] {ai_run(8);};
 //----------------------------------------------------------------------
 void() drole_run =
 {
-	if (self.attack_rage) drole_rage1();
-	else drole_run1();
+    if (self.attack_rage) drole_rage1();
+    else drole_run1();
 };
 
 //===========================================================================
@@ -222,36 +222,36 @@ void() drole_run =
 //===========================================================================
 void(float side) drole_claw =
 {
-	local float ldmg;
-	
-	if (!self.enemy) return;
-	if (self.health < 1) return;
-	ai_face ();						// Turn towards enemy target
-	ai_damagebreakable(50);			// Damage any breakables
+    local float ldmg;
+    
+    if (!self.enemy) return;
+    if (self.health < 1) return;
+    ai_face ();                     // Turn towards enemy target
+    ai_damagebreakable(50);         // Damage any breakables
 
-	if (!ai_checkmelee(MONAI_MELEEDROLE1,MONAI_MELEEZTALL) 
-		|| !self.enemy.takedamage) {
-		// Melee claw miss sound
-		sound (self, CHAN_WEAPON, "drole/swipe.wav", 1, ATTN_NORM);
-	}
-	else {
-		// Melee claw hit sound
-		if (random() < 0.5) sound (self, CHAN_WEAPON, "drole/strike1.wav", 1, ATTN_NORM);
-		else sound (self, CHAN_WEAPON, "drole/strike2.wav", 1, ATTN_NORM);
-		ldmg = 12 + 6*random();
-		T_Damage (self.enemy, self, self, ldmg, DAMARMOR);		
-		SpawnMeatSpray (self, self.enemy, side);
+    if (!ai_checkmelee(MONAI_MELEEDROLE1,MONAI_MELEEZTALL) 
+        || !self.enemy.takedamage) {
+        // Melee claw miss sound
+        sound (self, CHAN_WEAPON, "drole/swipe.wav", 1, ATTN_NORM);
+    }
+    else {
+        // Melee claw hit sound
+        if (random() < 0.5) sound (self, CHAN_WEAPON, "drole/strike1.wav", 1, ATTN_NORM);
+        else sound (self, CHAN_WEAPON, "drole/strike2.wav", 1, ATTN_NORM);
+        ldmg = 12 + 6*random();
+        T_Damage (self.enemy, self, self, ldmg, DAMARMOR);      
+        SpawnMeatSpray (self, self.enemy, side);
 
-		// Check for poisonous attribute (new poison version)
-		if (self.poisonous) PoisonDeBuff(self.enemy);
-	}
+        // Check for poisonous attribute (new poison version)
+        if (self.poisonous) PoisonDeBuff(self.enemy);
+    }
 };
 
 //----------------------------------------------------------------------
 void(float ragespd) drole_charge =
 {
-	if (self.attack_rage) ai_charge(ragespd);
-	else ai_charge(rint(ragespd*0.7));
+    if (self.attack_rage) ai_charge(ragespd);
+    else ai_charge(rint(ragespd*0.7));
 }
 
 //----------------------------------------------------------------------
@@ -277,8 +277,8 @@ void() drole_clawR14 = [ $clawR14, drole_clawR15 ] {drole_charge(26);
 sound (self, CHAN_WEAPON, "drole/swipe.wav", 1, ATTN_NORM);};
 void() drole_clawR15 = [ $clawR15, drole_clawR16 ] {monster_footstep(FALSE);drole_charge(30);};
 void() drole_clawR16 = [ $clawR16, drole_run ] {drole_charge(28);
-	if (random() < 0.5 && ai_checkmelee(MONAI_MELEEDROLE2, MONAI_MELEEZTALL) && 
-		self.enemy.health > 0 && visible(self.enemy)) drole_clawL1();
+    if (random() < 0.5 && ai_checkmelee(MONAI_MELEEDROLE2, MONAI_MELEEZTALL) && 
+        self.enemy.health > 0 && visible(self.enemy)) drole_clawL1();
 };
 
 //----------------------------------------------------------------------
@@ -302,15 +302,15 @@ void() drole_clawL14 = [ $clawL14, drole_clawL15 ] {drole_charge(26);
 sound (self, CHAN_WEAPON, "drole/swipe.wav", 1, ATTN_NORM);};
 void() drole_clawL15 = [ $clawL15, drole_clawL16 ] {monster_footstep(FALSE);drole_charge(30);};
 void() drole_clawL16 = [ $clawL16, drole_run ] {drole_charge(28);
-	if (random() < 0.5 && ai_checkmelee(MONAI_MELEEDROLE2, MONAI_MELEEZTALL) && 
-		self.enemy.health > 0 && visible(self.enemy)) drole_clawR1();
+    if (random() < 0.5 && ai_checkmelee(MONAI_MELEEDROLE2, MONAI_MELEEZTALL) && 
+        self.enemy.health > 0 && visible(self.enemy)) drole_clawR1();
 };
 
 //----------------------------------------------------------------------
 void() drole_melee =
 {
-	if (random() < 0.5) drole_clawR1();
-	else drole_clawL1();
+    if (random() < 0.5) drole_clawR1();
+    else drole_clawL1();
 };
 
 //============================================================================
@@ -325,31 +325,31 @@ void() drole_rocket1 = [ 1, drole_rocket2 ] {self.nextthink = time + 0.2;};
 void() drole_rocket2 = [ 2, drole_rocket3 ] {self.velocity = self.velocity * 1.5;};
 void() drole_rocket3 = [ 3, drole_rocket4 ] {self.velocity = self.velocity * 1.5;};
 void() drole_rocket4 = [ 3, SUB_Remove ] {
-	self.nextthink = time + 5;
-	if (skill == SKILL_EASY) self.velocity = self.velocity * 3.5;
-	else self.velocity = self.velocity * 4.5;
+    self.nextthink = time + 5;
+    if (skill == SKILL_EASY) self.velocity = self.velocity * 3.5;
+    else self.velocity = self.velocity * 4.5;
 };
 
 //----------------------------------------------------------------------
 void() drole_fire =
 {
-	local vector org, dir, avel;
-	if (!self.enemy) return;
-	if (self.health < 1) return;
-	
-	self.attack_speed = 80;
-	makevectors (self.angles);
-	org = self.origin + attack_vector(self.attack_offset);
-	dir = normalize((self.attack_track + '0 0 -8') - org);
-	avel = avel = vecrand(100,200,FALSE);
-	
-	Launch_Missile (org, dir, avel, CT_PROJ_DROLE, self.attack_speed);
+    local vector org, dir, avel;
+    if (!self.enemy) return;
+    if (self.health < 1) return;
+    
+    self.attack_speed = 80;
+    makevectors (self.angles);
+    org = self.origin + attack_vector(self.attack_offset);
+    dir = normalize((self.attack_track + '0 0 -8') - org);
+    avel = avel = vecrand(100,200,FALSE);
+    
+    Launch_Missile (org, dir, avel, CT_PROJ_DROLE, self.attack_speed);
 };
 
 //----------------------------------------------------------------------
 void() drole_magic1 = [ $magic1, drole_magic2 ] {
-	self.attack_track = self.enemy.origin;
-	sound(self, CHAN_WEAPON, "drole/fire.wav", 1, ATTN_NORM);
+    self.attack_track = self.enemy.origin;
+    sound(self, CHAN_WEAPON, "drole/fire.wav", 1, ATTN_NORM);
 };
 void() drole_magic2 = [ $magic2, drole_magic3 ] {ai_trackenemy();};
 void() drole_magic3 = [ $magic3, drole_magic4 ] {ai_trackenemy();};
@@ -371,22 +371,22 @@ void() drole_pain6 = [ $pain6, drole_run ] {ai_back(4);};
 //----------------------------------------------------------------------
 void(entity inflictor, entity attacker, float damage) drole_pain =
 {
-	// Check all pain conditions and set up what to do next
-	monster_pain_check(attacker, damage);
+    // Check all pain conditions and set up what to do next
+    monster_pain_check(attacker, damage);
 
-	// Any pain animation/sound required?
-	if (self.pain_check > 0) {
-		if (self.attack_rage) sound (self, CHAN_VOICE, "drole/enrage.wav", 0.5, ATTN_NORM);
-		else sound (self, CHAN_VOICE, self.pain_sound, 1, ATTN_NORM);
+    // Any pain animation/sound required?
+    if (self.pain_check > 0) {
+        if (self.attack_rage) sound (self, CHAN_VOICE, "drole/enrage.wav", 0.5, ATTN_NORM);
+        else sound (self, CHAN_VOICE, self.pain_sound, 1, ATTN_NORM);
 
-		if (self.pain_check == 1) drole_pain1 ();
-		else if (self.pain_check == 2) {
-			// reset axe hit and setup short pain recovery
-			self.pain_finished = time + 0.6;
-			self.axhitme = 0;
-			drole_pain1 ();
-		}
-	}
+        if (self.pain_check == 1) drole_pain1 ();
+        else if (self.pain_check == 2) {
+            // reset axe hit and setup short pain recovery
+            self.pain_finished = time + 0.6;
+            self.axhitme = 0;
+            drole_pain1 ();
+        }
+    }
 };
 
 //============================================================================
@@ -421,14 +421,14 @@ void() drole_death26 = [ $death26, drole_death26 ] {monster_deadbody_check();};
 //----------------------------------------------------------------------
 void() drole_die =
 {
-	// Pre-check routine to tidy up extra entities
-	monster_death_precheck();
+    // Pre-check routine to tidy up extra entities
+    monster_death_precheck();
 
-	// regular death
-	if (!self.gibbed) {
-		sound (self, CHAN_VOICE, "drole/death.wav", 1, ATTN_NORM);
-		drole_death1 ();
-	}
+    // regular death
+    if (!self.gibbed) {
+        sound (self, CHAN_VOICE, "drole/death.wav", 1, ATTN_NORM);
+        drole_death1 ();
+    }
 };
 
 /*======================================================================
@@ -436,78 +436,78 @@ QUAKED monster_drole (1 0 0) (-32 -32 -24) (32 32 64) Ambush
 ======================================================================*/
 void() monster_drole =
 {
-	// Check all spawn exceptions (monsters.qc)
-	if (monster_checkspawn() == TRUE) return;
+    // Check all spawn exceptions (monsters.qc)
+    if (monster_checkspawn() == TRUE) return;
 
-	self.mdl = "progs/mon_drole.mdl";
-	self.headmdl = "progs/h_drole.mdl";
-	self.gib1mdl = "progs/gib_drolearm1.mdl";	// Top arm (pose 1)
-	self.gib2mdl = "progs/gib_drolearm2.mdl";	// Top arm (pose 2)
-	self.gib3mdl = "progs/gib_droleleg1.mdl";	// stretched out leg
+    self.mdl = "progs/mon_drole.mdl";
+    self.headmdl = "progs/h_drole.mdl";
+    self.gib1mdl = "progs/gib_drolearm1.mdl";   // Top arm (pose 1)
+    self.gib2mdl = "progs/gib_drolearm2.mdl";   // Top arm (pose 2)
+    self.gib3mdl = "progs/gib_droleleg1.mdl";   // stretched out leg
 
-	precache_model (self.mdl);
-	precache_model (self.headmdl);
-	precache_model (self.gib1mdl);
-	precache_model (self.gib2mdl);
-	precache_model (self.gib3mdl);
-	precache_model (MODEL_PROJ_DROLE);		// growing fireball
-	
-	self.idle_sound = "drole/idle.wav";
-	precache_sound (self.idle_sound);
+    precache_model (self.mdl);
+    precache_model (self.headmdl);
+    precache_model (self.gib1mdl);
+    precache_model (self.gib2mdl);
+    precache_model (self.gib3mdl);
+    precache_model (MODEL_PROJ_DROLE);      // growing fireball
+    
+    self.idle_sound = "drole/idle.wav";
+    precache_sound (self.idle_sound);
 
-	precache_sound ("drole/enrage.wav");	// sight2.wav
-	precache_sound ("drole/death.wav");
-	self.pain_sound = "drole/pain.wav";
-	precache_sound (self.pain_sound);
-	
-	precache_sound ("drole/fire.wav");		// Launch rockets
-	precache_sound ("drole/r_explode.wav");	// unique explosion sound
-	precache_sound ("drole/strike1.wav");	// melee impacts
-	precache_sound ("drole/strike2.wav");
-	precache_sound ("drole/swipe.wav");		// Missed melee
+    precache_sound ("drole/enrage.wav");    // sight2.wav
+    precache_sound ("drole/death.wav");
+    self.pain_sound = "drole/pain.wav";
+    precache_sound (self.pain_sound);
+    
+    precache_sound ("drole/fire.wav");      // Launch rockets
+    precache_sound ("drole/r_explode.wav"); // unique explosion sound
+    precache_sound ("drole/strike1.wav");   // melee impacts
+    precache_sound ("drole/strike2.wav");
+    precache_sound ("drole/swipe.wav");     // Missed melee
 
-	self.sight_sound = "drole/sight.wav";
-	precache_sound (self.sight_sound);
+    self.sight_sound = "drole/sight.wav";
+    precache_sound (self.sight_sound);
 
-	// Check for poisonous entity flag
-	if (self.poisonous) {
-		precache_poisongibs();			// precache gibs
-		self.gibtype = GIBTYPE_POISON;	// Poisonous blood trails
-		precache_model (MODEL_PROJ_DROLEGRN);	// growing poisonball
-	}
+    // Check for poisonous entity flag
+    if (self.poisonous) {
+        precache_poisongibs();          // precache gibs
+        self.gibtype = GIBTYPE_POISON;  // Poisonous blood trails
+        precache_model (MODEL_PROJ_DROLEGRN);   // growing poisonball
+    }
 
-	self.solid = SOLID_NOT;				// No interaction with world
-	self.movetype = MOVETYPE_NONE;		// Static item, no movement
-	if (self.bboxtype < 1) self.bboxtype = BBOX_GIANT;
-	if (self.health < 1) self.health = 500;
-	self.gibhealth = -60;				// Hard to gib
-	self.gibbed = FALSE;
-	self.pain_flinch = 200;				// takes alot to pain
-	self.pain_longanim = TRUE;			// can be chopped with shadow axe
-	self.pain_timeout = 2;				// High pain threshold
-	self.steptype = FS_TYPEHEAVY;		// heavy feet
-	self.attack_explosive = TRUE;			// Has explosive attack
-	self.blockudeath = TRUE;			// no humanoid death sound
-	self.attack_offset = '0 0 34';		// Middle of chest
-	self.deathstring = " was decimated by a Drole\n";
+    self.solid = SOLID_NOT;             // No interaction with world
+    self.movetype = MOVETYPE_NONE;      // Static item, no movement
+    if (self.bboxtype < 1) self.bboxtype = BBOX_GIANT;
+    if (self.health < 1) self.health = 500;
+    self.gibhealth = -60;               // Hard to gib
+    self.gibbed = FALSE;
+    self.pain_flinch = 200;             // takes alot to pain
+    self.pain_longanim = TRUE;          // can be chopped with shadow axe
+    self.pain_timeout = 2;              // High pain threshold
+    self.steptype = FS_TYPEHEAVY;       // heavy feet
+    self.attack_explosive = TRUE;           // Has explosive attack
+    self.blockudeath = TRUE;            // no humanoid death sound
+    self.attack_offset = '0 0 34';      // Middle of chest
+    self.deathstring = " was decimated by a Drole\n";
 
-	// Always reset Ammo Resistance to be consistent
-	self.resist_shells = self.resist_nails = 0;
-	self.resist_rockets = self.resist_cells = 0;
-	
-	self.th_checkattack = DroleCheckAttack;
-	self.th_stand = drole_standC1;
-	self.th_walk = drole_walk1;
-	self.th_run = drole_run;
-	self.th_melee = drole_melee;		// Claw attack
-	self.th_missile = drole_magic1;		// Fireball incoming!
-	self.th_updmissile = drole_rocket1;	// Update flying rocket
-	self.th_pain = drole_pain;
-	self.th_die = drole_die;
+    // Always reset Ammo Resistance to be consistent
+    self.resist_shells = self.resist_nails = 0;
+    self.resist_rockets = self.resist_cells = 0;
+    
+    self.th_checkattack = DroleCheckAttack;
+    self.th_stand = drole_standC1;
+    self.th_walk = drole_walk1;
+    self.th_run = drole_run;
+    self.th_melee = drole_melee;        // Claw attack
+    self.th_missile = drole_magic1;     // Fireball incoming!
+    self.th_updmissile = drole_rocket1; // Update flying rocket
+    self.th_pain = drole_pain;
+    self.th_die = drole_die;
 
-	self.classtype = CT_MONDROLE;
-	self.classgroup = CG_DEMON;
-	self.classmove = MON_MOVEWALK;
-	
-	monster_start();
+    self.classtype = CT_MONDROLE;
+    self.classgroup = CG_DEMON;
+    self.classmove = MON_MOVEWALK;
+    
+    monster_start();
 };

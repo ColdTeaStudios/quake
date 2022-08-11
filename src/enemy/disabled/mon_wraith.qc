@@ -36,15 +36,15 @@ $frame death9 death10 death11 death12 death13 death14 death15
 float BONEOFFSET = 8;
 float WRAITH_ALPHA = 0.7;
 float WRAITH_ALPHAFIRE = 1;
-float BALL_NAIL_COL1 = 0;		// Red
-float BALL_NAIL_COL2 = 1;		// Sickly yellow
-float BALL_SPIDER_COL1 = 1;		// Sickly yellow
-float BALL_DEBUFF_COL1 = 3;		// Glowing yellow/red
-float BALL_DEBUFF_COL2 = 3;		// Glowing yellow/red
-float FADEDEBUFF_TIME = 0.01;	// Small amount of time
-float WRAITH_SKINBLUE = 0;		// Fire wraith
-float WRAITH_SKINGREEN = 2;		// Spider version
-float WRAITH_SKINPURPLE = 4;	// Scorpion version
+float BALL_NAIL_COL1 = 0;       // Red
+float BALL_NAIL_COL2 = 1;       // Sickly yellow
+float BALL_SPIDER_COL1 = 1;     // Sickly yellow
+float BALL_DEBUFF_COL1 = 3;     // Glowing yellow/red
+float BALL_DEBUFF_COL2 = 3;     // Glowing yellow/red
+float FADEDEBUFF_TIME = 0.01;   // Small amount of time
+float WRAITH_SKINBLUE = 0;      // Fire wraith
+float WRAITH_SKINGREEN = 2;     // Spider version
+float WRAITH_SKINPURPLE = 4;    // Scorpion version
 
 //======================================================================
 void() wraith_stand1 =[ $stand4, wraith_stand2 ] { monster_idle_sound();ai_stand();};
@@ -74,11 +74,11 @@ void() wraith_walk10 =[ $stand12, wraith_walk1 ] { ai_walk(8);};
 
 //======================================================================
 void() wraith_run1 =[ $stand3, wraith_run2 ] {monster_idle_sound();
-	if (self.meleeattack < time) {
-		self.meleeattack = time + 4 + (random() + random() + random() * 4);
-		self.lefty = rint(1 - self.lefty);
-	}
-	ai_run(8);
+    if (self.meleeattack < time) {
+        self.meleeattack = time + 4 + (random() + random() + random() * 4);
+        self.lefty = rint(1 - self.lefty);
+    }
+    ai_run(8);
 };
 void() wraith_run2 =[ $stand4, wraith_run3 ] {ai_run(7);};
 void() wraith_run3 =[ $stand5, wraith_run3 ] {ai_run(7);};
@@ -95,63 +95,63 @@ void() wraith_run10 =[ $stand12, wraith_run3 ] {ai_run(8);};
 //============================================================================
 void() wraith_create_attachment =
 {
-	// Are the attachments setup yet?
-	if (!self.attachment) {
-		self.attachment = spawn();
-		self.attachment.owner = self;
-		self.attachment.classtype = CT_ATTACHMENT;
-		self.attachment.mdl = MODEL_PROJ_WBALL;
-		self.attachment.alpha = 0.85;
-	}
-	if (!self.attachment2) {
-		self.attachment2 = spawn();
-		self.attachment2.owner = self;
-		self.attachment2.classtype = CT_ATTACHMENT;
-		self.attachment2.mdl = MODEL_PROJ_WBALL;
-		self.attachment2.alpha = 0.85;
-	}
-	if (!self.attachment3) {
-		self.attachment3 = spawn();
-		self.attachment3.owner = self;
-		self.attachment3.classtype = CT_ATTACHMENT;
-		self.attachment3.mdl = self.weaponglow;
-		self.attachment3.alpha = 0.5;
-	}
+    // Are the attachments setup yet?
+    if (!self.attachment) {
+        self.attachment = spawn();
+        self.attachment.owner = self;
+        self.attachment.classtype = CT_ATTACHMENT;
+        self.attachment.mdl = MODEL_PROJ_WBALL;
+        self.attachment.alpha = 0.85;
+    }
+    if (!self.attachment2) {
+        self.attachment2 = spawn();
+        self.attachment2.owner = self;
+        self.attachment2.classtype = CT_ATTACHMENT;
+        self.attachment2.mdl = MODEL_PROJ_WBALL;
+        self.attachment2.alpha = 0.85;
+    }
+    if (!self.attachment3) {
+        self.attachment3 = spawn();
+        self.attachment3.owner = self;
+        self.attachment3.classtype = CT_ATTACHMENT;
+        self.attachment3.mdl = self.weaponglow;
+        self.attachment3.alpha = 0.5;
+    }
 };
 
 //----------------------------------------------------------------------
 void() wraith_finish_attachment =
 {
-	if (self.attachment) {
-		setmodel(self.attachment, "");
-		self.attachment.state = STATE_OFF;
-	}
-	if (self.attachment2) {
-		setmodel(self.attachment2, "");
-		self.attachment2.state = STATE_OFF;
-	}
-	if (self.attachment3) {
-		setmodel(self.attachment3, "");
-		self.attachment3.state = STATE_OFF;
-		self.attachment3.velocity = '0 0 0';
-	}
+    if (self.attachment) {
+        setmodel(self.attachment, "");
+        self.attachment.state = STATE_OFF;
+    }
+    if (self.attachment2) {
+        setmodel(self.attachment2, "");
+        self.attachment2.state = STATE_OFF;
+    }
+    if (self.attachment3) {
+        setmodel(self.attachment3, "");
+        self.attachment3.state = STATE_OFF;
+        self.attachment3.velocity = '0 0 0';
+    }
 };
 
 //----------------------------------------------------------------------
 void() wraith_remove_attachment =
 {
-	if (self.attachment) {
-		self.attachment.think = SUB_Remove;
-		self.attachment.nextthink = time + 0.1;
-	}
-	if (self.attachment2) {
-		self.attachment2.think = SUB_Remove;
-		self.attachment2.nextthink = time + 0.1;
-	}
-	if (self.attachment3) {
-		self.attachment3.think = SUB_Remove;
-		self.attachment3.nextthink = time + 0.1;
-	}
+    if (self.attachment) {
+        self.attachment.think = SUB_Remove;
+        self.attachment.nextthink = time + 0.1;
+    }
+    if (self.attachment2) {
+        self.attachment2.think = SUB_Remove;
+        self.attachment2.nextthink = time + 0.1;
+    }
+    if (self.attachment3) {
+        self.attachment3.think = SUB_Remove;
+        self.attachment3.nextthink = time + 0.1;
+    }
 };
 
 //======================================================================
@@ -164,10 +164,10 @@ void() debuff_fade =
 
     if (self.alpha < 0.2) {
         self.alpha = 0;
-		self.modelindex = 0;		// Make sure no model
-        self.model = "";			// hide model
-		self.think = SUB_Remove;
-		self.nextthink = time + 0.1;
+        self.modelindex = 0;        // Make sure no model
+        self.model = "";            // hide model
+        self.think = SUB_Remove;
+        self.nextthink = time + 0.1;
         return;
     }
     self.nextthink = time + FADEDEBUFF_TIME;
@@ -178,9 +178,9 @@ void() debuff_fade =
 //----------------------------------------------------------------------
 void() wraith_debuff_chunk =
 {
-	self.think = debuff_fade;
-	self.nextthink = time + FADEDEBUFF_TIME;
-	self.ltime = self.nextthink;
+    self.think = debuff_fade;
+    self.nextthink = time + FADEDEBUFF_TIME;
+    self.ltime = self.nextthink;
 };
 
 //----------------------------------------------------------------------
@@ -188,16 +188,16 @@ void() wraith_debuff_chunk =
 //----------------------------------------------------------------------
 void() wraith_debuff_shrink =
 {
-	// Count downwards getting smaller
-	self.lip = self.frame - 1;
-	if (self.lip < 0) wraith_debuff_chunk();
-	else {
-		// Check frame number before assigning
-		// Cannot set models with negative frame numbers
-		self.frame = self.lip;
-		self.think = wraith_debuff_shrink;
-		self.nextthink = time + 0.1;
-	}
+    // Count downwards getting smaller
+    self.lip = self.frame - 1;
+    if (self.lip < 0) wraith_debuff_chunk();
+    else {
+        // Check frame number before assigning
+        // Cannot set models with negative frame numbers
+        self.frame = self.lip;
+        self.think = wraith_debuff_shrink;
+        self.nextthink = time + 0.1;
+    }
 };
 
 //======================================================================
@@ -209,236 +209,236 @@ void() wraith_debuff_shrink =
 //======================================================================
 void() wraith_fire_touch =
 {
-	if (other.solid == SOLID_TRIGGER) return;
-	if (other.classtype == CT_TEMPSTREAM) return;
-	if (other.health > 0) return;
-	if (self.attack_finished > time) return;
+    if (other.solid == SOLID_TRIGGER) return;
+    if (other.classtype == CT_TEMPSTREAM) return;
+    if (other.health > 0) return;
+    if (self.attack_finished > time) return;
 
-	self.attack_finished = time + 1;
-	self.modelindex = 0;		// Make sure no model
-	self.model = "";			// hide model
-	self.think = SUB_Remove;
-	self.nextthink = time + 0.1;
+    self.attack_finished = time + 1;
+    self.modelindex = 0;        // Make sure no model
+    self.model = "";            // hide model
+    self.think = SUB_Remove;
+    self.nextthink = time + 0.1;
 };
 
 //----------------------------------------------------------------------
 void() wraith_fire_think =
 {
-	// Randomly drift upwards and slow down forward movement
-	self.velocity_z = self.velocity_z + 10 + (random() * 20);
-	self.velocity = self.velocity - (self.velocity * 0.125);
-	
-	self.frame = self.frame + 1;
-	if (self.frame > self.count) SUB_Remove();
-	else self.nextthink = time + 0.1;
+    // Randomly drift upwards and slow down forward movement
+    self.velocity_z = self.velocity_z + 10 + (random() * 20);
+    self.velocity = self.velocity - (self.velocity * 0.125);
+    
+    self.frame = self.frame + 1;
+    if (self.frame > self.count) SUB_Remove();
+    else self.nextthink = time + 0.1;
 };
 
 //----------------------------------------------------------------------
 void(vector start_org) wraith_debuff_explode =
 {
-	local float fire_loop;
-	local vector fire_angles, org, dir;
-	
-	fire_loop = 0;
-	fire_angles = '0 0 0';
-	
-	while (fire_loop < 360) {
-		newmis = spawn();
-		newmis.classtype = CT_TEMPSTREAM;
-		newmis.movetype = MOVETYPE_FLY;		// Fly, no gravity
-		newmis.solid = SOLID_TRIGGER;
-		setmodel(newmis, SBURST_FLAME);
+    local float fire_loop;
+    local vector fire_angles, org, dir;
+    
+    fire_loop = 0;
+    fire_angles = '0 0 0';
+    
+    while (fire_loop < 360) {
+        newmis = spawn();
+        newmis.classtype = CT_TEMPSTREAM;
+        newmis.movetype = MOVETYPE_FLY;     // Fly, no gravity
+        newmis.solid = SOLID_TRIGGER;
+        setmodel(newmis, SBURST_FLAME);
 
-		org = start_org;
-		org_z = org_z + (crandom() * 24);
-		setorigin(newmis, org);
-		setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
+        org = start_org;
+        org_z = org_z + (crandom() * 24);
+        setorigin(newmis, org);
+        setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 
-		fire_angles_y = fire_loop;
-		makevectors(fire_angles);
-		dir = vecrand(0,50,FALSE);
-		dir = dir + (v_forward * (400 + random() * 50));
-		newmis.velocity = dir;
-		newmis.count = 6;
-		newmis.frame = rint(random()*2);
+        fire_angles_y = fire_loop;
+        makevectors(fire_angles);
+        dir = vecrand(0,50,FALSE);
+        dir = dir + (v_forward * (400 + random() * 50));
+        newmis.velocity = dir;
+        newmis.count = 6;
+        newmis.frame = rint(random()*2);
 
-		// If DP engine active remove particle shadow
-		if (engine == ENG_DPEXT) newmis.effects = newmis.effects + EF_NOSHADOW;
+        // If DP engine active remove particle shadow
+        if (engine == ENG_DPEXT) newmis.effects = newmis.effects + EF_NOSHADOW;
 
-		newmis.think = wraith_fire_think;
-		newmis.touch = wraith_fire_touch;
-		newmis.nextthink = time + 0.1;
-		
-		fire_loop = fire_loop + rint(random()*15);
-	}
+        newmis.think = wraith_fire_think;
+        newmis.touch = wraith_fire_touch;
+        newmis.nextthink = time + 0.1;
+        
+        fire_loop = fire_loop + rint(random()*15);
+    }
 };
 
 //----------------------------------------------------------------------
 void() wraith_debuff_trail =
 {
-	local vector org, orgofs, dir, tvec, tang;
-	local float tdist, tloop, tcount, tpc;
-	local entity tent;
+    local vector org, orgofs, dir, tvec, tang;
+    local float tdist, tloop, tcount, tpc;
+    local entity tent;
 
-	// Starting point of beam matched to wraith animation
-	makevectors (self.angles);
-	orgofs = '52 4 6';
+    // Starting point of beam matched to wraith animation
+    makevectors (self.angles);
+    orgofs = '52 4 6';
 
-	// Calculate starting point and beam and vector direction
-	org = self.origin + attack_vector(orgofs);
-	tvec = SUB_orgEnemyTarget() - org;
-	// Create facing angle for segments
-	dir = normalize(tvec);
-	tang = vectoangles(dir);
-	
-	// Check for solid wall very close
-	tpc = pointcontents(org);
-	if (tpc == CONTENT_SOLID || tpc == CONTENT_SKY) return;
-	tpc = pointcontents(org+(dir*16));
-	if (tpc == CONTENT_SOLID || tpc == CONTENT_SKY) return;
-	
-	// Check for obstacles (geo and monsters)
-	traceline(org, SUB_orgEnemyTarget(), FALSE, self);
-	tdist = trace_fraction * vlen(tvec);
-	if (tdist < 32) return;
-	tloop = tdist / 32;
-	tcount = 0;
+    // Calculate starting point and beam and vector direction
+    org = self.origin + attack_vector(orgofs);
+    tvec = SUB_orgEnemyTarget() - org;
+    // Create facing angle for segments
+    dir = normalize(tvec);
+    tang = vectoangles(dir);
+    
+    // Check for solid wall very close
+    tpc = pointcontents(org);
+    if (tpc == CONTENT_SOLID || tpc == CONTENT_SKY) return;
+    tpc = pointcontents(org+(dir*16));
+    if (tpc == CONTENT_SOLID || tpc == CONTENT_SKY) return;
+    
+    // Check for obstacles (geo and monsters)
+    traceline(org, SUB_orgEnemyTarget(), FALSE, self);
+    tdist = trace_fraction * vlen(tvec);
+    if (tdist < 32) return;
+    tloop = tdist / 32;
+    tcount = 0;
 
-	//----------------------------------------------------------------------
-	// Originally - BleedDeBuff(SUB_entEnemyTarget());
-	// New version - Fire explosion + burning
-	if (trace_ent.flags & FL_CLIENT) {
-		self.owner = self;	// Fix for T_damage inside ApplyFireDmg
-		ApplyFireDmg(SUB_entEnemyTarget(), DAMAGE_PYROWRAITH, DAMAGE_PYROWRAITH);
-	}
-	else if (ai_foundbreakable(self, trace_ent, FALSE))
-		T_Damage (trace_ent, self, self, 100, DAMARMOR);
-	
-	//----------------------------------------------------------------------
-	// Generate particle beam in segments
-	while(tcount < tloop) {
-		// Create segment in the middle of 32 segment
-		tvec = org + (dir* (16 + tcount*32) );
+    //----------------------------------------------------------------------
+    // Originally - BleedDeBuff(SUB_entEnemyTarget());
+    // New version - Fire explosion + burning
+    if (trace_ent.flags & FL_CLIENT) {
+        self.owner = self;  // Fix for T_damage inside ApplyFireDmg
+        ApplyFireDmg(SUB_entEnemyTarget(), DAMAGE_PYROWRAITH, DAMAGE_PYROWRAITH);
+    }
+    else if (ai_foundbreakable(self, trace_ent, FALSE))
+        T_Damage (trace_ent, self, self, 100, DAMARMOR);
+    
+    //----------------------------------------------------------------------
+    // Generate particle beam in segments
+    while(tcount < tloop) {
+        // Create segment in the middle of 32 segment
+        tvec = org + (dir* (16 + tcount*32) );
 
-		// Spawn temporary entity
-		tent = spawn();
-		tent.owner = self;
-		tent.classtype = CT_PROJ_WBOLT;
-		setsize (tent, VEC_ORIGIN, VEC_ORIGIN);
-		tent.movetype = MOVETYPE_FLYMISSILE;	// Needs to float up
-		tent.solid = SOLID_NOT;
-		
-		// Special animated particle model (still, slow rotate, fast rotate)
-		setmodel(tent, MODEL_PROJ_WTRAIL);
-		setorigin(tent, tvec);
-		
-		tent.velocity = -v_up*5;	// Slowly drift up to create trail particles
-		tent.angles = tang;			// Rotate segment into place
-		tent.frame = 2;				// Fast rotate animation group
-		tent.skin = 3;				// Flame yellow/red
-		tcount = tcount + 1;		// Next segment
-		
-		// Wait around for a while before fading out
-		tent.think = wraith_debuff_chunk;
-		tent.nextthink = time + (tcount *0.05);
-	}
+        // Spawn temporary entity
+        tent = spawn();
+        tent.owner = self;
+        tent.classtype = CT_PROJ_WBOLT;
+        setsize (tent, VEC_ORIGIN, VEC_ORIGIN);
+        tent.movetype = MOVETYPE_FLYMISSILE;    // Needs to float up
+        tent.solid = SOLID_NOT;
+        
+        // Special animated particle model (still, slow rotate, fast rotate)
+        setmodel(tent, MODEL_PROJ_WTRAIL);
+        setorigin(tent, tvec);
+        
+        tent.velocity = -v_up*5;    // Slowly drift up to create trail particles
+        tent.angles = tang;         // Rotate segment into place
+        tent.frame = 2;             // Fast rotate animation group
+        tent.skin = 3;              // Flame yellow/red
+        tcount = tcount + 1;        // Next segment
+        
+        // Wait around for a while before fading out
+        tent.think = wraith_debuff_chunk;
+        tent.nextthink = time + (tcount *0.05);
+    }
 
-	// Workout final destination of explosion and effects
-	self.finaldest = tvec+(dir *16);
+    // Workout final destination of explosion and effects
+    self.finaldest = tvec+(dir *16);
 
-	//----------------------------------------------------------------------
-	// Spawn a ball of plasma at the final destionation
-	// Shrinking downwards in size over 0.1s frames
-	tent = spawn();
-	tent.owner = self;
-	tent.classtype = CT_PROJ_WBOLT;
-	setsize (tent, VEC_ORIGIN, VEC_ORIGIN);
-	tent.movetype = MOVETYPE_FLYMISSILE;// Needs to float upward
-	tent.solid = SOLID_NOT;
-	setmodel(tent, MODEL_PROJ_WBALL);	// Initial ball
-	setorigin(tent, self.finaldest);	// Move ball to end of final segment
-	tent.velocity = -v_up*5;			// Slowly drift upwards
-	tent.avelocity = '100 100 100';		// Slight rotation on all axis
-	tent.frame = 6;						// Start really large
-	tent.skin = BALL_DEBUFF_COL2;
-	tent.think = wraith_debuff_shrink;	// Animate manually
-	tent.nextthink = time + 0.1;
+    //----------------------------------------------------------------------
+    // Spawn a ball of plasma at the final destionation
+    // Shrinking downwards in size over 0.1s frames
+    tent = spawn();
+    tent.owner = self;
+    tent.classtype = CT_PROJ_WBOLT;
+    setsize (tent, VEC_ORIGIN, VEC_ORIGIN);
+    tent.movetype = MOVETYPE_FLYMISSILE;// Needs to float upward
+    tent.solid = SOLID_NOT;
+    setmodel(tent, MODEL_PROJ_WBALL);   // Initial ball
+    setorigin(tent, self.finaldest);    // Move ball to end of final segment
+    tent.velocity = -v_up*5;            // Slowly drift upwards
+    tent.avelocity = '100 100 100';     // Slight rotation on all axis
+    tent.frame = 6;                     // Start really large
+    tent.skin = BALL_DEBUFF_COL2;
+    tent.think = wraith_debuff_shrink;  // Animate manually
+    tent.nextthink = time + 0.1;
 
-	//----------------------------------------------------------------------
-	// Generate particle explosion (+ sound effect)
-	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
-	WriteByte (MSG_BROADCAST, TE_EXPLOSION);	// hard coded explosion
-	WriteCoord (MSG_BROADCAST, self.finaldest_x);
-	WriteCoord (MSG_BROADCAST, self.finaldest_y);
-	WriteCoord (MSG_BROADCAST, self.finaldest_z);
-	// Play original explosion sound
-	sound(tent, CHAN_WEAPON, "drole/r_explode.wav", 1, ATTN_NORM);
+    //----------------------------------------------------------------------
+    // Generate particle explosion (+ sound effect)
+    WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+    WriteByte (MSG_BROADCAST, TE_EXPLOSION);    // hard coded explosion
+    WriteCoord (MSG_BROADCAST, self.finaldest_x);
+    WriteCoord (MSG_BROADCAST, self.finaldest_y);
+    WriteCoord (MSG_BROADCAST, self.finaldest_z);
+    // Play original explosion sound
+    sound(tent, CHAN_WEAPON, "drole/r_explode.wav", 1, ATTN_NORM);
 
-	//----------------------------------------------------------------------
-	// Large circular flame explosion
-	wraith_debuff_explode(self.finaldest);
+    //----------------------------------------------------------------------
+    // Large circular flame explosion
+    wraith_debuff_explode(self.finaldest);
 };
 
 //----------------------------------------------------------------------
 void(entity handent, vector orgofs, vector orgside, float dbframe) wraith_debuffball =
 {
-	local vector org;
-	
-	// Frame 0 is start of the sequence (move everything into place)
-	if (dbframe == 0) {
-		handent.state = STATE_ON;
-		setorigin(handent, self.origin);
-		setmodel(handent, handent.mdl);
-		setsize (handent, VEC_ORIGIN, VEC_ORIGIN);
-		handent.movetype = MOVETYPE_NONE;
-		handent.solid = SOLID_NOT;
-		handent.skin = BALL_DEBUFF_COL1;
-	}
-	
-	// Generate attachment in hand (left)
-	org = self.origin + v_forward*orgofs_x + orgside*orgofs_y + v_up*orgofs_z;
-	setorigin(handent, org);
-	handent.angles_y = rint(random()*359);
-	handent.frame = dbframe;
+    local vector org;
+    
+    // Frame 0 is start of the sequence (move everything into place)
+    if (dbframe == 0) {
+        handent.state = STATE_ON;
+        setorigin(handent, self.origin);
+        setmodel(handent, handent.mdl);
+        setsize (handent, VEC_ORIGIN, VEC_ORIGIN);
+        handent.movetype = MOVETYPE_NONE;
+        handent.solid = SOLID_NOT;
+        handent.skin = BALL_DEBUFF_COL1;
+    }
+    
+    // Generate attachment in hand (left)
+    org = self.origin + v_forward*orgofs_x + orgside*orgofs_y + v_up*orgofs_z;
+    setorigin(handent, org);
+    handent.angles_y = rint(random()*359);
+    handent.frame = dbframe;
 };
 
 //----------------------------------------------------------------------
 void(vector orgofs, float dbframe) wraith_debuff =
 {
-	if (self.health < 1) return;
-	
-	if (dbframe == 0) {
-		self.pain_finished = time + 1.1;
-		sound (self, CHAN_WEAPON, "wraith/attack1.wav", 1, ATTN_NORM);
+    if (self.health < 1) return;
+    
+    if (dbframe == 0) {
+        self.pain_finished = time + 1.1;
+        sound (self, CHAN_WEAPON, "wraith/attack1.wav", 1, ATTN_NORM);
 
-		// Setup halo/glow models around wraith (5% larger)
-		setorigin(self.attachment3, self.origin);
-		setmodel(self.attachment3, self.attachment3.mdl);
-		setsize (self.attachment3, VEC_ORIGIN, VEC_ORIGIN);
-		self.attachment3.movetype = MOVETYPE_NONE;
-		self.attachment3.solid = SOLID_NOT;
-	}
-	
-	// Should be visible during attack cycle
-	self.skin = self.exactskin + 1;
-	self.alpha = WRAITH_ALPHAFIRE;
-	// Particles drifting up slowly from body
-	particle_explode(self.origin, 20, 2, self.part_style, PARTICLE_BURST_UPWARD);
-	// Update halo/glow model
-	self.attachment3.angles = self.angles;
-	self.attachment3.frame = self.frame;
-	self.attachment3.velocity = self.velocity;
-	// Randomly change alpha to make glow flicker
-	self.attachment3.alpha = 0.1 + random()*0.5;
+        // Setup halo/glow models around wraith (5% larger)
+        setorigin(self.attachment3, self.origin);
+        setmodel(self.attachment3, self.attachment3.mdl);
+        setsize (self.attachment3, VEC_ORIGIN, VEC_ORIGIN);
+        self.attachment3.movetype = MOVETYPE_NONE;
+        self.attachment3.solid = SOLID_NOT;
+    }
+    
+    // Should be visible during attack cycle
+    self.skin = self.exactskin + 1;
+    self.alpha = WRAITH_ALPHAFIRE;
+    // Particles drifting up slowly from body
+    particle_explode(self.origin, 20, 2, self.part_style, PARTICLE_BURST_UPWARD);
+    // Update halo/glow model
+    self.attachment3.angles = self.angles;
+    self.attachment3.frame = self.frame;
+    self.attachment3.velocity = self.velocity;
+    // Randomly change alpha to make glow flicker
+    self.attachment3.alpha = 0.1 + random()*0.5;
 
 
-	// Keep turning towards enemy
-	ai_face();
-	makevectors(self.angles);
-	
-	// Generate a ball in each hand
-	wraith_debuffball(self.attachment, orgofs, v_right, dbframe);
-	wraith_debuffball(self.attachment2, orgofs, -v_right, dbframe);
+    // Keep turning towards enemy
+    ai_face();
+    makevectors(self.angles);
+    
+    // Generate a ball in each hand
+    wraith_debuffball(self.attachment, orgofs, v_right, dbframe);
+    wraith_debuffball(self.attachment2, orgofs, -v_right, dbframe);
 };
 
 //----------------------------------------------------------------------
@@ -459,10 +459,10 @@ void() wraith_magicA9 =[ $magicA9, wraith_magicA10 ] {wraith_debuff('32 38 20',4
 void() wraith_magicA10 =[ $magicA10, wraith_magicA11 ] {wraith_debuff('48 26 10',5);};
 void() wraith_magicA11 =[ $magicA11, wraith_magicA12 ] {wraith_debuff('52 14 6',5);};
 void() wraith_magicA12 =[ $magicA12, wraith_magicA13 ] {
-	wraith_debuff('52 4 6',6);
-	wraith_debuff_trail(); 
-	self.skin = self.exactskin; 
-	self.alpha = WRAITH_ALPHA;
+    wraith_debuff('52 4 6',6);
+    wraith_debuff_trail(); 
+    self.skin = self.exactskin; 
+    self.alpha = WRAITH_ALPHA;
 };
 void() wraith_magicA13 =[ $magicA13, wraith_magicA14 ] {wraith_finish_attachment();};
 void() wraith_magicA14 =[ $magicA14, wraith_run1 ] {};
@@ -475,59 +475,59 @@ void() wraith_magicA14 =[ $magicA14, wraith_run1 ] {};
 //======================================================================
 void(vector orgofs, float nbframe) wraith_nailball =
 {
-	local vector org;
-	if (self.health < 1) return;
+    local vector org;
+    if (self.health < 1) return;
 
-	// Frame 0 is start of the sequence (move everything into place)
-	if (nbframe == 0) {
-		self.attachment.state = STATE_ON;
-		setorigin(self.attachment, self.origin);
-		setmodel(self.attachment, self.attachment.mdl);
-		setsize (self.attachment, VEC_ORIGIN, VEC_ORIGIN);
-		self.attachment.movetype = MOVETYPE_NONE;
-		self.attachment.solid = SOLID_NOT;
-		// Setup regular/poison projectile
-		if (self.spawnflags & MON_WRAITH_SPIDERS) self.attachment.skin = BALL_NAIL_COL2;
-		else self.attachment.skin = BALL_NAIL_COL1;
+    // Frame 0 is start of the sequence (move everything into place)
+    if (nbframe == 0) {
+        self.attachment.state = STATE_ON;
+        setorigin(self.attachment, self.origin);
+        setmodel(self.attachment, self.attachment.mdl);
+        setsize (self.attachment, VEC_ORIGIN, VEC_ORIGIN);
+        self.attachment.movetype = MOVETYPE_NONE;
+        self.attachment.solid = SOLID_NOT;
+        // Setup regular/poison projectile
+        if (self.spawnflags & MON_WRAITH_SPIDERS) self.attachment.skin = BALL_NAIL_COL2;
+        else self.attachment.skin = BALL_NAIL_COL1;
 
-		self.pain_finished = time + 1;
-		sound (self, CHAN_WEAPON, "wraith/attack2.wav", 1, ATTN_NORM);
-	}
-	
-	// Turn towards enemy and make vector
-	ai_face();
-	makevectors(self.angles);
-	
-	// Generate attachment in hand (left)
-	org = self.origin + attack_vector(orgofs);
-	setorigin(self.attachment, org);
-	self.attachment.angles_y = rint(random()*359);
-	self.attachment.frame = nbframe;
+        self.pain_finished = time + 1;
+        sound (self, CHAN_WEAPON, "wraith/attack2.wav", 1, ATTN_NORM);
+    }
+    
+    // Turn towards enemy and make vector
+    ai_face();
+    makevectors(self.angles);
+    
+    // Generate attachment in hand (left)
+    org = self.origin + attack_vector(orgofs);
+    setorigin(self.attachment, org);
+    self.attachment.angles_y = rint(random()*359);
+    self.attachment.frame = nbframe;
 };
 
 //----------------------------------------------------------------------
 void(vector boneofs) wraith_firenails =
 {
-	local vector org, dir;
-	if (self.health < 1) return;
-	
-	self.attack_speed = SPEED_WRAITHBONE + (skill * SPEED_WBONESKILL);
-	makevectors(self.angles);
+    local vector org, dir;
+    if (self.health < 1) return;
+    
+    self.attack_speed = SPEED_WRAITHBONE + (skill * SPEED_WBONESKILL);
+    makevectors(self.angles);
 
-	// Generate spike/bone at final animation position
-	org = self.origin + attack_vector(boneofs);
-	dir = SUB_orgEnemyTarget() + v_right*(BONEOFFSET*3);
-	dir = normalize(dir - org);
-	launch_projectile (org, dir, CT_PROJ_WBONE, self.attack_speed+random()*25);
-	dir = SUB_orgEnemyTarget() - v_right*(BONEOFFSET*3);
-	dir = normalize(dir - org);
-	launch_projectile (org, dir, CT_PROJ_WBONE, self.attack_speed+random()*25);
-	dir = SUB_orgEnemyTarget() + v_up*BONEOFFSET;
-	dir = normalize(dir - org);
-	launch_projectile (org, dir, CT_PROJ_WBONE, self.attack_speed+random()*25);
-	dir = SUB_orgEnemyTarget() - v_up*BONEOFFSET;
-	dir = normalize(dir - org);
-	launch_projectile (org, dir, CT_PROJ_WBONE, self.attack_speed+random()*25);
+    // Generate spike/bone at final animation position
+    org = self.origin + attack_vector(boneofs);
+    dir = SUB_orgEnemyTarget() + v_right*(BONEOFFSET*3);
+    dir = normalize(dir - org);
+    launch_projectile (org, dir, CT_PROJ_WBONE, self.attack_speed+random()*25);
+    dir = SUB_orgEnemyTarget() - v_right*(BONEOFFSET*3);
+    dir = normalize(dir - org);
+    launch_projectile (org, dir, CT_PROJ_WBONE, self.attack_speed+random()*25);
+    dir = SUB_orgEnemyTarget() + v_up*BONEOFFSET;
+    dir = normalize(dir - org);
+    launch_projectile (org, dir, CT_PROJ_WBONE, self.attack_speed+random()*25);
+    dir = SUB_orgEnemyTarget() - v_up*BONEOFFSET;
+    dir = normalize(dir - org);
+    launch_projectile (org, dir, CT_PROJ_WBONE, self.attack_speed+random()*25);
 };
 
 //----------------------------------------------------------------------
@@ -536,7 +536,7 @@ void(vector boneofs) wraith_firenails =
 // 32 22 0, 29 29 6, 15 33 16, 4 28 24, -6 20 24, -10 16 20, 6 16 14, 
 // 14 16 10, 54 5 6, 60 4 14
 void() wraith_nails1 =[ $magicC1, wraith_magicC2 ] {ai_face();
-	SUB_AttackFinished(1 + random());	// Fire more frequent
+    SUB_AttackFinished(1 + random());   // Fire more frequent
 };
 void() wraith_magicC2 =[ $magicC2, wraith_magicC3 ] {ai_face();};
 void() wraith_magicC3 =[ $magicC3, wraith_magicC4 ] {wraith_nailball('15 33 16',0);};
@@ -547,8 +547,8 @@ void() wraith_magicC7 =[ $magicC7, wraith_magicC8 ] {wraith_nailball('6 16 14',4
 void() wraith_magicC8 =[ $magicC8, wraith_magicC9 ] {wraith_nailball('14 16 10',5);};
 void() wraith_magicC9 =[ $magicC9, wraith_magicC10 ] {wraith_nailball('54 5 6',6);};
 void() wraith_magicC10 =[ $magicC10, wraith_magicC11 ] {
-	wraith_finish_attachment();
-	wraith_firenails('60 4 14');
+    wraith_finish_attachment();
+    wraith_firenails('60 4 14');
 };
 void() wraith_magicC11 =[ $magicC11, wraith_magicC12 ] {monster_idle_sound();};
 void() wraith_magicC12 =[ $magicC12, wraith_magicC13 ] {};
@@ -564,35 +564,35 @@ void() wraith_magicC15 =[ $magicC15, wraith_run1 ] {ai_face();};
 //======================================================================
 void(vector eggofs, float eggframe) Setup_WraithEgg =
 {
-	local vector org;
-	if (self.health < 1) return;
-	
-	// Frame 0 is start of the sequence (move everything into place)
-	if (eggframe == 0) {
-		self.attachment.state = STATE_ON;
-		setorigin(self.attachment, self.origin);
-		setmodel(self.attachment, self.attachment.mdl);
-		setsize (self.attachment, VEC_ORIGIN, VEC_ORIGIN);
-		self.attachment.movetype = MOVETYPE_NONE;
-		self.attachment.solid = SOLID_NOT;
-		self.attachment.skin = BALL_SPIDER_COL1;
+    local vector org;
+    if (self.health < 1) return;
+    
+    // Frame 0 is start of the sequence (move everything into place)
+    if (eggframe == 0) {
+        self.attachment.state = STATE_ON;
+        setorigin(self.attachment, self.origin);
+        setmodel(self.attachment, self.attachment.mdl);
+        setsize (self.attachment, VEC_ORIGIN, VEC_ORIGIN);
+        self.attachment.movetype = MOVETYPE_NONE;
+        self.attachment.solid = SOLID_NOT;
+        self.attachment.skin = BALL_SPIDER_COL1;
 
-		// Present wraith from going into pain during egg cycle
-		self.pain_finished = time + 1;
-		sound (self, CHAN_WEAPON, "wraith/attack3.wav", 1, ATTN_NORM);
-		// Should be visible during spawn minion cycle
-		self.skin = self.exactskin + 1;
-		self.alpha = WRAITH_ALPHAFIRE;
-	}
+        // Present wraith from going into pain during egg cycle
+        self.pain_finished = time + 1;
+        sound (self, CHAN_WEAPON, "wraith/attack3.wav", 1, ATTN_NORM);
+        // Should be visible during spawn minion cycle
+        self.skin = self.exactskin + 1;
+        self.alpha = WRAITH_ALPHAFIRE;
+    }
 
-	// Turn towards enemy and update model attachment
-	// The offset is based on the wraith facing forward
-	ai_face();
-	makevectors(self.angles);
-	org = self.origin + attack_vector(eggofs);
-	setorigin(self.attachment, org);
-	self.attachment.angles = self.angles;
-	self.attachment.frame = eggframe;
+    // Turn towards enemy and update model attachment
+    // The offset is based on the wraith facing forward
+    ai_face();
+    makevectors(self.angles);
+    org = self.origin + attack_vector(eggofs);
+    setorigin(self.attachment, org);
+    self.attachment.angles = self.angles;
+    self.attachment.frame = eggframe;
 };
 
 //======================================================================
@@ -610,12 +610,12 @@ void() wraith_magicB6 =[ $magicB6, wraith_magicB7 ] {Setup_WraithEgg('20 2 12',4
 void() wraith_magicB7 =[ $magicB7, wraith_magicB8 ] {Setup_WraithEgg('18 2 12',5);};
 void() wraith_magicB8 =[ $magicB8, wraith_magicB9 ] {Setup_WraithEgg('20 2 12',6);};
 void() wraith_magicB9 =[ $magicB9, wraith_magicB10 ] {
-	self.skin = self.exactskin;	// Not glowing anymore
-	self.alpha = WRAITH_ALPHA;	// Fade out
-	wraith_finish_attachment();
-	Create_Egg('20 2 12');
-	// Particles drifting up slowly from body
-	particle_explode(self.origin, 30, 2, self.part_style, PARTICLE_BURST_UPWARD);
+    self.skin = self.exactskin; // Not glowing anymore
+    self.alpha = WRAITH_ALPHA;  // Fade out
+    wraith_finish_attachment();
+    Create_Egg('20 2 12');
+    // Particles drifting up slowly from body
+    particle_explode(self.origin, 30, 2, self.part_style, PARTICLE_BURST_UPWARD);
 
 };
 void() wraith_magicB10 =[ $magicB10, wraith_magicB11 ] {};
@@ -626,60 +626,60 @@ void() wraith_magicB13 =[ $magicB13, wraith_run1 ] {ai_face();};
 //----------------------------------------------------------------------
 void() wraith_magic =
 {
-	local entity truetarg, miniondef;
-	
-	// Make sure the attachments are setup ready
-	wraith_create_attachment();
-	truetarg = SUB_entEnemyTarget();
+    local entity truetarg, miniondef;
+    
+    // Make sure the attachments are setup ready
+    wraith_create_attachment();
+    truetarg = SUB_entEnemyTarget();
 
-	if (self.spawnflags & MON_WRAITH_SPIDERS && !self.minion_active) {
-		// Check for minion template first
-		miniondef = find(world,classname,"monster_wraithminion");
-		if (miniondef.classtype == CT_CACHESPIDER) setup_minionsupport();
-		else {
-			// If template no available, warn and remove feature
-			dprint("\b[WRAITH]\b Cannot find spider template!\n");
-			self.spawnflags = self.spawnflags - MON_WRAITH_SPIDERS;
-			self.poisonous = FALSE;
-		}
-	}
-	if (self.spawnflags & MON_WRAITH_SCORPIONS && !self.minion_active) {
-		// Check for minion template first
-		miniondef = find(world,classname,"monster_wraithminion2");
-		if (miniondef.classtype == CT_CACHESCORPION) setup_minionsupport();
-		else {
-			// If template no available, warn and remove feature
-			dprint("\b[WRAITH]\b Cannot find scorpion template!\n");
-			self.spawnflags = self.spawnflags - MON_WRAITH_SCORPIONS;
-		}
-	}
-	
-	// Is the target the player or monster?
-	if (truetarg.flags & FL_CLIENT) {
-		if (self.spawnflags & (MON_WRAITH_SPIDERS | MON_WRAITH_SCORPIONS)) {
-			// Calculate a flat vector to ignore Z axis difference
-			self.enemydist = range_distance(self.enemy, TRUE);
-			// If the player is too close (melee distance) try old base attack
-			if (self.minion_baseattack > 0 && self.enemydist < MON_RANGE_MELEE) wraith_nails1();
-			else {
-				// has the minion limit been reached?
-				if (query_minionactive(self) == TRUE) wraith_minion1();
-				else wraith_nails1();
-			}
-		}
-		// First ever attack is the fire debuff
-		else if (self.attack_speed < time) wraith_debuff1();
-		// Does the player have the debuff already?
-		else if (truetarg.burning) wraith_nails1();
-		else {
-			// Greater chance of debuff attack first
-			if (random() < 0.7) wraith_debuff1();
-			else wraith_nails1();
-		}
-		self.attack_speed = LARGE_TIMER;
-	}
-	// Always attack monsters with nails
-	else wraith_nails1();
+    if (self.spawnflags & MON_WRAITH_SPIDERS && !self.minion_active) {
+        // Check for minion template first
+        miniondef = find(world,classname,"monster_wraithminion");
+        if (miniondef.classtype == CT_CACHESPIDER) setup_minionsupport();
+        else {
+            // If template no available, warn and remove feature
+            dprint("\b[WRAITH]\b Cannot find spider template!\n");
+            self.spawnflags = self.spawnflags - MON_WRAITH_SPIDERS;
+            self.poisonous = FALSE;
+        }
+    }
+    if (self.spawnflags & MON_WRAITH_SCORPIONS && !self.minion_active) {
+        // Check for minion template first
+        miniondef = find(world,classname,"monster_wraithminion2");
+        if (miniondef.classtype == CT_CACHESCORPION) setup_minionsupport();
+        else {
+            // If template no available, warn and remove feature
+            dprint("\b[WRAITH]\b Cannot find scorpion template!\n");
+            self.spawnflags = self.spawnflags - MON_WRAITH_SCORPIONS;
+        }
+    }
+    
+    // Is the target the player or monster?
+    if (truetarg.flags & FL_CLIENT) {
+        if (self.spawnflags & (MON_WRAITH_SPIDERS | MON_WRAITH_SCORPIONS)) {
+            // Calculate a flat vector to ignore Z axis difference
+            self.enemydist = range_distance(self.enemy, TRUE);
+            // If the player is too close (melee distance) try old base attack
+            if (self.minion_baseattack > 0 && self.enemydist < MON_RANGE_MELEE) wraith_nails1();
+            else {
+                // has the minion limit been reached?
+                if (query_minionactive(self) == TRUE) wraith_minion1();
+                else wraith_nails1();
+            }
+        }
+        // First ever attack is the fire debuff
+        else if (self.attack_speed < time) wraith_debuff1();
+        // Does the player have the debuff already?
+        else if (truetarg.burning) wraith_nails1();
+        else {
+            // Greater chance of debuff attack first
+            if (random() < 0.7) wraith_debuff1();
+            else wraith_nails1();
+        }
+        self.attack_speed = LARGE_TIMER;
+    }
+    // Always attack monsters with nails
+    else wraith_nails1();
 };
 
 //============================================================================
@@ -708,34 +708,34 @@ void() wraith_painB11 = [ $painB11, wraith_run1 ] {};
 //----------------------------------------------------------------------
 void(entity inflictor, entity attacker, float damage) wraith_pain =
 {
-	// Check all pain conditions and set up what to do next
-	monster_pain_check(attacker, damage);
+    // Check all pain conditions and set up what to do next
+    monster_pain_check(attacker, damage);
 
-	// Make sure fire wraith skin/alpha is reset on pain/death
-	self.skin = self.exactskin;
-	self.alpha = WRAITH_ALPHA;
-	
-	// Hide any attachments
-	wraith_finish_attachment();
-	
-	// Any pain animation/sound required?
-	if (self.pain_check > 0) {
-		sound (self, CHAN_VOICE, self.pain_sound, 1, ATTN_NORM);
-		if (self.pain_check == 1) {
-			// Randomly pick which pain animation to play
-			if (random() < 0.85) wraith_painA1 ();
-			else {
-				self.pain_finished = time + 2;
-				wraith_painB1 ();
-			}
-		}
-		// The new axe forces monsters into long pain animations
-		else if (self.pain_check == 2) {
-			self.axhitme = 0;
-			self.pain_finished = time + 2;
-			wraith_painB1 ();
-		}
-	}
+    // Make sure fire wraith skin/alpha is reset on pain/death
+    self.skin = self.exactskin;
+    self.alpha = WRAITH_ALPHA;
+    
+    // Hide any attachments
+    wraith_finish_attachment();
+    
+    // Any pain animation/sound required?
+    if (self.pain_check > 0) {
+        sound (self, CHAN_VOICE, self.pain_sound, 1, ATTN_NORM);
+        if (self.pain_check == 1) {
+            // Randomly pick which pain animation to play
+            if (random() < 0.85) wraith_painA1 ();
+            else {
+                self.pain_finished = time + 2;
+                wraith_painB1 ();
+            }
+        }
+        // The new axe forces monsters into long pain animations
+        else if (self.pain_check == 2) {
+            self.axhitme = 0;
+            self.pain_finished = time + 2;
+            wraith_painB1 ();
+        }
+    }
 };
 
 //============================================================================
@@ -749,53 +749,53 @@ void() wraith_death11 =[ $death11, wraith_death13] {};
 void() wraith_death13 =[ $death13, wraith_death15] {};
 void() wraith_death15 =[ $death15, wraith_death15]
 {
-	// Throw gibs, but create more XY outward velocity
-	self.max_health = MON_XYGIBVELOCITY;
-	monster_ThrowGib();
-	// Move the explosion up to the middle/top of the body
-	// Use to be a regular explosion, switched to tarbaby instead
-	self.origin = self.origin + '0 0 24';
-	T_RadiusDamage (self, self, DAMAGE_WRAITH, world, IGNORECLASS);
-	
-	// Big purple explosion
-	if (ext_dppart) 
-		pointparticles(particleeffectnum(DPP_WRAITHEXPLODE), self.origin, '0 0 0', 1);
-	else {
-		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
-		WriteByte (MSG_BROADCAST, TE_TAREXPLOSION);	// Hard coded explosion
-		WriteCoord (MSG_BROADCAST, self.origin_x);
-		WriteCoord (MSG_BROADCAST, self.origin_y);
-		WriteCoord (MSG_BROADCAST, self.origin_z);
-	}
-	
-	// Play original explosion sound or replacement
-	sound(self, CHAN_WEAPON, SOUND_REXP3, 1, ATTN_NORM);
-	// Stop thinking and hide entity (prevent wraith_death15 loop)
-	self.nextthink = LARGE_TIMER;
-	self.think = SUB_Null;
-	entity_hide(self);
+    // Throw gibs, but create more XY outward velocity
+    self.max_health = MON_XYGIBVELOCITY;
+    monster_ThrowGib();
+    // Move the explosion up to the middle/top of the body
+    // Use to be a regular explosion, switched to tarbaby instead
+    self.origin = self.origin + '0 0 24';
+    T_RadiusDamage (self, self, DAMAGE_WRAITH, world, IGNORECLASS);
+    
+    // Big purple explosion
+    if (ext_dppart) 
+        pointparticles(particleeffectnum(DPP_WRAITHEXPLODE), self.origin, '0 0 0', 1);
+    else {
+        WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+        WriteByte (MSG_BROADCAST, TE_TAREXPLOSION); // Hard coded explosion
+        WriteCoord (MSG_BROADCAST, self.origin_x);
+        WriteCoord (MSG_BROADCAST, self.origin_y);
+        WriteCoord (MSG_BROADCAST, self.origin_z);
+    }
+    
+    // Play original explosion sound or replacement
+    sound(self, CHAN_WEAPON, SOUND_REXP3, 1, ATTN_NORM);
+    // Stop thinking and hide entity (prevent wraith_death15 loop)
+    self.nextthink = LARGE_TIMER;
+    self.think = SUB_Null;
+    entity_hide(self);
 };
 
 //----------------------------------------------------------------------
 void() wraith_die =
 {
-	// Pre-check routine to tidy up extra entities
-	monster_death_precheck();
-	self.solid = SOLID_NOT;
-	sound (self, CHAN_VOICE, "wraith/death1.wav", 1, ATTN_NORM);
+    // Pre-check routine to tidy up extra entities
+    monster_death_precheck();
+    self.solid = SOLID_NOT;
+    sound (self, CHAN_VOICE, "wraith/death1.wav", 1, ATTN_NORM);
 
-	// Make sure fire wraith skin/alpha is reset on pain/death
-	self.skin = self.exactskin;
-	self.alpha = WRAITH_ALPHA;
+    // Make sure fire wraith skin/alpha is reset on pain/death
+    self.skin = self.exactskin;
+    self.alpha = WRAITH_ALPHA;
 
-	// Make sure any attachments are removed
-	wraith_remove_attachment();
+    // Make sure any attachments are removed
+    wraith_remove_attachment();
 
-	// Make sure body stays floating up where it finally dies
-	// and do not drop to the ground (reset by monster_death_use func)
-	self.flags = self.flags | FL_FLY;
-	self.movetype = MOVETYPE_FLY;
-	wraith_death2();
+    // Make sure body stays floating up where it finally dies
+    // and do not drop to the ground (reset by monster_death_use func)
+    self.flags = self.flags | FL_FLY;
+    self.movetype = MOVETYPE_FLY;
+    wraith_death2();
 };
 
 //======================================================================
@@ -803,107 +803,107 @@ void() wraith_die =
 ======================================================================*/
 void() monster_wraith =
 {
-	// Check all spawn exceptions (monsters.qc)
-	if (monster_checkspawn() == TRUE) return;
+    // Check all spawn exceptions (monsters.qc)
+    if (monster_checkspawn() == TRUE) return;
 
-	self.mdl = "progs/mon_wraith.mdl";
-	self.weaponglow = "progs/mon_wraith_glow.mdl";
-	self.gib1mdl = "progs/gib_wraith1.mdl";	// Forearm
-	self.gib2mdl = "progs/gib_wraith2.mdl";	// Hand/Claw
-	self.gib3mdl = "progs/gib_wraith3.mdl";	// stump?
-	
-	precache_model (self.mdl);
-	precache_model (self.weaponglow);		// Glowing halo effect
-	precache_model (MODEL_PROJ_WTRAIL);		// Hitscan blood bolt
-	precache_model (MODEL_PROJ_WBALL);		// ball growing 8 frames
-	precache_model (MODEL_PROJ_WEGG);		// ball turned into egg
-	precache_model (MODEL_PROJ_WSHELL);		// Gibs from Egg
-	
-	precache_model (MODEL_PROJ_WBONE);		// Bone nails (fire/scorpion)
-	precache_model (MODEL_PROJ_WPOISON);	// Poison nails (spider)
-	
-	precache_model (self.gib1mdl);
-	precache_model (self.gib2mdl);
-	precache_model (self.gib3mdl);
-	
-	self.idle_sound = "wraith/idle1.wav";
-	self.idle_sound2 = "wraith/idle2.wav";
-	self.idle_soundcom = "wraith/idle3.wav";
-	precache_sound (self.idle_sound);
-	precache_sound (self.idle_sound2);
-	precache_sound (self.idle_soundcom);
-	
-	precache_sound ("wraith/death1.wav");
-	self.pain_sound = "wraith/pain1.wav";
-	precache_sound (self.pain_sound);
+    self.mdl = "progs/mon_wraith.mdl";
+    self.weaponglow = "progs/mon_wraith_glow.mdl";
+    self.gib1mdl = "progs/gib_wraith1.mdl"; // Forearm
+    self.gib2mdl = "progs/gib_wraith2.mdl"; // Hand/Claw
+    self.gib3mdl = "progs/gib_wraith3.mdl"; // stump?
+    
+    precache_model (self.mdl);
+    precache_model (self.weaponglow);       // Glowing halo effect
+    precache_model (MODEL_PROJ_WTRAIL);     // Hitscan blood bolt
+    precache_model (MODEL_PROJ_WBALL);      // ball growing 8 frames
+    precache_model (MODEL_PROJ_WEGG);       // ball turned into egg
+    precache_model (MODEL_PROJ_WSHELL);     // Gibs from Egg
+    
+    precache_model (MODEL_PROJ_WBONE);      // Bone nails (fire/scorpion)
+    precache_model (MODEL_PROJ_WPOISON);    // Poison nails (spider)
+    
+    precache_model (self.gib1mdl);
+    precache_model (self.gib2mdl);
+    precache_model (self.gib3mdl);
+    
+    self.idle_sound = "wraith/idle1.wav";
+    self.idle_sound2 = "wraith/idle2.wav";
+    self.idle_soundcom = "wraith/idle3.wav";
+    precache_sound (self.idle_sound);
+    precache_sound (self.idle_sound2);
+    precache_sound (self.idle_soundcom);
+    
+    precache_sound ("wraith/death1.wav");
+    self.pain_sound = "wraith/pain1.wav";
+    precache_sound (self.pain_sound);
 
-	precache_sound ("wraith/attack1.wav");	// HITSCAN bolt
-	precache_sound ("drole/r_explode.wav");
-	precache_model (SBURST_FLAME);			// Flames
+    precache_sound ("wraith/attack1.wav");  // HITSCAN bolt
+    precache_sound ("drole/r_explode.wav");
+    precache_model (SBURST_FLAME);          // Flames
 
-	precache_sound ("wraith/attack2.wav");	// Nail/Bones
-	precache_sound ("wraith/attack3.wav");	// Minions
-	precache_sound ("wraith/bounce.wav");	// Egg bounce
+    precache_sound ("wraith/attack2.wav");  // Nail/Bones
+    precache_sound ("wraith/attack3.wav");  // Minions
+    precache_sound ("wraith/bounce.wav");   // Egg bounce
 
-	self.sight_sound = "wraith/sight1.wav";
-	precache_sound (self.sight_sound);
+    self.sight_sound = "wraith/sight1.wav";
+    precache_sound (self.sight_sound);
 
-	self.solid = SOLID_NOT;				// No interaction with world
-	self.movetype = MOVETYPE_NONE;		// Static item, no movement
-	if (self.bboxtype < 1) self.bboxtype = BBOX_WIDE;
-	if (self.health < 1) self.health = 350;
-	self.alpha = WRAITH_ALPHA;			// Semi transparent
-	self.yaw_speed = 35;				// Can turn really fast
-	self.gibhealth = MON_NEVERGIB;		// Cannot be gibbed by weapons
-	self.gibbed = FALSE;				// Not falling apart
-	self.pain_flinch = 70;				// High pain threshold
-	self.blockudeath = TRUE;			// no humanoid death sound
-	self.steptype = FS_FLYING;			// Floating around!
-	if (self.height < 1) self.height = MONAI_ABOVEDIST; // Custom height
-	self.frame = 1;						// First frame is never used!
-	self.deathstring = " was shattered by a Wraith\n";
-	
-	// Hitscan = 52 4 6; Nails = 60 4 14; Egg = 20 2 12;
-	self.attack_offset = '30 2 8';		// Half way point 
+    self.solid = SOLID_NOT;             // No interaction with world
+    self.movetype = MOVETYPE_NONE;      // Static item, no movement
+    if (self.bboxtype < 1) self.bboxtype = BBOX_WIDE;
+    if (self.health < 1) self.health = 350;
+    self.alpha = WRAITH_ALPHA;          // Semi transparent
+    self.yaw_speed = 35;                // Can turn really fast
+    self.gibhealth = MON_NEVERGIB;      // Cannot be gibbed by weapons
+    self.gibbed = FALSE;                // Not falling apart
+    self.pain_flinch = 70;              // High pain threshold
+    self.blockudeath = TRUE;            // no humanoid death sound
+    self.steptype = FS_FLYING;          // Floating around!
+    if (self.height < 1) self.height = MONAI_ABOVEDIST; // Custom height
+    self.frame = 1;                     // First frame is never used!
+    self.deathstring = " was shattered by a Wraith\n";
+    
+    // Hitscan = 52 4 6; Nails = 60 4 14; Egg = 20 2 12;
+    self.attack_offset = '30 2 8';      // Half way point 
 
-	// Always reset Ammo Resistance to be consistent
-	self.resist_shells = self.resist_nails = 0;
-	self.resist_rockets = self.resist_cells = 0;
+    // Always reset Ammo Resistance to be consistent
+    self.resist_shells = self.resist_nails = 0;
+    self.resist_rockets = self.resist_cells = 0;
 
-	self.th_checkattack = WraithCheckAttack;
-	self.th_stand = wraith_stand1;
-	self.th_walk = wraith_walk1;
-	self.th_run = wraith_run1;
-	self.th_missile = wraith_magic;
-	self.th_pain = wraith_pain;
-	self.th_die = wraith_die;
+    self.th_checkattack = WraithCheckAttack;
+    self.th_stand = wraith_stand1;
+    self.th_walk = wraith_walk1;
+    self.th_run = wraith_run1;
+    self.th_missile = wraith_magic;
+    self.th_pain = wraith_pain;
+    self.th_die = wraith_die;
 
-	// Cannot be both scorpion and spider minion spawner, def=spider
-	if (self.spawnflags & MON_WRAITH_SCORPIONS && self.spawnflags & MON_WRAITH_SPIDERS)
-		self.spawnflags = self.spawnflags - MON_WRAITH_SCORPIONS;
-	
-	// Setup each wraith type with different skins/particles
-	if (self.spawnflags & MON_WRAITH_SCORPIONS) {
-		// Check for override first, default should be 3 not 5 (spiders)
-		if (self.minion_maxcount < 1) self.minion_maxcount = 3;
-		self.exactskin = WRAITH_SKINPURPLE;			// Purple/Blood skin
-		self.poisonous = FALSE;						// Must be off for scorpion wraith
-		self.part_style = PARTICLE_BURST_PURPLE;	// Purple cloud
-	}
-	else if (self.spawnflags & MON_WRAITH_SPIDERS) {
-		self.exactskin = WRAITH_SKINGREEN;			// Poison/Green skin
-		self.poisonous = TRUE;						// Fires Poison needles
-		self.part_style = PARTICLE_BURST_GREEN;		// Poison cloud
-	}
-	else {
-		self.exactskin = WRAITH_SKINBLUE;	// Blue/Red skin
-		self.poisonous = FALSE;				// Must be off for fire wraith
-		self.part_style = PARTICLE_BURST_FIRE;
-	}
-		
-	self.classtype = CT_MONWRAITH;
-	self.classgroup = CG_SPIDER;
-	self.classmove = MON_MOVEFLY;
-	
-	monster_start();
+    // Cannot be both scorpion and spider minion spawner, def=spider
+    if (self.spawnflags & MON_WRAITH_SCORPIONS && self.spawnflags & MON_WRAITH_SPIDERS)
+        self.spawnflags = self.spawnflags - MON_WRAITH_SCORPIONS;
+    
+    // Setup each wraith type with different skins/particles
+    if (self.spawnflags & MON_WRAITH_SCORPIONS) {
+        // Check for override first, default should be 3 not 5 (spiders)
+        if (self.minion_maxcount < 1) self.minion_maxcount = 3;
+        self.exactskin = WRAITH_SKINPURPLE;         // Purple/Blood skin
+        self.poisonous = FALSE;                     // Must be off for scorpion wraith
+        self.part_style = PARTICLE_BURST_PURPLE;    // Purple cloud
+    }
+    else if (self.spawnflags & MON_WRAITH_SPIDERS) {
+        self.exactskin = WRAITH_SKINGREEN;          // Poison/Green skin
+        self.poisonous = TRUE;                      // Fires Poison needles
+        self.part_style = PARTICLE_BURST_GREEN;     // Poison cloud
+    }
+    else {
+        self.exactskin = WRAITH_SKINBLUE;   // Blue/Red skin
+        self.poisonous = FALSE;             // Must be off for fire wraith
+        self.part_style = PARTICLE_BURST_FIRE;
+    }
+        
+    self.classtype = CT_MONWRAITH;
+    self.classgroup = CG_SPIDER;
+    self.classmove = MON_MOVEFLY;
+    
+    monster_start();
 };

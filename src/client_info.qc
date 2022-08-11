@@ -25,8 +25,8 @@ DEFAULT starting point for a player
 
 ======================================================================*/
 void() info_player_start = { 
-	self.classtype = CT_SPAWNSP;
-	self.estate = ESTATE_ON;
+    self.classtype = CT_SPAWNSP;
+    self.estate = ESTATE_ON;
 };
 
 //======================================================================
@@ -42,8 +42,8 @@ DEFAULT starting point for a DEVELOPER only
 
 ======================================================================*/
 void() info_player_startdev = { 
-	self.classtype = CT_SPAWNSP;
-	self.estate = ESTATE_ON;
+    self.classtype = CT_SPAWNSP;
+    self.estate = ESTATE_ON;
 };
 
 //======================================================================
@@ -61,8 +61,8 @@ The startspawn2 system lets players move between maps using exact location
 
 ======================================================================*/
 void() info_player_start2 = { 
-	self.classtype = CT_SPAWNSP;
-	self.estate = ESTATE_ON;
+    self.classtype = CT_SPAWNSP;
+    self.estate = ESTATE_ON;
 };
 
 //======================================================================
@@ -79,11 +79,11 @@ Starting position for coop games
 
 ======================================================================*/
 void() info_player_coop = { 
-	self.classtype = CT_SPAWNCOOP;
-	if (self.spawnflags & MON_SPAWN_DELAY) self.estate = ESTATE_OFF;
-	else self.estate = ESTATE_ON;
-	// Setup Entity State functionality
-	if (self.targetname != "") self.use = entity_state_use;
+    self.classtype = CT_SPAWNCOOP;
+    if (self.spawnflags & MON_SPAWN_DELAY) self.estate = ESTATE_OFF;
+    else self.estate = ESTATE_ON;
+    // Setup Entity State functionality
+    if (self.targetname != "") self.use = entity_state_use;
 };
 
 //======================================================================
@@ -100,11 +100,11 @@ Starting position for deathmatch games
 
 ======================================================================*/
 void() info_player_deathmatch = { 
-	self.classtype = CT_SPAWNDM;
-	if (self.spawnflags & MON_SPAWN_DELAY) self.estate = ESTATE_OFF;
-	else self.estate = ESTATE_ON;
-	// Setup Entity State functionality
-	if (self.targetname != "") self.use = entity_state_use;
+    self.classtype = CT_SPAWNDM;
+    if (self.spawnflags & MON_SPAWN_DELAY) self.estate = ESTATE_OFF;
+    else self.estate = ESTATE_ON;
+    // Setup Entity State functionality
+    if (self.targetname != "") self.use = entity_state_use;
 };
 
 //======================================================================
@@ -123,76 +123,76 @@ Destination marker for a teleporter
 ======================================================================*/
 void() info_teleport_angle = 
 {
-	// Find angletarget entity in world
-	self.movetarget = find(world, targetname, self.angletarget);
-	if (self.movetarget) {
-		// Check for bmodel origin on self/angletarget entities
-		if (self.bsporigin) self.dest1 = bmodel_origin(self);
-		else self.dest1 = self.origin;
-		// Find the destination origin
-		if (self.movetarget.bsporigin) self.dest2 = bmodel_origin(self.movetarget);
-		else self.dest2 = self.movetarget.origin;
-		// Update Z axis for any editor offset information
-		self.dest1 = self.dest1 - self.view_ofs;
-		// Create directional vector from source to target
-		self.movedir = normalize(self.dest2 - self.dest1);
-		// Convert vector direction to angles
-		self.mangle = vectoangles(self.movedir);
-		// Spawn a dev marker for visual reasons
-		spawn_arrow(self.dest1, self.mangle, SPNMARK_YELLOW);
-	}
-	else {
-		// Display console error and diamond in game
-		dprint("\b[INFO_TELE]\b angletarget is missing!\n");
-		if (self.bsporigin) spawn_marker(self.oldorigin, SPNMARK_YELLOW);
-		else spawn_marker(self.origin, SPNMARK_YELLOW);
-		// Reset angletarget field, its broken and not needed
-		self.angletarget = "";
-	}
+    // Find angletarget entity in world
+    self.movetarget = find(world, targetname, self.angletarget);
+    if (self.movetarget) {
+        // Check for bmodel origin on self/angletarget entities
+        if (self.bsporigin) self.dest1 = bmodel_origin(self);
+        else self.dest1 = self.origin;
+        // Find the destination origin
+        if (self.movetarget.bsporigin) self.dest2 = bmodel_origin(self.movetarget);
+        else self.dest2 = self.movetarget.origin;
+        // Update Z axis for any editor offset information
+        self.dest1 = self.dest1 - self.view_ofs;
+        // Create directional vector from source to target
+        self.movedir = normalize(self.dest2 - self.dest1);
+        // Convert vector direction to angles
+        self.mangle = vectoangles(self.movedir);
+        // Spawn a dev marker for visual reasons
+        spawn_arrow(self.dest1, self.mangle, SPNMARK_YELLOW);
+    }
+    else {
+        // Display console error and diamond in game
+        dprint("\b[INFO_TELE]\b angletarget is missing!\n");
+        if (self.bsporigin) spawn_marker(self.oldorigin, SPNMARK_YELLOW);
+        else spawn_marker(self.origin, SPNMARK_YELLOW);
+        // Reset angletarget field, its broken and not needed
+        self.angletarget = "";
+    }
 };
 
 //----------------------------------------------------------------------
 void() info_teleport_convert_updown =
 {
-	// Setup special mangle/movedir
-	// editor -1 = UP and -2 = DOWN
-	if (self.mangle == '0 -1 0') {
-		self.mangle = '270 0 0'; self.movedir = '0 0 1';
-	}
-	else if (self.mangle == '0 -2 0') {
-		self.mangle = '90 0 0'; self.movedir = '0 0 -1';
-	}
+    // Setup special mangle/movedir
+    // editor -1 = UP and -2 = DOWN
+    if (self.mangle == '0 -1 0') {
+        self.mangle = '270 0 0'; self.movedir = '0 0 1';
+    }
+    else if (self.mangle == '0 -2 0') {
+        self.mangle = '90 0 0'; self.movedir = '0 0 -1';
+    }
 };
 
 //----------------------------------------------------------------------
 void() info_teleport_destination =
 {
-	self.classtype = CT_MISCTELEPORT;
-	self.estate = ESTATE_ON;
-	self.mangle = self.angles;	// Save for later
-	self.angles = '0 0 0';		// Don't need to be zero, previous code
-	self.view_ofs = '0 0 27';	// Z axis modifier for editor placement
-	self.origin = self.origin + self.view_ofs;
-	info_teleport_convert_updown();
+    self.classtype = CT_MISCTELEPORT;
+    self.estate = ESTATE_ON;
+    self.mangle = self.angles;  // Save for later
+    self.angles = '0 0 0';      // Don't need to be zero, previous code
+    self.view_ofs = '0 0 27';   // Z axis modifier for editor placement
+    self.origin = self.origin + self.view_ofs;
+    info_teleport_convert_updown();
 
-	// Cannot use info entity if targetname missing
-	if (self.targetname == "") {
-		dprint("\b[INFO_TELE]\b targetname is missing!\n");
-		spawn_marker(self.origin, SPNMARK_YELLOW);
-		entity_hide(self);
-	}
-	// Check for destination number errors
-	else if (self.teledest < 0) {
-		dprint("\b[INFO_TELE]\b Dest value cannot be negative\n");
-		spawn_marker(self.origin, SPNMARK_YELLOW);
-		self.teledest = 0;
-	}
+    // Cannot use info entity if targetname missing
+    if (self.targetname == "") {
+        dprint("\b[INFO_TELE]\b targetname is missing!\n");
+        spawn_marker(self.origin, SPNMARK_YELLOW);
+        entity_hide(self);
+    }
+    // Check for destination number errors
+    else if (self.teledest < 0) {
+        dprint("\b[INFO_TELE]\b Dest value cannot be negative\n");
+        spawn_marker(self.origin, SPNMARK_YELLOW);
+        self.teledest = 0;
+    }
 
-	// Check for angle target setup
-	if (self.angletarget != "") {
-		self.nextthink = time + 0.1 + random();
-		self.think = info_teleport_angle;
-	}
+    // Check for angle target setup
+    if (self.angletarget != "") {
+        self.nextthink = time + 0.1 + random();
+        self.think = info_teleport_angle;
+    }
 };
 
 //======================================================================
@@ -211,49 +211,49 @@ Destination for an instant teleporter
 ======================================================================*/
 void() info_teleportinstant_dest =
 {
-	if (check_bmodel_keys()) return;	// Check for bmodel errors
+    if (check_bmodel_keys()) return;    // Check for bmodel errors
 
-	self.classtype = CT_MISCTELINSTANT;
-	self.estate = ESTATE_ON;
-	self.mangle = self.angles;	// Save for later
-	self.angles = '0 0 0';		// Zero'd to prevent bmodel twisting
-	self.view_ofs = '0 0 0';	// Z axis modifier for editor placement
-	info_teleport_convert_updown();
-	
-	// Stuff from InitTrigger
-	self.solid = SOLID_NOT;
-	self.movetype = MOVETYPE_NONE;
-	self.mdl = self.model;		// Save model for later
-	setmodel (self, self.mdl);	// set size and link into world
-	self.bbmins = self.mins;	// Save bmodel bounds for later
-	self.bbmaxs = self.maxs;
+    self.classtype = CT_MISCTELINSTANT;
+    self.estate = ESTATE_ON;
+    self.mangle = self.angles;  // Save for later
+    self.angles = '0 0 0';      // Zero'd to prevent bmodel twisting
+    self.view_ofs = '0 0 0';    // Z axis modifier for editor placement
+    info_teleport_convert_updown();
+    
+    // Stuff from InitTrigger
+    self.solid = SOLID_NOT;
+    self.movetype = MOVETYPE_NONE;
+    self.mdl = self.model;      // Save model for later
+    setmodel (self, self.mdl);  // set size and link into world
+    self.bbmins = self.mins;    // Save bmodel bounds for later
+    self.bbmaxs = self.maxs;
 
-	// Work out true volume origin
-	self.bsporigin = TRUE;
-	self.oldorigin = bmodel_origin(self);
-	
-	// Don't need volume brush anymore
-	setmodel(self, "");
-	setsize(self, VEC_ORIGIN, VEC_ORIGIN);
+    // Work out true volume origin
+    self.bsporigin = TRUE;
+    self.oldorigin = bmodel_origin(self);
+    
+    // Don't need volume brush anymore
+    setmodel(self, "");
+    setsize(self, VEC_ORIGIN, VEC_ORIGIN);
 
-	// Cannot use info entity if targetname missing
-	if (self.targetname == "") {
-		dprint("\b[INFO_TELE]\b targetname is missing!\n");
-		spawn_marker(self.oldorigin, SPNMARK_YELLOW);
-		entity_hide(self);
-	}
-	// Check for destination number errors
-	else if (self.teledest < 0) {
-		dprint("\b[INFO_TELE]\b Dest value cannot be negative\n");
-		spawn_marker(self.oldorigin, SPNMARK_YELLOW);
-		self.teledest = 0;
-	}
+    // Cannot use info entity if targetname missing
+    if (self.targetname == "") {
+        dprint("\b[INFO_TELE]\b targetname is missing!\n");
+        spawn_marker(self.oldorigin, SPNMARK_YELLOW);
+        entity_hide(self);
+    }
+    // Check for destination number errors
+    else if (self.teledest < 0) {
+        dprint("\b[INFO_TELE]\b Dest value cannot be negative\n");
+        spawn_marker(self.oldorigin, SPNMARK_YELLOW);
+        self.teledest = 0;
+    }
 
-	// Check for angle target setup
-	if (self.angletarget != "") {
-		self.nextthink = time + 0.1 + random();
-		self.think = info_teleport_angle;
-	}
+    // Check for angle target setup
+    if (self.angletarget != "") {
+        self.nextthink = time + 0.1 + random();
+        self.think = info_teleport_angle;
+    }
 };
 
 //======================================================================
@@ -269,8 +269,8 @@ Marker for a Cinematic Camera System
 ======================================================================*/
 void() info_camera_destination =
 {
-	self.classtype = CT_MISCTELCAMERA;
-	self.estate = ESTATE_ON;
+    self.classtype = CT_MISCTELCAMERA;
+    self.estate = ESTATE_ON;
 };
 
 //======================================================================
@@ -292,25 +292,25 @@ up/left = negative value, down/right = positive value
 ======================================================================*/
 void() info_intermission =
 {
-	self.classtype = CT_CAMERA;
-	self.estate = ESTATE_ON;
-	setsize (self, VEC_ORIGIN, VEC_ORIGIN);
-	self.movetype = MOVETYPE_NONE;
-	self.solid = SOLID_NOT;
-	setmodel(self, MODEL_EMPTY);
-	self.view_ofs = '0 0 0';
-	self.owner = self;
-	
-	// Check for any trigger fog parameters
-	if (self.fog_density > 0) {
-		if (!self.speed) self.speed = 2;
-		// Double check its within range
-		if (self.fog_density > 1) self.fog_density = 1;
-		if (CheckZeroVector(self.fog_colour)) self.fog_colour = '0.1 0.1 0.1';
-	}
-	// Disable fog trigger if density not setup
-	else self.fog_density = 0;
-	
+    self.classtype = CT_CAMERA;
+    self.estate = ESTATE_ON;
+    setsize (self, VEC_ORIGIN, VEC_ORIGIN);
+    self.movetype = MOVETYPE_NONE;
+    self.solid = SOLID_NOT;
+    setmodel(self, MODEL_EMPTY);
+    self.view_ofs = '0 0 0';
+    self.owner = self;
+    
+    // Check for any trigger fog parameters
+    if (self.fog_density > 0) {
+        if (!self.speed) self.speed = 2;
+        // Double check its within range
+        if (self.fog_density > 1) self.fog_density = 1;
+        if (CheckZeroVector(self.fog_colour)) self.fog_colour = '0.1 0.1 0.1';
+    }
+    // Disable fog trigger if density not setup
+    else self.fog_density = 0;
+    
 };
 
 //======================================================================
@@ -326,26 +326,26 @@ Stuff commands to the console
 ======================================================================*/
 void() info_command_use =
 {
-	// Only fire this entity once
-	if (self.attack_finished > time) return;
-	if (other.flags & FL_CLIENT) self.enemy = other;
-	else self.enemy = client_ent;
-	self.attack_finished = time + LARGE_TIMER;
-	stuffcmd(self.enemy, self.message);
+    // Only fire this entity once
+    if (self.attack_finished > time) return;
+    if (other.flags & FL_CLIENT) self.enemy = other;
+    else self.enemy = client_ent;
+    self.attack_finished = time + LARGE_TIMER;
+    stuffcmd(self.enemy, self.message);
 };
 
 //----------------------------------------------------------------------
 void() info_command =
 {
-	if (self.message == "") {
-		dprint("\b[INFO_CMD]\b Message cmd missing!\n");
-		spawn_marker(self.origin, SPNMARK_YELLOW);
-		entity_hide(self);
-		return;
-	}
-	self.classtype = CT_CONTROL;
-	//self.use = info_command_use;
-	remove(self);
+    if (self.message == "") {
+        dprint("\b[INFO_CMD]\b Message cmd missing!\n");
+        spawn_marker(self.origin, SPNMARK_YELLOW);
+        entity_hide(self);
+        return;
+    }
+    self.classtype = CT_CONTROL;
+    //self.use = info_command_use;
+    remove(self);
 };
 
 //======================================================================

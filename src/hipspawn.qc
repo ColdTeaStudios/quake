@@ -48,33 +48,33 @@ is spawned depends upon the value of spawnfunction
 
 void() func_spawn =
 {
-	// Does not work in DM
-	if (deathmatch) { remove(self); return; }
+    // Does not work in DM
+    if (deathmatch) { remove(self); return; }
 
-	// Cannot trigger this function without a targetname!
-	if (self.targetname == "") {
-		dprint("\b[FUNC_SPAWN]\b ("); dprint(self.spawnclassname);
-		dprint(") - Missing targetname!\n");
-		remove(self); 
-		return;
-	}
-	
-	// Randomly spawn something, not supported anymore
-	if (!self.spawnfunction) {
-		dprint("\b[FUNC_SPAWN]\b ("); dprint(self.spawnclassname);
-		dprint(") - Random monster not supported!\n");
-		remove(self); 
-		return;
-	}
-	
-	// Add spawn delay/silent AD flags
-	self.spawnflags = self.spawnflags | MON_SPAWN_DELAY;
-	if (self.spawnsilent)
-		self.spawnflags = self.spawnflags | MON_SPAWN_NOIDLE;
-	
-	// Switch around classname and setup entity
-	self.classname = self.spawnclassname;
-	self.spawnfunction();
+    // Cannot trigger this function without a targetname!
+    if (self.targetname == "") {
+        dprint("\b[FUNC_SPAWN]\b ("); dprint(self.spawnclassname);
+        dprint(") - Missing targetname!\n");
+        remove(self); 
+        return;
+    }
+    
+    // Randomly spawn something, not supported anymore
+    if (!self.spawnfunction) {
+        dprint("\b[FUNC_SPAWN]\b ("); dprint(self.spawnclassname);
+        dprint(") - Random monster not supported!\n");
+        remove(self); 
+        return;
+    }
+    
+    // Add spawn delay/silent AD flags
+    self.spawnflags = self.spawnflags | MON_SPAWN_DELAY;
+    if (self.spawnsilent)
+        self.spawnflags = self.spawnflags | MON_SPAWN_NOIDLE;
+    
+    // Switch around classname and setup entity
+    self.classname = self.spawnclassname;
+    self.spawnfunction();
 }
 
 

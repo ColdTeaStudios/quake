@@ -20,7 +20,7 @@ float(string s) checkextension = #99;
 //// (it is recommended this code be placed in worldspawn or a worldspawn called function somewhere)
 //if (cvar("pr_checkextension"))
 //if (checkextension("DP_SV_SETCOLOR"))
-//	ext_setcolor = TRUE;
+//  ext_setcolor = TRUE;
 //from then on you can check ext_setcolor to know if that extension is available
 
 float(__variant funcref) checkbuiltin = #0:checkbuiltin;
@@ -1315,11 +1315,11 @@ float(string sample) soundlength = #534; // returns length of sound sample in se
 //          if below 0 - show until next subtitles minus this number of seconds
 //    text: subtitle text, color codes (Q3-style and ^xRGB) are allowed
 //example of subtitle file:
-//   3	0	"Vengeance! Vengeance for my eternity of suffering!"
-//   9	0	"Whelp! As if you knew what eternity was!"
-//   13	0	"Grovel before your true master."
-//   17	0	"Never!" 
-//   18	7	"I'll hack you from crotch to gizzard and feed what's left of you to your brides..."
+//   3  0   "Vengeance! Vengeance for my eternity of suffering!"
+//   9  0   "Whelp! As if you knew what eternity was!"
+//   13 0   "Grovel before your true master."
+//   17 0   "Never!" 
+//   18 7   "I'll hack you from crotch to gizzard and feed what's left of you to your brides..."
 
 //DP_SOLIDCORPSE
 //idea: LordHavoc
@@ -1350,35 +1350,35 @@ float(entity clent) clienttype = #455; // returns one of the CLIENTTYPE_* consta
 //spawns a client with no network connection, to allow bots to use client slots with no hacks.
 //How to use:
 /*
-	// to spawn a bot
-	local entity oldself;
-	oldself = self;
-	self = spawnclient();
-	if (!self)
-	{
-		bprint("Can not add bot, server full.\n");
-		self = oldself;
-		return;
-	}
-	self.netname = "Yoyobot";
-	self.clientcolors = 12 * 16 + 4; // yellow (12) shirt and red (4) pants
-	ClientConnect();
-	PutClientInServer();
-	self = oldself;
+    // to spawn a bot
+    local entity oldself;
+    oldself = self;
+    self = spawnclient();
+    if (!self)
+    {
+        bprint("Can not add bot, server full.\n");
+        self = oldself;
+        return;
+    }
+    self.netname = "Yoyobot";
+    self.clientcolors = 12 * 16 + 4; // yellow (12) shirt and red (4) pants
+    ClientConnect();
+    PutClientInServer();
+    self = oldself;
 
-	// to remove all bots
-	local entity head;
-	head = find(world, classname, "player");
-	while (head)
-	{
-		if (clienttype(head) == CLIENTTYPE_BOT)
-			dropclient(head);
-		head = find(head, classname, "player");
-	}
+    // to remove all bots
+    local entity head;
+    head = find(world, classname, "player");
+    while (head)
+    {
+        if (clienttype(head) == CLIENTTYPE_BOT)
+            dropclient(head);
+        head = find(head, classname, "player");
+    }
 
-	// to identify if a client is a bot (for example in PlayerPreThink)
-	if (clienttype(self) == CLIENTTYPE_BOT)
-		botthink();
+    // to identify if a client is a bot (for example in PlayerPreThink)
+    if (clienttype(self) == CLIENTTYPE_BOT)
+        botthink();
 */
 //see also DP_SV_CLIENTCOLORS DP_SV_CLIENTNAME DP_SV_DROPCLIENT
 //How it works:
@@ -2111,125 +2111,125 @@ float(float modlindex, float framenum) frameduration = #277; // returns the inte
 //"leftarm" (which is a child of "torso") which would return 2 instead...
 float(float skel, float bonenum, string g1, string g2, string g3, string g4, string g5, string g6) example_skel_findbonegroup =
 {
-	local string bonename;
-	while (bonenum >= 0)
-	{
-		bonename = skel_get_bonename(skel, bonenum);
-		if (bonename == g1) return 1;
-		if (bonename == g2) return 2;
-		if (bonename == g3) return 3;
-		if (bonename == g4) return 4;
-		if (bonename == g5) return 5;
-		if (bonename == g6) return 6;
-		bonenum = skel_get_boneparent(skel, bonenum);
-	}
-	return 0;
+    local string bonename;
+    while (bonenum >= 0)
+    {
+        bonename = skel_get_bonename(skel, bonenum);
+        if (bonename == g1) return 1;
+        if (bonename == g2) return 2;
+        if (bonename == g3) return 3;
+        if (bonename == g4) return 4;
+        if (bonename == g5) return 5;
+        if (bonename == g6) return 6;
+        bonenum = skel_get_boneparent(skel, bonenum);
+    }
+    return 0;
 };
 // create a skeletonindex for our player using current modelindex
 void() example_skel_player_setup =
 {
-	self.skeletonindex = skel_create(self.modelindex);
+    self.skeletonindex = skel_create(self.modelindex);
 };
 // setup bones of skeleton based on an animation
 // note: animmodelindex can be a different model than self.modelindex
 void(float animmodelindex, float framegroup, float framegroupstarttime) example_skel_player_update_begin =
 {
-	// start with our standard animation
-	self.frame = framegroup;
-	self.frame2 = 0;
-	self.frame3 = 0;
-	self.frame4 = 0;
-	self.frame1time = framegroupstarttime;
-	self.frame2time = 0;
-	self.frame3time = 0;
-	self.frame4time = 0;
-	self.lerpfrac = 0;
-	self.lerpfrac3 = 0;
-	self.lerpfrac4 = 0;
-	skel_build(self.skeletonindex, self, animmodelindex, 0, 0, 100000);
+    // start with our standard animation
+    self.frame = framegroup;
+    self.frame2 = 0;
+    self.frame3 = 0;
+    self.frame4 = 0;
+    self.frame1time = framegroupstarttime;
+    self.frame2time = 0;
+    self.frame3time = 0;
+    self.frame4time = 0;
+    self.lerpfrac = 0;
+    self.lerpfrac3 = 0;
+    self.lerpfrac4 = 0;
+    skel_build(self.skeletonindex, self, animmodelindex, 0, 0, 100000);
 };
 // apply a different framegroup animation to bones with a specified parent
 void(float animmodelindex, float framegroup, float framegroupstarttime, float blendalpha, string groupbonename, string excludegroupname1, string excludegroupname2) example_skel_player_update_applyoverride =
 {
-	local float bonenum;
-	local float numbones;
-	self.frame = framegroup;
-	self.frame2 = 0;
-	self.frame3 = 0;
-	self.frame4 = 0;
-	self.frame1time = framegroupstarttime;
-	self.frame2time = 0;
-	self.frame3time = 0;
-	self.frame4time = 0;
-	self.lerpfrac = 0;
-	self.lerpfrac3 = 0;
-	self.lerpfrac4 = 0;
-	bonenum = 0;
-	numbones = skel_get_numbones(self.skeletonindex);
-	while (bonenum < numbones)
-	{
-		if (example_skel_findbonegroup(self.skeletonindex, bonenum, groupbonename, excludegroupname1, excludegroupname2, "", "", "") == 1)
-			skel_build(self.skeletonindex, self, animmodelindex, 1 - blendalpha, bonenum, bonenum + 1);
-		bonenum = bonenum + 1;
-	}
+    local float bonenum;
+    local float numbones;
+    self.frame = framegroup;
+    self.frame2 = 0;
+    self.frame3 = 0;
+    self.frame4 = 0;
+    self.frame1time = framegroupstarttime;
+    self.frame2time = 0;
+    self.frame3time = 0;
+    self.frame4time = 0;
+    self.lerpfrac = 0;
+    self.lerpfrac3 = 0;
+    self.lerpfrac4 = 0;
+    bonenum = 0;
+    numbones = skel_get_numbones(self.skeletonindex);
+    while (bonenum < numbones)
+    {
+        if (example_skel_findbonegroup(self.skeletonindex, bonenum, groupbonename, excludegroupname1, excludegroupname2, "", "", "") == 1)
+            skel_build(self.skeletonindex, self, animmodelindex, 1 - blendalpha, bonenum, bonenum + 1);
+        bonenum = bonenum + 1;
+    }
 };
 // make eyes point at a target location, be sure v_forward, v_right, v_up are set correctly before calling
 void(vector eyetarget, string bonename) example_skel_player_update_eyetarget =
 {
-	local float bonenum;
-	local vector ang;
-	local vector oldforward, oldright, oldup;
-	local vector relforward, relright, relup, relorg;
-	local vector boneforward, boneright, boneup, boneorg;
-	local vector parentforward, parentright, parentup, parentorg;
-	local vector u, v;
-	local vector modeleyetarget;
-	bonenum = skel_find_bone(self.skeletonindex, bonename) - 1;
-	if (bonenum < 0)
-		return;
-	oldforward = v_forward;
-	oldright = v_right;
-	oldup = v_up;
-	v = eyetarget - self.origin;
-	modeleyetarget_x =   v * v_forward;
-	modeleyetarget_y = 0-v * v_right;
-	modeleyetarget_z =   v * v_up;
-	// this is an eyeball, make it point at the target location
-	// first get all the data we can...
-	relorg = skel_get_bonerel(self.skeletonindex, bonenum);
-	relforward = v_forward;
-	relright = v_right;
-	relup = v_up;
-	boneorg = skel_get_boneabs(self.skeletonindex, bonenum);
-	boneforward = v_forward;
-	boneright = v_right;
-	boneup = v_up;
-	parentorg = skel_get_boneabs(self.skeletonindex, skel_get_boneparent(self.skeletonindex, bonenum));
-	parentforward = v_forward;
-	parentright = v_right;
-	parentup = v_up;
-	// get the vector from the eyeball to the target
-	u = modeleyetarget - boneorg;
-	// now transform it inversely by the parent matrix to produce new rel vectors
-	v_x = u * parentforward;
-	v_y = u * parentright;
-	v_z = u * parentup;
-	ang = vectoangles2(v, relup);
-	ang_x = 0 - ang_x;
-	makevectors(ang);
-	// set the relative bone matrix
-	skel_set_bone(self.skeletonindex, bonenum, relorg);
-	// restore caller's v_ vectors
-	v_forward = oldforward;
-	v_right = oldright;
-	v_up = oldup;
+    local float bonenum;
+    local vector ang;
+    local vector oldforward, oldright, oldup;
+    local vector relforward, relright, relup, relorg;
+    local vector boneforward, boneright, boneup, boneorg;
+    local vector parentforward, parentright, parentup, parentorg;
+    local vector u, v;
+    local vector modeleyetarget;
+    bonenum = skel_find_bone(self.skeletonindex, bonename) - 1;
+    if (bonenum < 0)
+        return;
+    oldforward = v_forward;
+    oldright = v_right;
+    oldup = v_up;
+    v = eyetarget - self.origin;
+    modeleyetarget_x =   v * v_forward;
+    modeleyetarget_y = 0-v * v_right;
+    modeleyetarget_z =   v * v_up;
+    // this is an eyeball, make it point at the target location
+    // first get all the data we can...
+    relorg = skel_get_bonerel(self.skeletonindex, bonenum);
+    relforward = v_forward;
+    relright = v_right;
+    relup = v_up;
+    boneorg = skel_get_boneabs(self.skeletonindex, bonenum);
+    boneforward = v_forward;
+    boneright = v_right;
+    boneup = v_up;
+    parentorg = skel_get_boneabs(self.skeletonindex, skel_get_boneparent(self.skeletonindex, bonenum));
+    parentforward = v_forward;
+    parentright = v_right;
+    parentup = v_up;
+    // get the vector from the eyeball to the target
+    u = modeleyetarget - boneorg;
+    // now transform it inversely by the parent matrix to produce new rel vectors
+    v_x = u * parentforward;
+    v_y = u * parentright;
+    v_z = u * parentup;
+    ang = vectoangles2(v, relup);
+    ang_x = 0 - ang_x;
+    makevectors(ang);
+    // set the relative bone matrix
+    skel_set_bone(self.skeletonindex, bonenum, relorg);
+    // restore caller's v_ vectors
+    v_forward = oldforward;
+    v_right = oldright;
+    v_up = oldup;
 };
 // delete skeleton when we're done with it
 // note: skeleton remains valid until next frame when it is really deleted
 void() example_skel_player_delete =
 {
-	skel_delete(self.skeletonindex);
-	self.skeletonindex = 0;
+    skel_delete(self.skeletonindex);
+    self.skeletonindex = 0;
 };
 //
 // END OF EXAMPLES FOR FTE_CSQC_SKELETONOBJECTS

@@ -37,25 +37,25 @@ float FISH_RUN = 4;
 
 //============================================================================
 void() f_swim = {
-	// Do nothing if dead
-	if (self.health < 1) return;
-	
-	self.nextthink = time + 0.1;
-	if (self.walkframe == 1) monster_idle_sound();
+    // Do nothing if dead
+    if (self.health < 1) return;
+    
+    self.nextthink = time + 0.1;
+    if (self.walkframe == 1) monster_idle_sound();
 
-	// Keep moving the animation frame forward
-	if (self.state == FISH_RUN) self.walkframe = self.walkframe + 2;
-	else self.walkframe = self.walkframe + 1;
-	// Setup small/large frames
-	if (self.spawnflags & MON_FISH_SMALL)
-		self.frame = $swimS1 + self.walkframe;
-	else self.frame = $swim1 + self.walkframe;
-	// Loop around animation block
-	if (self.walkframe > 17) self.walkframe = 0;
+    // Keep moving the animation frame forward
+    if (self.state == FISH_RUN) self.walkframe = self.walkframe + 2;
+    else self.walkframe = self.walkframe + 1;
+    // Setup small/large frames
+    if (self.spawnflags & MON_FISH_SMALL)
+        self.frame = $swimS1 + self.walkframe;
+    else self.frame = $swim1 + self.walkframe;
+    // Loop around animation block
+    if (self.walkframe > 17) self.walkframe = 0;
 
-	if (self.state == FISH_STAND) ai_stand();
-	else if (self.state == FISH_WALK) ai_walk(self.move_state_y);
-	else ai_run(self.move_state_z);
+    if (self.state == FISH_STAND) ai_stand();
+    else if (self.state == FISH_WALK) ai_walk(self.move_state_y);
+    else ai_run(self.move_state_z);
 };
 
 //----------------------------------------------------------------------
@@ -63,19 +63,19 @@ void() f_stand1 = [ $swim1, f_swim ] { ai_stand();};
 void() f_standS1 = [ $swimS1, f_swim ] { ai_stand(); };
 
 void() f_stand = { 
-	self.walkframe = 0; self.state = FISH_STAND; 
-	if (self.spawnflags & MON_FISH_SMALL) f_standS1();
-	else f_stand1();
+    self.walkframe = 0; self.state = FISH_STAND; 
+    if (self.spawnflags & MON_FISH_SMALL) f_standS1();
+    else f_stand1();
 };
-	
+    
 //----------------------------------------------------------------------
 void() f_walk1 = [ $swim1, f_swim ] { ai_walk(self.move_state_y);};
 void() f_walkS1 = [ $swimS1, f_swim ] { ai_walk(self.move_state_y);};
 
 void() f_walk = {
-	self.walkframe = 0; self.state = FISH_WALK; 
-	if (self.spawnflags & MON_FISH_SMALL) f_walkS1();
-	else f_walk1();
+    self.walkframe = 0; self.state = FISH_WALK; 
+    if (self.spawnflags & MON_FISH_SMALL) f_walkS1();
+    else f_walk1();
 };
 
 //----------------------------------------------------------------------
@@ -83,50 +83,50 @@ void() f_run1 = [ $swim1, f_swim ] { ai_run(self.move_state_z);};
 void() f_runS1 = [ $swimS1, f_swim ] { ai_run(self.move_state_z);};
 
 void() f_run = {
-	self.walkframe = 0; self.state = FISH_RUN; 
-	if (self.spawnflags & MON_FISH_SMALL) f_runS1();
-	else f_run1();
+    self.walkframe = 0; self.state = FISH_RUN; 
+    if (self.spawnflags & MON_FISH_SMALL) f_runS1();
+    else f_run1();
 };
 
 //============================================================================
 void() fish_melee =
 {
-	local float ldmg;
+    local float ldmg;
 
-	if (!self.enemy) return;				// removed before stroke
-	ai_damagebreakable(5);					// Damage any breakables
-	if (!ai_checkmelee(MONAI_MELEEFISH,FALSE)) return;	// Too far away
-		
-	// Fish bites man! 1-6 Damage
-	ldmg = (random() + random() + random()) * 2;
-	if (ldmg < 1) ldmg = 1;
-	sound (self, CHAN_VOICE, "fish/bite.wav", 1, ATTN_NORM);
-	T_Damage (self.enemy, self, self, ldmg, DAMARMOR);
-	
-	// Check for poisonous attribute (new poison version)
-	if (self.poisonous) PoisonDeBuff(self.enemy);
+    if (!self.enemy) return;                // removed before stroke
+    ai_damagebreakable(5);                  // Damage any breakables
+    if (!ai_checkmelee(MONAI_MELEEFISH,FALSE)) return;  // Too far away
+        
+    // Fish bites man! 1-6 Damage
+    ldmg = (random() + random() + random()) * 2;
+    if (ldmg < 1) ldmg = 1;
+    sound (self, CHAN_VOICE, "fish/bite.wav", 1, ATTN_NORM);
+    T_Damage (self.enemy, self, self, ldmg, DAMARMOR);
+    
+    // Check for poisonous attribute (new poison version)
+    if (self.poisonous) PoisonDeBuff(self.enemy);
 
-	// Spawn some touch blood (no explicit direction)
-	spawn_touchblood (self, self.enemy, ldmg*3);
+    // Spawn some touch blood (no explicit direction)
+    spawn_touchblood (self, self.enemy, ldmg*3);
 };
 
 //----------------------------------------------------------------------
 void() f_attack2 = {
-	// Do nothing if dead
-	if (self.health < 1) return;
-	self.nextthink = time + 0.1;
+    // Do nothing if dead
+    if (self.health < 1) return;
+    self.nextthink = time + 0.1;
 
-	// Keep moving the animation frame forward
-	self.walkframe = self.walkframe + 1;
-	if (self.spawnflags & MON_FISH_SMALL)
-		self.frame = $attackS1 + self.walkframe;
-	else self.frame = $attack1 + self.walkframe;
-	
-	// Setup special frame attacks
-	if (self.walkframe > 17) self.think = self.th_run;
-	if (self.walkframe == 2 || self.walkframe == 8 || self.walkframe == 14) 
-		fish_melee();
-	else ai_charge(self.move_state_y);
+    // Keep moving the animation frame forward
+    self.walkframe = self.walkframe + 1;
+    if (self.spawnflags & MON_FISH_SMALL)
+        self.frame = $attackS1 + self.walkframe;
+    else self.frame = $attack1 + self.walkframe;
+    
+    // Setup special frame attacks
+    if (self.walkframe > 17) self.think = self.th_run;
+    if (self.walkframe == 2 || self.walkframe == 8 || self.walkframe == 14) 
+        fish_melee();
+    else ai_charge(self.move_state_y);
 };
 
 //----------------------------------------------------------------------
@@ -134,24 +134,24 @@ void() f_attack1 = [ $attack1, f_attack2 ] {};
 void() f_attackS1 = [ $attackS1, f_attack2 ] {};
 
 void() f_attack = {
-	self.walkframe = 0;
-	ai_charge(self.move_state_y);
-	if (self.spawnflags & MON_FISH_SMALL) f_attackS1();
-	else f_attack1();
+    self.walkframe = 0;
+    ai_charge(self.move_state_y);
+    if (self.spawnflags & MON_FISH_SMALL) f_attackS1();
+    else f_attack1();
 };
 
 //============================================================================
 void() f_pain2 = {
-	self.nextthink = time + 0.1;
-	
-	// Keep moving the animation frame forward
-	self.walkframe = self.walkframe + 1;
-	if (self.spawnflags & MON_FISH_SMALL)
-		self.frame = $painS1 + self.walkframe;
-	else self.frame = $pain1 + self.walkframe;
-	
-	if (self.walkframe > 8) self.think = self.th_run;
-	if (self.walkframe > 1) ai_pain(self.move_state_y/2);	
+    self.nextthink = time + 0.1;
+    
+    // Keep moving the animation frame forward
+    self.walkframe = self.walkframe + 1;
+    if (self.spawnflags & MON_FISH_SMALL)
+        self.frame = $painS1 + self.walkframe;
+    else self.frame = $pain1 + self.walkframe;
+    
+    if (self.walkframe > 8) self.think = self.th_run;
+    if (self.walkframe > 1) ai_pain(self.move_state_y/2);   
 };
 
 void() f_pain1 = [ $pain1, f_pain2 ] {};
@@ -160,10 +160,10 @@ void() f_painS1 = [ $painS1, f_pain2 ] {};
 //----------------------------------------------------------------------
 void(entity inflictor, entity attacker, float damage) fish_pain =
 {
-	if (self.health < 1) return;
-	self.walkframe = 0; 
-	if (self.spawnflags & MON_FISH_SMALL) f_painS1();
-	else f_pain1();
+    if (self.health < 1) return;
+    self.walkframe = 0; 
+    if (self.spawnflags & MON_FISH_SMALL) f_painS1();
+    else f_pain1();
 };
 
 //============================================================================
@@ -171,19 +171,19 @@ void() f_deathend = { monster_deadbody_check(); };
 
 //----------------------------------------------------------------------
 void() f_death2 = {
-	self.nextthink = time + 0.1;
-	
-	// Keep moving the animation frame forward
-	self.walkframe = self.walkframe + 1;
-	if (self.spawnflags & MON_FISH_SMALL)
-		self.frame = $deathS1 + self.walkframe;
-	else self.frame = $death1 + self.walkframe;
-	
-	// Keep moving the animation frame forward
-	if (self.walkframe < 3) monster_check_gib();
-	if (self.walkframe > 2) self.solid = SOLID_NOT;
-	if (self.walkframe == 19) monster_death_postcheck();
-	if (self.walkframe > 19) f_deathend();
+    self.nextthink = time + 0.1;
+    
+    // Keep moving the animation frame forward
+    self.walkframe = self.walkframe + 1;
+    if (self.spawnflags & MON_FISH_SMALL)
+        self.frame = $deathS1 + self.walkframe;
+    else self.frame = $death1 + self.walkframe;
+    
+    // Keep moving the animation frame forward
+    if (self.walkframe < 3) monster_check_gib();
+    if (self.walkframe > 2) self.solid = SOLID_NOT;
+    if (self.walkframe == 19) monster_death_postcheck();
+    if (self.walkframe > 19) f_deathend();
 };
 
 void() f_death1 = [ $death1, f_death2 ] {};
@@ -192,19 +192,19 @@ void() f_deathS1 = [ $deathS1, f_death2 ] {};
 //----------------------------------------------------------------------
 void() fish_die =
 {
-	// If fish in water, reduce self gravity to pretend to slowly sink
-	if (pointcontents(self.origin) == CONTENT_WATER) self.gravity = 0.25;
+    // If fish in water, reduce self gravity to pretend to slowly sink
+    if (pointcontents(self.origin) == CONTENT_WATER) self.gravity = 0.25;
 
-	// Pre-check routine to tidy up extra entities
-	monster_death_precheck();
+    // Pre-check routine to tidy up extra entities
+    monster_death_precheck();
 
-	// regular death
-	if (!self.gibbed) {
-		self.walkframe = 0;
-		sound (self, CHAN_VOICE, "fish/death.wav", 1, ATTN_NORM);
-		if (self.spawnflags & MON_FISH_SMALL) f_deathS1();
-		else f_death1();
-	}
+    // regular death
+    if (!self.gibbed) {
+        self.walkframe = 0;
+        sound (self, CHAN_VOICE, "fish/death.wav", 1, ATTN_NORM);
+        if (self.spawnflags & MON_FISH_SMALL) f_deathS1();
+        else f_death1();
+    }
 };
 
 /*======================================================================
@@ -212,71 +212,71 @@ QUAKED monster_fish (1 0 0) (-16 -16 -24) (16 16 24) Ambush
 ======================================================================*/
 void() monster_fish =
 {
-	// Check all spawn exceptions (monsters.qc)
-	if (monster_checkspawn() == TRUE) return;
+    // Check all spawn exceptions (monsters.qc)
+    if (monster_checkspawn() == TRUE) return;
 
-	self.mdl = "progs/mon_fish.mdl";	// Using new model
-	precache_model (self.mdl);
+    self.mdl = "progs/mon_fish.mdl";    // Using new model
+    precache_model (self.mdl);
 
-	self.idle_sound = "fish/idle.wav";
-	self.sight_sound = self.idle_sound;
-	precache_sound (self.idle_sound);
+    self.idle_sound = "fish/idle.wav";
+    self.sight_sound = self.idle_sound;
+    precache_sound (self.idle_sound);
 
-	precache_sound ("fish/death.wav");
-	precache_sound ("fish/bite.wav");
+    precache_sound ("fish/death.wav");
+    precache_sound ("fish/bite.wav");
 
-	// Check for poisonous entity flag
-	if (self.poisonous) {
-		precache_poisongibs();			// precache gibs
-		self.gibtype = GIBTYPE_POISON;	// Poisonous blood trails
-	}
-	
-	self.solid = SOLID_NOT;				// No interaction with world
-	self.movetype = MOVETYPE_NONE;		// Static item, no movement
-	self.gibhealth = -10;
-	self.gibbed = FALSE;
-	self.pain_flinch = 1;				// Always in pain
-	self.steptype = FS_FLYING;			// It has fins!?!
-	self.blockudeath = TRUE;			// No humanoid death sound
-	self.meleeoffset = '24 0 -8';		// Bite attack offset
-	self.height = 0;					// reset enemytarget tracking
-	if (!self.exactskin) self.randomskin = 4;
-	self.deathstring = " was fed to the Rotfish\n";
+    // Check for poisonous entity flag
+    if (self.poisonous) {
+        precache_poisongibs();          // precache gibs
+        self.gibtype = GIBTYPE_POISON;  // Poisonous blood trails
+    }
+    
+    self.solid = SOLID_NOT;             // No interaction with world
+    self.movetype = MOVETYPE_NONE;      // Static item, no movement
+    self.gibhealth = -10;
+    self.gibbed = FALSE;
+    self.pain_flinch = 1;               // Always in pain
+    self.steptype = FS_FLYING;          // It has fins!?!
+    self.blockudeath = TRUE;            // No humanoid death sound
+    self.meleeoffset = '24 0 -8';       // Bite attack offset
+    self.height = 0;                    // reset enemytarget tracking
+    if (!self.exactskin) self.randomskin = 4;
+    self.deathstring = " was fed to the Rotfish\n";
 
-	// Check for water sightline wakeup
-	if (self.spawnflags & MON_LIQUIDBLOCK) self.liquidblock = TRUE;
-	
-	// Always reset Ammo Resistance to be consistent
-	self.resist_shells = self.resist_nails = 0;
-	self.resist_rockets = self.resist_cells = 0;
+    // Check for water sightline wakeup
+    if (self.spawnflags & MON_LIQUIDBLOCK) self.liquidblock = TRUE;
+    
+    // Always reset Ammo Resistance to be consistent
+    self.resist_shells = self.resist_nails = 0;
+    self.resist_rockets = self.resist_cells = 0;
 
-	// Tiny fish are easier to kill
-	if (self.spawnflags & MON_FISH_SMALL) {
-		if (self.bboxtype < 1) self.bboxtype = BBOX_FISHS;
-		if (self.health < 1) self.health = 25/2;
-		// The small fish moving really fast looks odd
-		// reverted speed and movement back to original
-		//self.move_state = '0 12 16';
-		self.move_state = '0 8 12';
-	}
-	else {
-		if (self.bboxtype < 1) self.bboxtype = BBOX_FISH;
-		if (self.health < 1) self.health = 25;
-		self.move_state = '0 8 12';
-	}
-	
-	self.th_checkattack = FishCheckAttack;
-	self.th_stand = f_stand;
-	self.th_walk = f_walk;
-	self.th_run = f_run;
-	self.th_die = fish_die;
-	self.th_pain = fish_pain;
-	self.th_melee = f_attack;
-	
-	self.classtype = CT_MONFISH;
-	self.classgroup = CG_FISH;
-	self.classmove = MON_MOVESWIM;
-	
-	monster_start();
+    // Tiny fish are easier to kill
+    if (self.spawnflags & MON_FISH_SMALL) {
+        if (self.bboxtype < 1) self.bboxtype = BBOX_FISHS;
+        if (self.health < 1) self.health = 25/2;
+        // The small fish moving really fast looks odd
+        // reverted speed and movement back to original
+        //self.move_state = '0 12 16';
+        self.move_state = '0 8 12';
+    }
+    else {
+        if (self.bboxtype < 1) self.bboxtype = BBOX_FISH;
+        if (self.health < 1) self.health = 25;
+        self.move_state = '0 8 12';
+    }
+    
+    self.th_checkattack = FishCheckAttack;
+    self.th_stand = f_stand;
+    self.th_walk = f_walk;
+    self.th_run = f_run;
+    self.th_die = fish_die;
+    self.th_pain = fish_pain;
+    self.th_melee = f_attack;
+    
+    self.classtype = CT_MONFISH;
+    self.classgroup = CG_FISH;
+    self.classmove = MON_MOVESWIM;
+    
+    monster_start();
 };
 

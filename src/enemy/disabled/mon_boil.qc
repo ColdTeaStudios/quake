@@ -37,7 +37,7 @@ void() boil_stand16 = [ $stand16, boil_stand1 ] {ai_stand();};
 
 //=============================================================================
 void() boil_walk1 = [ $walk1, boil_walk2 ] {
-	monster_idle_sound(); ai_walk(0);};
+    monster_idle_sound(); ai_walk(0);};
 void() boil_walk2 = [ $walk2, boil_walk3 ] {monster_footstep(TRUE);ai_walk(3);};
 void() boil_walk3 = [ $walk3, boil_walk4 ] {ai_walk(4);};
 void() boil_walk4 = [ $walk4, boil_walk5 ] {ai_walk(3);};
@@ -81,7 +81,7 @@ void() boil_run8 = [ $run8, boil_run1 ] {ai_run(4);};
 // Running Boil Explosive Attack
 //======================================================================
 void() boil_expl1 = [ $explode1, boil_expl2 ] {ai_face();
-	sound (self, CHAN_VOICE, "zombie/boil_windup.wav", 1, ATTN_NORM);};
+    sound (self, CHAN_VOICE, "zombie/boil_windup.wav", 1, ATTN_NORM);};
 void() boil_expl2 = [ $explode2, boil_expl3 ] {ai_face();};
 void() boil_expl3 = [ $explode3, boil_expl4 ] {ai_face();};
 void() boil_expl4 = [ $explode4, boil_expl5 ] {ai_face();};
@@ -90,7 +90,7 @@ void() boil_expl6 = [ $explode6, boil_expl7 ] {ai_face();};
 void() boil_expl7 = [ $explode7, boil_expl8 ] {ai_face();};
 void() boil_expl8 = [ $explode8, boil_expl9 ] {ai_face();};
 void() boil_expl9 = [ $explode9, boil_expl9 ] {
-	T_Damage (self, self, self, self.health+1, NOARMOR);
+    T_Damage (self, self, self, self.health+1, NOARMOR);
 };
 
 //======================================================================
@@ -98,73 +98,73 @@ void() boil_expl9 = [ $explode9, boil_expl9 ] {
 //======================================================================
 void() boil_suicide =
 { 
-	if (self.health < 1) return;
-	self.use = SUB_Null;
-	// Make sure current enemy is the cause of the damage
-	T_Damage (self, self, self.enemy, self.health+1, NOARMOR);
+    if (self.health < 1) return;
+    self.use = SUB_Null;
+    // Make sure current enemy is the cause of the damage
+    T_Damage (self, self, self.enemy, self.health+1, NOARMOR);
 };
 
 //----------------------------------------------------------------------
 void() boil_checktarget =
 {
-	local entity client;
-	
-	// Should never have an active enemy
-	self.enemy = self.goalentity = world;
-	
-	// Get the obvious exception(s) done first
-	if (self.health < 1) return;
-	if (intermission_running > 0) return;
-	if (cinematic_running > 0) return;
+    local entity client;
+    
+    // Should never have an active enemy
+    self.enemy = self.goalentity = world;
+    
+    // Get the obvious exception(s) done first
+    if (self.health < 1) return;
+    if (intermission_running > 0) return;
+    if (cinematic_running > 0) return;
 
-	// Find a client in current PVS
-	client = checkclient ();
+    // Find a client in current PVS
+    client = checkclient ();
 
-	// Go through all the exception(s)
-	if (!client) return FALSE;
-	if (!(client.flags & FL_CLIENT)) return;
-	if (client.flags & FL_NOTARGET) return;
-	if (client.items & IT_INVISIBILITY) return;
+    // Go through all the exception(s)
+    if (!client) return FALSE;
+    if (!(client.flags & FL_CLIENT)) return;
+    if (client.flags & FL_NOTARGET) return;
+    if (client.items & IT_INVISIBILITY) return;
 
-	// Check if the player is visible?
-	enemy_vis = visible(client);
-	if (!enemy_vis) return;
-	
-	// Store client/player for later damage
-	self.enemy = client;
+    // Check if the player is visible?
+    enemy_vis = visible(client);
+    if (!enemy_vis) return;
+    
+    // Store client/player for later damage
+    self.enemy = client;
 
-	// Is the player within range to blow up?
-	self.enemydist = range_distance(client, FALSE);
-	if (self.enemydist < self.t_width) self.th_melee();
+    // Is the player within range to blow up?
+    self.enemydist = range_distance(client, FALSE);
+    if (self.enemydist < self.t_width) self.th_melee();
 };
 
 //----------------------------------------------------------------------
 void() boil_squirtblood =
 {
-	if (self.waitmin < time) {
-		self.waitmin = time + self.wait + random() * self.wait;
-		sound (self, CHAN_WEAPON, "zombie/boil_squirt.wav", 1, ATTN_IDLE);
-		
-		SpawnProjectileMeat(self,self.origin,self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
-		// Randomly spawn an extra gib of flesh
-		if (random() < 0.25) SpawnProjectileMeat(self,self.origin,self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
-	}
+    if (self.waitmin < time) {
+        self.waitmin = time + self.wait + random() * self.wait;
+        sound (self, CHAN_WEAPON, "zombie/boil_squirt.wav", 1, ATTN_IDLE);
+        
+        SpawnProjectileMeat(self,self.origin,self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
+        // Randomly spawn an extra gib of flesh
+        if (random() < 0.25) SpawnProjectileMeat(self,self.origin,self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
+    }
 };
 
 //----------------------------------------------------------------------
 void() boil_hoba1 = [ $hobA1, boil_hoba2 ] {
-	self.nextthink = self.nextthink + random()*0.2;
-	monster_idle_sound();boil_squirtblood();boil_checktarget();
+    self.nextthink = self.nextthink + random()*0.2;
+    monster_idle_sound();boil_squirtblood();boil_checktarget();
 };
 void() boil_hoba2 = [ $hobA2, boil_hoba3 ] {boil_checktarget();};
 void() boil_hoba3 = [ $hobA3, boil_hoba4 ] {
-	self.nextthink = self.nextthink + random()*0.2;
-	boil_checktarget();};
+    self.nextthink = self.nextthink + random()*0.2;
+    boil_checktarget();};
 void() boil_hoba4 = [ $hobA2, boil_hoba1 ] {boil_checktarget();};
 
 //----------------------------------------------------------------------
 void() boil_HexpA1 = [ $hobA2, boil_HexpA2 ] {
-	sound (self, CHAN_VOICE, "zombie/boil_windup.wav", 1, ATTN_NORM);};
+    sound (self, CHAN_VOICE, "zombie/boil_windup.wav", 1, ATTN_NORM);};
 void() boil_HexpA2 = [ $hobA3, boil_HexpA3 ] {};
 void() boil_HexpA3 = [ $hobA4, boil_HexpA4 ] {};
 void() boil_HexpA4 = [ $hobA5, boil_HexpA5 ] {};
@@ -176,18 +176,18 @@ void() boil_HexpA9 = [ $hobA10, boil_HexpA9 ] {boil_suicide();};
 
 //----------------------------------------------------------------------
 void() boil_hobb1 = [ $hobB1, boil_hobb2 ] {
-	self.nextthink = self.nextthink + random()*0.2;
-	monster_idle_sound();boil_squirtblood();boil_checktarget();
+    self.nextthink = self.nextthink + random()*0.2;
+    monster_idle_sound();boil_squirtblood();boil_checktarget();
 };
 void() boil_hobb2 = [ $hobB2, boil_hobb3 ] {boil_checktarget();};
 void() boil_hobb3 = [ $hobB3, boil_hobb4 ] {
-	self.nextthink = self.nextthink + random()*0.2;
-	boil_checktarget();};
+    self.nextthink = self.nextthink + random()*0.2;
+    boil_checktarget();};
 void() boil_hobb4 = [ $hobB2, boil_hobb1 ] {boil_checktarget();};
 
 //----------------------------------------------------------------------
 void() boil_HexpB1 = [ $hobB2, boil_HexpB2 ] {
-	sound (self, CHAN_VOICE, "zombie/boil_windup.wav", 1, ATTN_NORM);};
+    sound (self, CHAN_VOICE, "zombie/boil_windup.wav", 1, ATTN_NORM);};
 void() boil_HexpB2 = [ $hobB3, boil_HexpB3 ] {};
 void() boil_HexpB3 = [ $hobB4, boil_HexpB4 ] {};
 void() boil_HexpB4 = [ $hobB5, boil_HexpB5 ] {};
@@ -202,135 +202,135 @@ void() boil_HexpB9 = [ $hobB10, boil_HexpB9 ] {boil_suicide();};
 //======================================================================
 void(entity inflictor, entity attacker, float take) boil_pain =
 {
-	// Spawn some grey particles and chunk of meat
-	SpawnProjectileSmoke(self.origin, self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
-	SpawnProjectileMeat(self,self.origin, self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
-	// Random chance of more smokey meat
-	if (random() < 0.5) {
-		SpawnProjectileSmoke(self.origin, self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
-		SpawnProjectileMeat(self,self.origin, self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
-	}
+    // Spawn some grey particles and chunk of meat
+    SpawnProjectileSmoke(self.origin, self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
+    SpawnProjectileMeat(self,self.origin, self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
+    // Random chance of more smokey meat
+    if (random() < 0.5) {
+        SpawnProjectileSmoke(self.origin, self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
+        SpawnProjectileMeat(self,self.origin, self.brkvelbase_x, self.brkvelbase_y, self.brkvelbase_z);
+    }
 
-	// No special animation
-	return; 
+    // No special animation
+    return; 
 };
 
 //============================================================================
 void() boil_explode = {
-	// Needs special version of radius damage function (T_RadiusDamage)
-	// Boss monsters are always immune to this kind of damage
-	// Needs to do infighting damage before T_Damage function
-	// There is no rocket resistance to this kind damage!
-	// Must pass on self.enemy so that any death triggers work properly
-	//
-	self.enemytarget = findradius(self.origin, self.death_dmg+40);
-	// Loop through chain list
-	while(self.enemytarget) {
-		// Ignore self and world and can never damage bosses
-		if (self.enemytarget != world && self.enemytarget != self && self.enemytarget.bossflag == 0) {
-			// Check for any breakables which are prone to explosive damage
-			if (ai_foundbreakable(self.enemy, self.enemytarget,TRUE) && 
-			self.enemytarget.brktrigmissile != 0) {
-				trigger_ent(self.enemytarget, self.enemy);
-			}
-			else {
-				// Can be damaged and NOT immune to radius (splash) damage
-				if (self.enemytarget.takedamage > 0 && self.enemytarget.noradiusdmg == 0) {
-					// Make sure monsters take more damage
-					if (self.enemytarget.flags & FL_MONSTER)
-						self.dmg = self.death_dmg * self.infightextra;
-					else {
-						// Use original radius formula for non monsters
-						self.pos1 = self.enemytarget.origin + (self.enemytarget.mins + self.enemytarget.maxs)*0.5;
-						self.dmg = 0.5*vlen (self.origin - self.pos1);
-						if (self.dmg < 0) self.dmg = 0;
-						self.dmg = self.death_dmg - self.dmg;
-					}
-					
-					if (self.dmg > 0 && self.enemytarget.health > 0) {
-						// Need CanDamage to check for anything blocking LoS
-						if (CanDamage (self.enemytarget, self))
-							// Pass on self.enemy so death triggers fire correctly
-							T_Damage (self.enemytarget, self, self.enemy, self.dmg, DAMARMOR);
-							// make sure to check for poisonous and apply debuff
-							if (self.dmg > 0 && self.poisonous == TRUE) PoisonDeBuff(self.enemytarget);
-					}
-				}
-			}
-		}
-		// Move forward in chain to next entity
-		self.enemytarget = self.enemytarget.chain;
-	}
-	
-	/*----------------------------------------------------------------------
-	// I really liked this idea of the boil destroying any monster
-	// bodies lying closeby, BUT this is a serious processor drain
-	// on maps with a huge amount of monsters.
-	// Every monster that dies is marked and left on the floor and
-	// this function would search them all everytime a boil explodes!
-	//
-	// The code below works fine, BUT it should only be enabled
-	// for maps with small amount of available monsters
-	//----------------------------------------------------------------------
-	
-	// Check for any nearby dead/lying bodies
-	self.enemytarget = find(world, bodyonflr, MON_ONFLR);
-	self.dmg = self.death_dmg * self.infightextra;
-	// restrict size of dead body search list
-	self.count = 64;
+    // Needs special version of radius damage function (T_RadiusDamage)
+    // Boss monsters are always immune to this kind of damage
+    // Needs to do infighting damage before T_Damage function
+    // There is no rocket resistance to this kind damage!
+    // Must pass on self.enemy so that any death triggers work properly
+    //
+    self.enemytarget = findradius(self.origin, self.death_dmg+40);
+    // Loop through chain list
+    while(self.enemytarget) {
+        // Ignore self and world and can never damage bosses
+        if (self.enemytarget != world && self.enemytarget != self && self.enemytarget.bossflag == 0) {
+            // Check for any breakables which are prone to explosive damage
+            if (ai_foundbreakable(self.enemy, self.enemytarget,TRUE) && 
+            self.enemytarget.brktrigmissile != 0) {
+                trigger_ent(self.enemytarget, self.enemy);
+            }
+            else {
+                // Can be damaged and NOT immune to radius (splash) damage
+                if (self.enemytarget.takedamage > 0 && self.enemytarget.noradiusdmg == 0) {
+                    // Make sure monsters take more damage
+                    if (self.enemytarget.flags & FL_MONSTER)
+                        self.dmg = self.death_dmg * self.infightextra;
+                    else {
+                        // Use original radius formula for non monsters
+                        self.pos1 = self.enemytarget.origin + (self.enemytarget.mins + self.enemytarget.maxs)*0.5;
+                        self.dmg = 0.5*vlen (self.origin - self.pos1);
+                        if (self.dmg < 0) self.dmg = 0;
+                        self.dmg = self.death_dmg - self.dmg;
+                    }
+                    
+                    if (self.dmg > 0 && self.enemytarget.health > 0) {
+                        // Need CanDamage to check for anything blocking LoS
+                        if (CanDamage (self.enemytarget, self))
+                            // Pass on self.enemy so death triggers fire correctly
+                            T_Damage (self.enemytarget, self, self.enemy, self.dmg, DAMARMOR);
+                            // make sure to check for poisonous and apply debuff
+                            if (self.dmg > 0 && self.poisonous == TRUE) PoisonDeBuff(self.enemytarget);
+                    }
+                }
+            }
+        }
+        // Move forward in chain to next entity
+        self.enemytarget = self.enemytarget.chain;
+    }
+    
+    /*----------------------------------------------------------------------
+    // I really liked this idea of the boil destroying any monster
+    // bodies lying closeby, BUT this is a serious processor drain
+    // on maps with a huge amount of monsters.
+    // Every monster that dies is marked and left on the floor and
+    // this function would search them all everytime a boil explodes!
+    //
+    // The code below works fine, BUT it should only be enabled
+    // for maps with small amount of available monsters
+    //----------------------------------------------------------------------
+    
+    // Check for any nearby dead/lying bodies
+    self.enemytarget = find(world, bodyonflr, MON_ONFLR);
+    self.dmg = self.death_dmg * self.infightextra;
+    // restrict size of dead body search list
+    self.count = 64;
 
-	// Cycle through list of "marked" dead bodies
-	// These entities cannot be found by a findradius command
-	// They are setup nonsolid and have to be checked manually
-	while (self.enemytarget) {
-		// Work out how close the body is to the boil
-		self.enemydist = vlen(self.origin - self.enemytarget.origin);
-		if (self.enemydist < self.death_dmg+40) {
-			// Use shadow axe gib function (moved to ai_gib)
-			monster_flrbody_gib(self.enemytarget, self.dmg);
-		}
-		// Only check the first xx dead bodies in the list
-		self.count = self.count - 1;
-		if (self.count < 1) self.enemytarget = world;
-		else self.enemytarget = find(self.enemytarget, bodyonflr, MON_ONFLR);
-	}
-	*/
-	
-	// Switch explosions effect based on poison flag
-	if (self.poisonous) {
-		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
-		WriteByte (MSG_BROADCAST, TE_EXPLOSION2);
-		WriteCoord (MSG_BROADCAST, self.origin_x);
-		WriteCoord (MSG_BROADCAST, self.origin_y);
-		WriteCoord (MSG_BROADCAST, self.origin_z);
-		WriteByte (MSG_BROADCAST, 51);
-		WriteByte (MSG_BROADCAST, 8);
-	}
-	else {
-		// Show classic grenade explosion effect
-		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
-		WriteByte (MSG_BROADCAST, TE_EXPLOSION);
-		WriteCoord (MSG_BROADCAST, self.origin_x);
-		WriteCoord (MSG_BROADCAST, self.origin_y);
-		WriteCoord (MSG_BROADCAST, self.origin_z);
-	}
-	// Can drop health packs! - randomizer
-	if (self.healamount > 0) DropHealthpack();
+    // Cycle through list of "marked" dead bodies
+    // These entities cannot be found by a findradius command
+    // They are setup nonsolid and have to be checked manually
+    while (self.enemytarget) {
+        // Work out how close the body is to the boil
+        self.enemydist = vlen(self.origin - self.enemytarget.origin);
+        if (self.enemydist < self.death_dmg+40) {
+            // Use shadow axe gib function (moved to ai_gib)
+            monster_flrbody_gib(self.enemytarget, self.dmg);
+        }
+        // Only check the first xx dead bodies in the list
+        self.count = self.count - 1;
+        if (self.count < 1) self.enemytarget = world;
+        else self.enemytarget = find(self.enemytarget, bodyonflr, MON_ONFLR);
+    }
+    */
+    
+    // Switch explosions effect based on poison flag
+    if (self.poisonous) {
+        WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+        WriteByte (MSG_BROADCAST, TE_EXPLOSION2);
+        WriteCoord (MSG_BROADCAST, self.origin_x);
+        WriteCoord (MSG_BROADCAST, self.origin_y);
+        WriteCoord (MSG_BROADCAST, self.origin_z);
+        WriteByte (MSG_BROADCAST, 51);
+        WriteByte (MSG_BROADCAST, 8);
+    }
+    else {
+        // Show classic grenade explosion effect
+        WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+        WriteByte (MSG_BROADCAST, TE_EXPLOSION);
+        WriteCoord (MSG_BROADCAST, self.origin_x);
+        WriteCoord (MSG_BROADCAST, self.origin_y);
+        WriteCoord (MSG_BROADCAST, self.origin_z);
+    }
+    // Can drop health packs! - randomizer
+    if (self.healamount > 0) DropHealthpack();
 };
 
 //----------------------------------------------------------------------
 void() boil_die =
 {
-	// Upward fountain of gibs
-	self.max_health = MON_GIBFOUNTAIN;
-	monster_death_precheck();
-	// New gib + loud explosion sound
-	sound (self, CHAN_AUTO, "zombie/boil_explode.wav", 1, ATTN_NORM);
-	// Delay the t_radius explosion for one frame
-	// Just in case several are standing next to each other
-	// otherwise there will be a runaway crash loop
-	self.think = boil_explode;
-	self.nextthink = time + 0.1;
+    // Upward fountain of gibs
+    self.max_health = MON_GIBFOUNTAIN;
+    monster_death_precheck();
+    // New gib + loud explosion sound
+    sound (self, CHAN_AUTO, "zombie/boil_explode.wav", 1, ATTN_NORM);
+    // Delay the t_radius explosion for one frame
+    // Just in case several are standing next to each other
+    // otherwise there will be a runaway crash loop
+    self.think = boil_explode;
+    self.nextthink = time + 0.1;
 };
 
 
@@ -339,133 +339,133 @@ void() boil_die =
 ======================================================================*/
 void() monster_boil =
 {
-	// Check all spawn exceptions (monsters.qc)
-	if (monster_checkspawn() == TRUE) return;
+    // Check all spawn exceptions (monsters.qc)
+    if (monster_checkspawn() == TRUE) return;
 
-	self.mdl = "progs/mon_boil.mdl";
-	precache_model (self.mdl);
+    self.mdl = "progs/mon_boil.mdl";
+    precache_model (self.mdl);
 
-	self.idle_sound = "zombie/boil_idle1.wav";
-	self.idle_sound2 = "zombie/boil_idle2.wav";
-	precache_sound (self.idle_sound);
-	precache_sound (self.idle_sound2);
-	
-	self.sight_sound = "zombie/boil_sight.wav";
-	precache_sound (self.sight_sound);
-	self.pain_sound = SOUND_EMPTY;
-	precache_sound ("zombie/boil_squirt.wav");
-	precache_sound ("zombie/boil_windup.wav");
-	precache_sound ("zombie/boil_explode.wav");
+    self.idle_sound = "zombie/boil_idle1.wav";
+    self.idle_sound2 = "zombie/boil_idle2.wav";
+    precache_sound (self.idle_sound);
+    precache_sound (self.idle_sound2);
+    
+    self.sight_sound = "zombie/boil_sight.wav";
+    precache_sound (self.sight_sound);
+    self.pain_sound = SOUND_EMPTY;
+    precache_sound ("zombie/boil_squirt.wav");
+    precache_sound ("zombie/boil_windup.wav");
+    precache_sound ("zombie/boil_explode.wav");
 
-	// Check for poisonous entity flag
-	if (self.poisonous) {
-		precache_poisongibs();			// precache gibs
-		self.gibtype = GIBTYPE_POISON;	// Poisonous blood trails
-	}
-	
-	// The randomizer drops health packs on death
-	if (self.healamount > 0) CacheHealthpacks();
-	
-	self.solid = SOLID_NOT;				// No interaction with world
-	self.movetype = MOVETYPE_NONE;		// Static item, no movement
-	if (self.bboxtype < 1) self.bboxtype = BBOX_SHORT;
-	if (self.health < 1) self.health = 40;
-	self.gibhealth = -60;				// Never used
-	self.gibbed = FALSE;				// In one piece
-	self.pain_flinch = 10;				// Has gib splash
-	self.steptype = FS_TYPESLOW;		// Tiny feet
-	self.gibondeath = TRUE;				// Always blow up!
-	self.blockudeath = TRUE;			// No humanoid death sound
-	if (self.death_dmg < 1) self.death_dmg = DAMAGE_BOIL;
-	if (self.infightextra < 1) self.infightextra = 16;
-	self.attack_instant = 1;			// Start moving right away
-	self.deathstring = " was blown away by a Boil\n";
-	
-	// Setup timer for flesh gib squirting from body
-	if (self.wait < 1) self.wait = 4;
-	self.waitmin = time + self.wait + random() * self.wait;
-	// Randomly pick one from the first four skins
-	// 0=flesh, 1=brown, 2=green1, 3=green2, 4=flesh
-	if (!self.exactskin) self.randomskin = 4;
-	self.brkvelbase = '200 50 150';
+    // Check for poisonous entity flag
+    if (self.poisonous) {
+        precache_poisongibs();          // precache gibs
+        self.gibtype = GIBTYPE_POISON;  // Poisonous blood trails
+    }
+    
+    // The randomizer drops health packs on death
+    if (self.healamount > 0) CacheHealthpacks();
+    
+    self.solid = SOLID_NOT;             // No interaction with world
+    self.movetype = MOVETYPE_NONE;      // Static item, no movement
+    if (self.bboxtype < 1) self.bboxtype = BBOX_SHORT;
+    if (self.health < 1) self.health = 40;
+    self.gibhealth = -60;               // Never used
+    self.gibbed = FALSE;                // In one piece
+    self.pain_flinch = 10;              // Has gib splash
+    self.steptype = FS_TYPESLOW;        // Tiny feet
+    self.gibondeath = TRUE;             // Always blow up!
+    self.blockudeath = TRUE;            // No humanoid death sound
+    if (self.death_dmg < 1) self.death_dmg = DAMAGE_BOIL;
+    if (self.infightextra < 1) self.infightextra = 16;
+    self.attack_instant = 1;            // Start moving right away
+    self.deathstring = " was blown away by a Boil\n";
+    
+    // Setup timer for flesh gib squirting from body
+    if (self.wait < 1) self.wait = 4;
+    self.waitmin = time + self.wait + random() * self.wait;
+    // Randomly pick one from the first four skins
+    // 0=flesh, 1=brown, 2=green1, 3=green2, 4=flesh
+    if (!self.exactskin) self.randomskin = 4;
+    self.brkvelbase = '200 50 150';
 
-	// Always reset Ammo Resistance to be consistent
-	self.resist_shells = self.resist_nails = 0;
-	self.resist_rockets = self.resist_cells = 0;
+    // Always reset Ammo Resistance to be consistent
+    self.resist_shells = self.resist_nails = 0;
+    self.resist_rockets = self.resist_cells = 0;
 
-	// All boils die the same way
-	self.th_checkattack = BoilCheckAttack;
-	self.th_pain = boil_pain;
-	self.th_die = boil_die;
+    // All boils die the same way
+    self.th_checkattack = BoilCheckAttack;
+    self.th_pain = boil_pain;
+    self.th_die = boil_die;
 
-	self.classtype = CT_MONBOIL;
-	self.classgroup = CG_SPAWN;
-	self.classmove = MON_MOVEWALK;
+    self.classtype = CT_MONBOIL;
+    self.classgroup = CG_SPAWN;
+    self.classmove = MON_MOVEWALK;
 
-	// Setup random hobble animation
-	if (self.spawnflags & ( MON_BOIL_HOBBLED | MON_BOIL_HANGING)) {
-		// A = Crossed legs, B = Straight legs
-		if (random() < 0.5) {		
-			self.th_stand = self.th_walk = self.th_run = boil_hoba1;
-			self.th_melee = boil_HexpA1;
-		}
-		else {
-			self.th_stand = self.th_walk = self.th_run = boil_hobb1;
-			self.th_melee = boil_HexpB1;
-		}
-		// No movement, turret mode
-		self.movespeed = -1;
-		// The stationary boil cannot start angry at anything
-		self.spawnflags = self.spawnflags - (self.spawnflags & MON_SPAWN_ANGRY);
-		self.angrytarget = "";
-		// Instantly blow up when triggered
-		self.think1 = boil_suicide;
-		// Cannot have sight sound, its nailed to wall/floor!
-		self.sight_sound = SOUND_EMPTY;
-		// Allow for override on exploding trigger radius
-		if (self.t_width < 1) self.t_width = MONAI_HOBBLEBOIL;
-	}
-	
-	// Hobbled hanging upside down on wall?
-	if (self.spawnflags & MON_BOIL_HANGING) {
-		// Make sure angle is within range (0-360)
-		if (self.angles_y < 0) self.angles_y = 360;
-		// Calculate opposite facing direction
-		self.movedir = '0 0 0';
-		self.movedir_y = anglemod(self.angles_y + 180);
-		// Calculate upward vector and rotate monster
-		makevectors(self.angles);
-		self.angles = self.movedir + vectoangles(v_up);
-		// Pull monster away from wall
-		self.origin = self.origin + v_forward*10;
-		// Allow monster to float and no ground check
-		self.classmove = MON_MOVEFLY;
-		self.flags = self.flags | FL_FLY;
-		// Setup squirt distance for blood
-		self.brkvelbase = '100 50 150';
-	}
-	// Hobbled legs with spikes (ground pose)
-	else if (self.spawnflags & MON_BOIL_HOBBLED) {
-		// Check for random floor rotation and setup no movment
-		if (self.angles_y < 0) self.angles_y = rint(random()*360);
-		// Setup squirt distance for blood
-		self.brkvelbase = '100 300 100';
-	}
-	else {
-		// Allow for override on exploding trigger radius
-		if (self.t_width < 1) self.t_width = MONAI_MELEEBOIL;
-		// Default stand, walk & run
-		self.th_stand = boil_stand1;
-		self.th_walk = boil_walk1;
-		self.th_run = boil_run1;
-		self.th_melee = boil_expl1;
-	}
-	
-	// Delay spawn randomized boils a couple of frame
-	// To avoid telefrags issues of bad placement of HP packs
-	if (self.randomized > 0) {
-		self.nextthink = time + 0.1 + (random()*0.2);
-		self.think = monster_start;
-	}
-	else monster_start();
+    // Setup random hobble animation
+    if (self.spawnflags & ( MON_BOIL_HOBBLED | MON_BOIL_HANGING)) {
+        // A = Crossed legs, B = Straight legs
+        if (random() < 0.5) {       
+            self.th_stand = self.th_walk = self.th_run = boil_hoba1;
+            self.th_melee = boil_HexpA1;
+        }
+        else {
+            self.th_stand = self.th_walk = self.th_run = boil_hobb1;
+            self.th_melee = boil_HexpB1;
+        }
+        // No movement, turret mode
+        self.movespeed = -1;
+        // The stationary boil cannot start angry at anything
+        self.spawnflags = self.spawnflags - (self.spawnflags & MON_SPAWN_ANGRY);
+        self.angrytarget = "";
+        // Instantly blow up when triggered
+        self.think1 = boil_suicide;
+        // Cannot have sight sound, its nailed to wall/floor!
+        self.sight_sound = SOUND_EMPTY;
+        // Allow for override on exploding trigger radius
+        if (self.t_width < 1) self.t_width = MONAI_HOBBLEBOIL;
+    }
+    
+    // Hobbled hanging upside down on wall?
+    if (self.spawnflags & MON_BOIL_HANGING) {
+        // Make sure angle is within range (0-360)
+        if (self.angles_y < 0) self.angles_y = 360;
+        // Calculate opposite facing direction
+        self.movedir = '0 0 0';
+        self.movedir_y = anglemod(self.angles_y + 180);
+        // Calculate upward vector and rotate monster
+        makevectors(self.angles);
+        self.angles = self.movedir + vectoangles(v_up);
+        // Pull monster away from wall
+        self.origin = self.origin + v_forward*10;
+        // Allow monster to float and no ground check
+        self.classmove = MON_MOVEFLY;
+        self.flags = self.flags | FL_FLY;
+        // Setup squirt distance for blood
+        self.brkvelbase = '100 50 150';
+    }
+    // Hobbled legs with spikes (ground pose)
+    else if (self.spawnflags & MON_BOIL_HOBBLED) {
+        // Check for random floor rotation and setup no movment
+        if (self.angles_y < 0) self.angles_y = rint(random()*360);
+        // Setup squirt distance for blood
+        self.brkvelbase = '100 300 100';
+    }
+    else {
+        // Allow for override on exploding trigger radius
+        if (self.t_width < 1) self.t_width = MONAI_MELEEBOIL;
+        // Default stand, walk & run
+        self.th_stand = boil_stand1;
+        self.th_walk = boil_walk1;
+        self.th_run = boil_run1;
+        self.th_melee = boil_expl1;
+    }
+    
+    // Delay spawn randomized boils a couple of frame
+    // To avoid telefrags issues of bad placement of HP packs
+    if (self.randomized > 0) {
+        self.nextthink = time + 0.1 + (random()*0.2);
+        self.think = monster_start;
+    }
+    else monster_start();
 };

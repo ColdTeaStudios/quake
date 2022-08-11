@@ -127,15 +127,15 @@ void() mino_run12 =[ $walk23, mino_run ] {ai_run(9);};
 //----------------------------------------------------------------------
 void() mino_run =
 {
-	if (self.attack_rage) mino_rage1();
-	else mino_run1();
+    if (self.attack_rage) mino_rage1();
+    else mino_run1();
 };
 
 //----------------------------------------------------------------------
 // Short howl animation to switch to rage mode
 //----------------------------------------------------------------------
 void() mino_howl1 =[ $howl1, mino_howl2 ] {
-	sound (self, CHAN_WEAPON, "minotaur/attack1long.wav", 1, ATTN_NORM);};
+    sound (self, CHAN_WEAPON, "minotaur/attack1long.wav", 1, ATTN_NORM);};
 void() mino_howl2 =[ $howl3, mino_howl3 ] {};
 void() mino_howl3 =[ $howl5, mino_howl4 ] {};
 void() mino_howl4 =[ $howl7, mino_howl5 ] {};
@@ -153,28 +153,28 @@ void() mino_howl12 =[ $howl31, mino_run ] {};
 //============================================================================
 void(float side) mino_claw =
 {
-	local float ldmg;
-	
-	if (!self.enemy) return;
-	if (self.health < 1) return;
-	ai_face ();						// Turn towards enemy target
-	ai_damagebreakable(50);			// Damage any breakables
+    local float ldmg;
+    
+    if (!self.enemy) return;
+    if (self.health < 1) return;
+    ai_face ();                     // Turn towards enemy target
+    ai_damagebreakable(50);         // Damage any breakables
 
-	if (!ai_checkmelee(MONAI_MELEEMINOTAUR, MONAI_MELEEZTALL) || !self.enemy.takedamage) {
-		// Melee claw miss sound
-		sound (self, CHAN_WEAPON, "minotaur/swipe.wav", 1, ATTN_NORM);
-	}
-	else {
-		// Melee claw hit sound
-		if (self.lefty) sound (self, CHAN_WEAPON, "minotaur/strike1.wav", 1, ATTN_NORM);
-		else sound (self, CHAN_WEAPON, "minotaur/strike2.wav", 1, ATTN_NORM);
-		self.lefty = 1 - self.lefty;
-		ldmg = 12 + 6*random();
-		// Rage attack is once per animation frame, more deadly
-		if (self.attack_rage) ldmg = ldmg*2;
-		T_Damage (self.enemy, self, self, ldmg, DAMARMOR);		
-		SpawnMeatSpray (self, self.enemy, side);
-	}
+    if (!ai_checkmelee(MONAI_MELEEMINOTAUR, MONAI_MELEEZTALL) || !self.enemy.takedamage) {
+        // Melee claw miss sound
+        sound (self, CHAN_WEAPON, "minotaur/swipe.wav", 1, ATTN_NORM);
+    }
+    else {
+        // Melee claw hit sound
+        if (self.lefty) sound (self, CHAN_WEAPON, "minotaur/strike1.wav", 1, ATTN_NORM);
+        else sound (self, CHAN_WEAPON, "minotaur/strike2.wav", 1, ATTN_NORM);
+        self.lefty = 1 - self.lefty;
+        ldmg = 12 + 6*random();
+        // Rage attack is once per animation frame, more deadly
+        if (self.attack_rage) ldmg = ldmg*2;
+        T_Damage (self.enemy, self, self, ldmg, DAMARMOR);      
+        SpawnMeatSpray (self, self.enemy, side);
+    }
 };
 
 //----------------------------------------------------------------------
@@ -193,9 +193,9 @@ void() mino_slapR3 =[ $bwalk11, mino_slapR4 ] {ai_charge(9);};
 void() mino_slapR4 =[ $bwalk13, mino_slapR5 ] {ai_charge(12);mino_claw(250);};
 void() mino_slapR5 =[ $bwalk15, mino_slapR6 ] {ai_charge(12);};
 void() mino_slapR6 =[ $bwalk17, mino_run ] {ai_charge(9);
-	// Check if enemy is close, alive and visible before doing more melee
-	if (random() < 0.5 && ai_checkmelee(MONAI_MELEEMINOTAUR, MONAI_MELEEZTALL) && 
-		self.enemy.health > 0 && visible(self.enemy)) self.think = mino_slapL1;
+    // Check if enemy is close, alive and visible before doing more melee
+    if (random() < 0.5 && ai_checkmelee(MONAI_MELEEMINOTAUR, MONAI_MELEEZTALL) && 
+        self.enemy.health > 0 && visible(self.enemy)) self.think = mino_slapL1;
 };
 
 //----------------------------------------------------------------------
@@ -210,13 +210,13 @@ void() mino_gore6 =[ $gore12, mino_run ] {ai_charge(26);};
 //----------------------------------------------------------------------
 void() mino_melee =
 {
-	// Switch to a faster more deadly melee attack if in rage mode
-	if (self.attack_rage) mino_gore1();
-	else {
-		// Randomly start left or right and then loop
-		if (random() < 0.5) mino_slapR1();
-		else mino_slapL1();
-	}
+    // Switch to a faster more deadly melee attack if in rage mode
+    if (self.attack_rage) mino_gore1();
+    else {
+        // Randomly start left or right and then loop
+        if (random() < 0.5) mino_slapR1();
+        else mino_slapL1();
+    }
 };
 
 //============================================================================
@@ -224,56 +224,56 @@ void() mino_melee =
 //============================================================================
 void() mino_JumpTouch =
 {
-	local float ldmg;
+    local float ldmg;
 
-	if (self.health < 1) return;
-	ai_jumpbreakable(30);			// Damage any breakables
-	self.touch = SUB_Null;			// No more touching
-	self.count = self.count + 1;	// Total amount of touch jumps
-	self.think = self.th_jumpexit;	// Exit frame
+    if (self.health < 1) return;
+    ai_jumpbreakable(30);           // Damage any breakables
+    self.touch = SUB_Null;          // No more touching
+    self.count = self.count + 1;    // Total amount of touch jumps
+    self.think = self.th_jumpexit;  // Exit frame
 
-	// Keep track of how many times touched the same object
-	if (self.jumptouch == other) self.jump_flag = time + MONAI_JUMPTIMEOUT;
-	self.jumptouch = other;			// Keep track of touch target
+    // Keep track of how many times touched the same object
+    if (self.jumptouch == other) self.jump_flag = time + MONAI_JUMPTIMEOUT;
+    self.jumptouch = other;         // Keep track of touch target
 
-	if ( CanDamage(other, self) ) {
-		if ( vlen(self.velocity) > 300 ) {
-		  ldmg = 20 + 10*random();
-			T_Damage (other, self, self, ldmg, DAMARMOR);	
-			spawn_touchblood (self, self.enemy, ldmg*3);
-		}
-	}
+    if ( CanDamage(other, self) ) {
+        if ( vlen(self.velocity) > 300 ) {
+          ldmg = 20 + 10*random();
+            T_Damage (other, self, self, ldmg, DAMARMOR);   
+            spawn_touchblood (self, self.enemy, ldmg*3);
+        }
+    }
 
-	// Is the minotaur floating in the air?
-	if (!checkbottom(self)) {
-		// Is the minotaur standing on something?		
-		if (self.flags & FL_ONGROUND) {	
-			// Do an extra jump if got the count
-			if (self.count < 2)  self.think = self.th_jump;
-		}
-	}
+    // Is the minotaur floating in the air?
+    if (!checkbottom(self)) {
+        // Is the minotaur standing on something?       
+        if (self.flags & FL_ONGROUND) { 
+            // Do an extra jump if got the count
+            if (self.count < 2)  self.think = self.th_jump;
+        }
+    }
 
-	// Next timer
-	self.nextthink = time + 0.1;
+    // Next timer
+    self.nextthink = time + 0.1;
 };
 
 //----------------------------------------------------------------------
 void() mino_jump1 =[ $jump1, mino_jump2 ] {
-	self.jump_flag = time + MONAI_JUMPMINOTIME;
-	// Use combat idle grunt sounds (can get annoying otherwise)
-	if (random() < 0.5) sound (self, CHAN_VOICE, self.idle_soundcom, 1, ATTN_NORM);
-	else sound (self, CHAN_VOICE, self.idle_soundcom2, 1, ATTN_NORM);
+    self.jump_flag = time + MONAI_JUMPMINOTIME;
+    // Use combat idle grunt sounds (can get annoying otherwise)
+    if (random() < 0.5) sound (self, CHAN_VOICE, self.idle_soundcom, 1, ATTN_NORM);
+    else sound (self, CHAN_VOICE, self.idle_soundcom2, 1, ATTN_NORM);
 };
 void() mino_jump2 =[ $jump3, mino_jump3 ] {ai_face();};
 void() mino_jump3 =[ $jump5, mino_jump4 ] {ai_face();};
 void() mino_jump4 =[ $jump7, mino_jump5 ] {
-	ai_face();
-	self.jump_flag = time + MONAI_JUMPMINOTIME;
-	self.touch = mino_JumpTouch;
-	makevectors (self.angles);
-	self.velocity = (v_forward*self.jumpdist_x) + ('0 0 1'*self.jumpdist_z);
-	self.flags = self.flags - (self.flags & FL_ONGROUND);
-	self.oldorigin = self.origin;
+    ai_face();
+    self.jump_flag = time + MONAI_JUMPMINOTIME;
+    self.touch = mino_JumpTouch;
+    makevectors (self.angles);
+    self.velocity = (v_forward*self.jumpdist_x) + ('0 0 1'*self.jumpdist_z);
+    self.flags = self.flags - (self.flags & FL_ONGROUND);
+    self.oldorigin = self.origin;
 };
 
 // Flying through the air waiting to touch something!
@@ -281,19 +281,19 @@ void() mino_jump5 =[ $jump9, mino_jump6 ] {ai_face();};
 void() mino_jump6 =[ $jump11, mino_jump7 ] {};
 void() mino_jump7 =[ $jump13, mino_jump8 ] {ai_face();};
 void() mino_jump8 =[ $jump15, mino_jump8 ] {
-	// Double check monster is still falling?
-	if (CheckZeroVector(self.velocity) || self.oldorigin == self.origin) {
-		self.ideal_yaw = random() * 360; 	//random jump angle
-		self.think = mino_jump4;			// Keep jumping
-	}
-	self.oldorigin = self.origin;
+    // Double check monster is still falling?
+    if (CheckZeroVector(self.velocity) || self.oldorigin == self.origin) {
+        self.ideal_yaw = random() * 360;    //random jump angle
+        self.think = mino_jump4;            // Keep jumping
+    }
+    self.oldorigin = self.origin;
 };
 //----------------------------------------------------------------------
 void() mino_jump10 =[ $jump19, mino_jump12 ] {ai_charge(8);monster_footstep(FALSE);};
 void() mino_jump12 =[ $jump23, mino_run ] {ai_charge(10);ai_resetangles();
-	// If close enough start melee ELSE return to run cycle
-	if (ai_checkmelee(MONAI_MELEEMINOTAUR, MONAI_MELEEZTALL) && self.enemy.health > 0) 
-		self.think = mino_melee;
+    // If close enough start melee ELSE return to run cycle
+    if (ai_checkmelee(MONAI_MELEEMINOTAUR, MONAI_MELEEZTALL) && self.enemy.health > 0) 
+        self.think = mino_melee;
 };
 
 //============================================================================
@@ -301,83 +301,83 @@ void() mino_jump12 =[ $jump23, mino_run ] {ai_charge(10);ai_resetangles();
 //============================================================================
 float(entity targ) minotaur_skin_type = 
 {
-	// Switch skin around for spawning effect
-	if (targ.spawnflags & MON_MINOTAUR_MINIONS) {
-		if (targ.poisonous) return MINO_GREEN;
-		else return MINO_RED;
-	}
-	// Default = blue version
-	return MINO_BLUE;
+    // Switch skin around for spawning effect
+    if (targ.spawnflags & MON_MINOTAUR_MINIONS) {
+        if (targ.poisonous) return MINO_GREEN;
+        else return MINO_RED;
+    }
+    // Default = blue version
+    return MINO_BLUE;
 };
 
 //----------------------------------------------------------------------
 void() minotaur_create_attachment =
 {
-	// Are the attachments setup yet?
-	if (!self.attachment) {
-		self.attachment = spawn();
-		self.attachment.owner = self;
-		self.attachment.classtype = CT_ATTACHMENT;
-		self.attachment.mdl = MODEL_PROJ_MBALL;
-	}
-	if (!self.attachment2) {
-		self.attachment2 = spawn();
-		self.attachment2.owner = self;
-		self.attachment2.classtype = CT_ATTACHMENT;
-		self.attachment2.mdl = MODEL_PROJ_MBALL;
-	}
+    // Are the attachments setup yet?
+    if (!self.attachment) {
+        self.attachment = spawn();
+        self.attachment.owner = self;
+        self.attachment.classtype = CT_ATTACHMENT;
+        self.attachment.mdl = MODEL_PROJ_MBALL;
+    }
+    if (!self.attachment2) {
+        self.attachment2 = spawn();
+        self.attachment2.owner = self;
+        self.attachment2.classtype = CT_ATTACHMENT;
+        self.attachment2.mdl = MODEL_PROJ_MBALL;
+    }
 };
 
 //----------------------------------------------------------------------
 void() minotaur_finish_attachment =
 {
-	if (self.attachment) {
-		setmodel(self.attachment, "");
-		self.attachment.state = STATE_OFF;
-	}
-	if (self.attachment2) {
-		setmodel(self.attachment2, "");
-		self.attachment2.state = STATE_OFF;
-	}
+    if (self.attachment) {
+        setmodel(self.attachment, "");
+        self.attachment.state = STATE_OFF;
+    }
+    if (self.attachment2) {
+        setmodel(self.attachment2, "");
+        self.attachment2.state = STATE_OFF;
+    }
 };
 
 //----------------------------------------------------------------------
 void() minotaur_remove_attachment =
 {
-	if (self.attachment) {
-		self.attachment.think = SUB_Remove;
-		self.attachment.nextthink = time + 0.1;
-	}
-	if (self.attachment2) {
-		self.attachment2.think = SUB_Remove;
-		self.attachment2.nextthink = time + 0.1;
-	}
+    if (self.attachment) {
+        self.attachment.think = SUB_Remove;
+        self.attachment.nextthink = time + 0.1;
+    }
+    if (self.attachment2) {
+        self.attachment2.think = SUB_Remove;
+        self.attachment2.nextthink = time + 0.1;
+    }
 };
 
 //----------------------------------------------------------------------
 void(entity handent, vector orgofs, float dbframe) minotaur_handball =
 {
-	local vector org;
-	
-	// Frame 0 is start of the sequence (move everything into place)
-	if (dbframe == 0) {
-		handent.state = STATE_ON;
-		setorigin(handent, self.origin);
-		setmodel(handent, handent.mdl);
-		setsize (handent, VEC_ORIGIN, VEC_ORIGIN);
-		handent.movetype = MOVETYPE_NONE;
-		handent.solid = SOLID_NOT;
-		// Switch skin around for spawning effect
-		handent.skin = minotaur_skin_type(self);
-		handent.alpha = 0.85;
-	}
-	
-	// Generate attachment in hand (left)
-	// makevectors set in previous function (minotaur_hands)
-	org = self.origin + attack_vector(orgofs);
-	setorigin(handent, org);
-	handent.angles_y = rint(random()*359);
-	handent.frame = dbframe;
+    local vector org;
+    
+    // Frame 0 is start of the sequence (move everything into place)
+    if (dbframe == 0) {
+        handent.state = STATE_ON;
+        setorigin(handent, self.origin);
+        setmodel(handent, handent.mdl);
+        setsize (handent, VEC_ORIGIN, VEC_ORIGIN);
+        handent.movetype = MOVETYPE_NONE;
+        handent.solid = SOLID_NOT;
+        // Switch skin around for spawning effect
+        handent.skin = minotaur_skin_type(self);
+        handent.alpha = 0.85;
+    }
+    
+    // Generate attachment in hand (left)
+    // makevectors set in previous function (minotaur_hands)
+    org = self.origin + attack_vector(orgofs);
+    setorigin(handent, org);
+    handent.angles_y = rint(random()*359);
+    handent.frame = dbframe;
 };
 
 //----------------------------------------------------------------------
@@ -385,15 +385,15 @@ void(entity handent, vector orgofs, float dbframe) minotaur_handball =
 //----------------------------------------------------------------------
 void(vector leftofs, vector rightofs, float dbframe) minotaur_hands =
 {
-	if (self.health < 1) return;
-	
-	// Keep turning towards enemy
-	ai_face();
-	makevectors(self.angles);
-	
-	// Generate a ball in each hand
-	minotaur_handball(self.attachment, leftofs, dbframe);
-	minotaur_handball(self.attachment2, rightofs, dbframe);
+    if (self.health < 1) return;
+    
+    // Keep turning towards enemy
+    ai_face();
+    makevectors(self.angles);
+    
+    // Generate a ball in each hand
+    minotaur_handball(self.attachment, leftofs, dbframe);
+    minotaur_handball(self.attachment2, rightofs, dbframe);
 };
 
 //----------------------------------------------------------------------
@@ -401,36 +401,36 @@ void(vector leftofs, vector rightofs, float dbframe) minotaur_hands =
 //----------------------------------------------------------------------
 void(vector orgofs, float angofs) minotaur_fire =
 {
-	local vector org, dir;
+    local vector org, dir;
 
-	if (!self.enemy) return;
-	if (self.health < 1) return;
+    if (!self.enemy) return;
+    if (self.health < 1) return;
 
-	self.effects = self.effects | EF_MUZZLEFLASH;
-	self.attack_speed = SPEED_MINOBOLT + (skill * SPEED_MINOSKILL);
-	
-	makevectors(self.angles);
-	org = self.origin + attack_vector(orgofs);
-	dir = (self.enemy.origin - org) + (v_right*(angofs*30));
-	dir = normalize (dir);
+    self.effects = self.effects | EF_MUZZLEFLASH;
+    self.attack_speed = SPEED_MINOBOLT + (skill * SPEED_MINOSKILL);
+    
+    makevectors(self.angles);
+    org = self.origin + attack_vector(orgofs);
+    dir = (self.enemy.origin - org) + (v_right*(angofs*30));
+    dir = normalize (dir);
 
-	// The DARK minotaur (spawner) has two types of spikes
-	if (self.spawnflags & MON_MINOTAUR_MINIONS) {
-		if (self.poisonous) launch_projectile(org, dir, CT_PROJ_MPOISON, self.attack_speed);
-		else launch_projectile(org, dir, CT_PROJ_MBLOOD, self.attack_speed);
-	}
-	else {
-		// Projectile behaves like plasma (light/trail/impact effects)
-		// The correct projectile model is switched in launch function
-		launch_plasma(org, dir, CT_MONMINOTAUR, self.attack_speed);
-	}
+    // The DARK minotaur (spawner) has two types of spikes
+    if (self.spawnflags & MON_MINOTAUR_MINIONS) {
+        if (self.poisonous) launch_projectile(org, dir, CT_PROJ_MPOISON, self.attack_speed);
+        else launch_projectile(org, dir, CT_PROJ_MBLOOD, self.attack_speed);
+    }
+    else {
+        // Projectile behaves like plasma (light/trail/impact effects)
+        // The correct projectile model is switched in launch function
+        launch_plasma(org, dir, CT_MONMINOTAUR, self.attack_speed);
+    }
 };
 
 //----------------------------------------------------------------------
 // Main projectile plasma/poison attack of both types of minotaur
 //----------------------------------------------------------------------
 void() mino_magic1 =[ $magic1, mino_magic2 ] {ai_face();
-	if (random() < 3) sound (self, CHAN_BODY, "minotaur/attack1start.wav", 1, ATTN_NORM);};
+    if (random() < 3) sound (self, CHAN_BODY, "minotaur/attack1start.wav", 1, ATTN_NORM);};
 void() mino_magic2 =[ $magic3, mino_magic3 ] {minotaur_hands('34 0 44','-20 30 20',0);};
 void() mino_magic3 =[ $magic5, mino_magic4 ] {minotaur_hands('30 -12 64','-20 44 28',1);};
 void() mino_magic4 =[ $magic7, mino_magic5 ] {minotaur_hands('15 -16 88','-10 56 48',2);};
@@ -439,28 +439,28 @@ void() mino_magic6 =[ $magic11, mino_magic7 ] {minotaur_hands('16 -36 72','-12 4
 void() mino_magic7 =[ $magic13, mino_magic8 ] {minotaur_hands('36 -20 56','24 32 68',5);};
 
 void() mino_magic8 =[ $magic15, mino_magic9 ] {
-	sound (self, CHAN_WEAPON, "minotaur/bolt_fire.wav", 1, ATTN_NORM);
-	minotaur_hands('40 -3 46','40 1 44',6);minotaur_fire('40 0 45',-2);};
+    sound (self, CHAN_WEAPON, "minotaur/bolt_fire.wav", 1, ATTN_NORM);
+    minotaur_hands('40 -3 46','40 1 44',6);minotaur_fire('40 0 45',-2);};
 void() mino_magic9 =[ $magic17, mino_magic10 ] {ai_back(8);
-	minotaur_hands('32 -2 44','32 2 44',5);minotaur_fire('32 0 44',-1);};
+    minotaur_hands('32 -2 44','32 2 44',5);minotaur_fire('32 0 44',-1);};
 void() mino_magic10 =[ $magic19, mino_magic11 ] {ai_back(4);
-	minotaur_hands('20 0 48','20 2 46',4);minotaur_fire('20 0 47',0);};
+    minotaur_hands('20 0 48','20 2 46',4);minotaur_fire('20 0 47',0);};
 void() mino_magic11 =[ $magic21, mino_magic12 ] {ai_forward(4);monster_footstep(FALSE);
-	minotaur_hands('28 0 50','28 2 48',3);minotaur_fire('28 0 49',1);};
+    minotaur_hands('28 0 50','28 2 48',3);minotaur_fire('28 0 49',1);};
 void() mino_magic12 =[ $magic23, mino_magic13 ] {ai_forward(8);
-	minotaur_hands('44 0 46','44 2 44',2);minotaur_fire('44 0 45',2);};
+    minotaur_hands('44 0 46','44 2 44',2);minotaur_fire('44 0 45',2);};
 
 void() mino_magic13 =[ $magic25, mino_magic14 ] {
-	// Remove hand attachments and setup particle explosion
-	// Create a cloud of particles which slowly raise upwards
-	minotaur_finish_attachment();
-	ai_face();
-	makevectors(self.angles);
-	self.finalangle = self.origin + (v_forward * 44) + (v_up * 32);
-	// Spawn a mist of blue/green particles where projectiles came from
-	particle_explode(self.finalangle, 50, 3, self.part_style, PARTICLE_BURST_MINOTAUR);
-	// Random chance of final growl at player
-	if (random() < 0.3) sound (self, CHAN_BODY, "minotaur/attack1end.wav", 1, ATTN_NORM);
+    // Remove hand attachments and setup particle explosion
+    // Create a cloud of particles which slowly raise upwards
+    minotaur_finish_attachment();
+    ai_face();
+    makevectors(self.angles);
+    self.finalangle = self.origin + (v_forward * 44) + (v_up * 32);
+    // Spawn a mist of blue/green particles where projectiles came from
+    particle_explode(self.finalangle, 50, 3, self.part_style, PARTICLE_BURST_MINOTAUR);
+    // Random chance of final growl at player
+    if (random() < 0.3) sound (self, CHAN_BODY, "minotaur/attack1end.wav", 1, ATTN_NORM);
 };
 void() mino_magic14 =[ $magic27, mino_magic15 ] {};
 void() mino_magic15 =[ $magic29, mino_magic16 ] {ai_face();};
@@ -477,26 +477,26 @@ void() mino_sumeffect =
 //----------------------------------------------------------------------
 void(float dbframe) mino_sumball =
 {
-	// Double check the space checks worked
-	if (self.aflag == FALSE) return;
-	
-	// Frame 0 is start of the sequence (move everything into place)
-	if (dbframe == 0) {
-		self.attachment.state = STATE_ON;
-		setorigin(self.attachment, self.pos2);
-		setmodel(self.attachment, self.attachment.mdl);
-		setsize (self.attachment, VEC_ORIGIN, VEC_ORIGIN);
-		self.attachment.movetype = MOVETYPE_NONE;
-		self.attachment.solid = SOLID_NOT;
-		self.attachment.skin = minotaur_skin_type(self);
-	}
-	
-	// rotate and fade the ball as it grows
-	self.attachment.angles_y = rint(random()*359);
-	self.attachment.frame = dbframe;
-	self.attachment.lip = 0.3 + ((7-dbframe) * 0.1);
-	self.attachment.alpha = self.attachment.lip;
-	particle_explode(self.pos2, 5+random()*10, 3, self.part_style, PARTICLE_BURST_MINOTAUR);
+    // Double check the space checks worked
+    if (self.aflag == FALSE) return;
+    
+    // Frame 0 is start of the sequence (move everything into place)
+    if (dbframe == 0) {
+        self.attachment.state = STATE_ON;
+        setorigin(self.attachment, self.pos2);
+        setmodel(self.attachment, self.attachment.mdl);
+        setsize (self.attachment, VEC_ORIGIN, VEC_ORIGIN);
+        self.attachment.movetype = MOVETYPE_NONE;
+        self.attachment.solid = SOLID_NOT;
+        self.attachment.skin = minotaur_skin_type(self);
+    }
+    
+    // rotate and fade the ball as it grows
+    self.attachment.angles_y = rint(random()*359);
+    self.attachment.frame = dbframe;
+    self.attachment.lip = 0.3 + ((7-dbframe) * 0.1);
+    self.attachment.alpha = self.attachment.lip;
+    particle_explode(self.pos2, 5+random()*10, 3, self.part_style, PARTICLE_BURST_MINOTAUR);
 };
 
 //----------------------------------------------------------------------
@@ -507,23 +507,23 @@ void(float dbframe) mino_sumball =
 void() mino_summon1 =[ $howl1, mino_summon2 ] {ai_face();self.pain_finished = time + 2;};
 void() mino_summon2 =[ $howl3, mino_summon3 ] {ai_face();};
 void() mino_summon3 =[ $howl5, mino_summon4 ] {ai_face();mino_sumeffect();
-	sound (self, CHAN_BODY, "minotaur/attack1long.wav", 1, ATTN_NORM);};
+    sound (self, CHAN_BODY, "minotaur/attack1long.wav", 1, ATTN_NORM);};
 void() mino_summon4 =[ $howl7, mino_summon5 ] {mino_sumeffect();};
 void() mino_summon5 =[ $howl9, mino_summon6 ] {mino_sumeffect();};
 void() mino_summon6 =[ $howl11, mino_summon7 ] {mino_sumeffect();};
 void() mino_summon7 =[ $howl13, mino_summon8 ] {mino_sumeffect();
-	// Find out if there is enough space to spawn a gargoyle
-	// Findradius version
-	makevectors(self.angles);
-	self.pos1 = self.origin + self.view_ofs + v_forward*64 + v_up*32;
-	self.aflag = find_minionspace(self.pos1);
-	
-	// If the spawn locaiton all clear, spawn something!
-	if (self.aflag == TRUE) {
-		minion_gargoyle(self.pos1, self.enemy);
-		self.pos2 = self.pos1 - '0 0 16';	// Origin of gargoyle
-		mino_sumball(0);
-	}
+    // Find out if there is enough space to spawn a gargoyle
+    // Findradius version
+    makevectors(self.angles);
+    self.pos1 = self.origin + self.view_ofs + v_forward*64 + v_up*32;
+    self.aflag = find_minionspace(self.pos1);
+    
+    // If the spawn locaiton all clear, spawn something!
+    if (self.aflag == TRUE) {
+        minion_gargoyle(self.pos1, self.enemy);
+        self.pos2 = self.pos1 - '0 0 16';   // Origin of gargoyle
+        mino_sumball(0);
+    }
 };
 void() mino_summon8 =[ $howl15, mino_summon9 ] {mino_sumeffect();mino_sumball(1);};
 void() mino_summon9 =[ $howl17, mino_summon10 ] {mino_sumeffect();mino_sumball(2);};
@@ -533,7 +533,7 @@ void() mino_summon12 =[ $howl23, mino_summon13 ] {mino_sumeffect();mino_sumball(
 void() mino_summon13 =[ $howl25, mino_summon14 ] {mino_sumeffect();mino_sumball(6);};
 void() mino_summon14 =[ $howl27, mino_summon15 ] {mino_sumeffect();mino_sumball(7);};
 void() mino_summon15 =[ $howl29, mino_summon16 ] {minotaur_finish_attachment();
-	if (self.aflag == TRUE) particle_explode(self.pos1, 50, 3, self.part_style, PARTICLE_BURST_MINOTAUR);};
+    if (self.aflag == TRUE) particle_explode(self.pos1, 50, 3, self.part_style, PARTICLE_BURST_MINOTAUR);};
 void() mino_summon16 =[ $howl31, mino_summon17 ] {};
 void() mino_summon17 =[ $howl33, mino_summon18 ] {ai_face();};
 void() mino_summon18 =[ $howl35, mino_run ] {ai_face();SUB_AttackFinished (1 + 2*random());};
@@ -543,39 +543,39 @@ void() mino_summon18 =[ $howl35, mino_run ] {ai_face();SUB_AttackFinished (1 + 2
 //----------------------------------------------------------------------
 void() mino_magic =
 {
-	local entity miniondef;
-	
-	// Make sure the attachments are setup ready
-	minotaur_create_attachment();
+    local entity miniondef;
+    
+    // Make sure the attachments are setup ready
+    minotaur_create_attachment();
 
-	if (self.spawnflags & MON_MINOTAUR_MINIONS && !self.minion_active) {
-		// Check for minion template first
-		miniondef = find(world,classname,"monster_minotaurminion");
-		if (miniondef.classtype == CT_CACHEGARGOYLE) setup_minionsupport();
-		else {
-			// If template no available, warn and remove feature
-			dprint("\b[MINOTAUR]\b Cannot find minion template!\n");
-			self.spawnflags = self.spawnflags - MON_MINOTAUR_MINIONS;
-			spawn_marker(self.origin, SPNMARK_YELLOW);
-		}
-	}
-	
-	// Is the target the player or monster?
-	if (self.enemy.flags & FL_CLIENT) {
-		if (self.spawnflags & MON_MINOTAUR_MINIONS) {
-			// has the gargoyle limit been reached?
-			if (query_minionactive(self) == TRUE) mino_summon1();
-			else {
-				if (self.minion_baseattack > 0 ) mino_magic1();
-				else mino_run();
-			}
-		}
-		// White Minotaur attacks with plasma
-		else mino_magic1();
-		
-	}
-	// Always attack monsters with plasma/poison projectiles
-	else mino_magic1();
+    if (self.spawnflags & MON_MINOTAUR_MINIONS && !self.minion_active) {
+        // Check for minion template first
+        miniondef = find(world,classname,"monster_minotaurminion");
+        if (miniondef.classtype == CT_CACHEGARGOYLE) setup_minionsupport();
+        else {
+            // If template no available, warn and remove feature
+            dprint("\b[MINOTAUR]\b Cannot find minion template!\n");
+            self.spawnflags = self.spawnflags - MON_MINOTAUR_MINIONS;
+            spawn_marker(self.origin, SPNMARK_YELLOW);
+        }
+    }
+    
+    // Is the target the player or monster?
+    if (self.enemy.flags & FL_CLIENT) {
+        if (self.spawnflags & MON_MINOTAUR_MINIONS) {
+            // has the gargoyle limit been reached?
+            if (query_minionactive(self) == TRUE) mino_summon1();
+            else {
+                if (self.minion_baseattack > 0 ) mino_magic1();
+                else mino_run();
+            }
+        }
+        // White Minotaur attacks with plasma
+        else mino_magic1();
+        
+    }
+    // Always attack monsters with plasma/poison projectiles
+    else mino_magic1();
 };
 
 //============================================================================
@@ -583,14 +583,14 @@ void() mino_magic =
 //============================================================================
 void(float dist) mino_chargecheck =
 {
-	// turn, face and pursue enemy
-	ai_charge(dist);
-	// Close enough for melee combat?
-	if (ai_checkmelee(MONAI_MELEEMINOTAUR, MONAI_MELEEZTALL)) self.th_melee();
-	// Enemy dead? run out of stamina or enemy not infront?
-	if (self.enemy.health < 1) self.think = mino_run;
-	else if (self.attack_finished < time) self.think = mino_run;
-	else if (!infront(self.enemy)) self.think = mino_run;
+    // turn, face and pursue enemy
+    ai_charge(dist);
+    // Close enough for melee combat?
+    if (ai_checkmelee(MONAI_MELEEMINOTAUR, MONAI_MELEEZTALL)) self.th_melee();
+    // Enemy dead? run out of stamina or enemy not infront?
+    if (self.enemy.health < 1) self.think = mino_run;
+    else if (self.attack_finished < time) self.think = mino_run;
+    else if (!infront(self.enemy)) self.think = mino_run;
 };
 
 //----------------------------------------------------------------------
@@ -604,9 +604,9 @@ void() mino_charge6 =[ $charge11, mino_charge1 ] {mino_chargecheck(26);};
 //----------------------------------------------------------------------
 void() mino_charge =
 {
-	self.ideal_yaw = vectoyaw(self.enemy.origin - self.origin);
-	self.attack_finished = time + 2 + random();
-	mino_charge1();
+    self.ideal_yaw = vectoyaw(self.enemy.origin - self.origin);
+    self.attack_finished = time + 2 + random();
+    mino_charge1();
 };
 
 //============================================================================
@@ -633,38 +633,38 @@ void() mino_shake7 = [ $shake13, mino_shake8 ] {};
 void() mino_shake8 = [ $shake15, mino_shake9 ] {};
 void() mino_shake9 = [ $shake17, mino_shake10 ] {};
 void() mino_shake10 = [ $shake19, mino_run ] {
-	// If pre-rage and can see enemy, start chasing
-	if (self.attack_rage == FALSE && infront(self.enemy)) self.think = mino_charge;
+    // If pre-rage and can see enemy, start chasing
+    if (self.attack_rage == FALSE && infront(self.enemy)) self.think = mino_charge;
 };
 
 //----------------------------------------------------------------------
 void(entity inflictor, entity attacker, float damage) mino_pain =
 {
-	// Check all pain conditions and set up what to do next
-	monster_pain_check(attacker, damage);
-	minotaur_finish_attachment();
+    // Check all pain conditions and set up what to do next
+    monster_pain_check(attacker, damage);
+    minotaur_finish_attachment();
 
-	// Any pain animation/sound required?
-	if (self.pain_check > 0) {
-		self.lip = random();
-		if (self.lip < 0.5) sound (self, CHAN_VOICE, self.pain_sound, 1, ATTN_NORM);
-		else sound (self, CHAN_VOICE, self.pain_sound2, 1, ATTN_NORM);
+    // Any pain animation/sound required?
+    if (self.pain_check > 0) {
+        self.lip = random();
+        if (self.lip < 0.5) sound (self, CHAN_VOICE, self.pain_sound, 1, ATTN_NORM);
+        else sound (self, CHAN_VOICE, self.pain_sound2, 1, ATTN_NORM);
 
-		if (self.pain_check == 1) {
-			// Minion spawning minotaur always goes short pain cycle
-			if (self.spawnflags & MON_MINOTAUR_MINIONS) mino_pain1();
-			else {
-				if (self.lip < 0.4) mino_pain1();
-				else mino_shake1();
-			}
-		}
-		else if (self.pain_check == 2) {
-			// reset axe hit and setup short pain recovery
-			self.pain_finished = time + 0.8;
-			self.axhitme = 0;
-			mino_pain1();
-		}
-	}
+        if (self.pain_check == 1) {
+            // Minion spawning minotaur always goes short pain cycle
+            if (self.spawnflags & MON_MINOTAUR_MINIONS) mino_pain1();
+            else {
+                if (self.lip < 0.4) mino_pain1();
+                else mino_shake1();
+            }
+        }
+        else if (self.pain_check == 2) {
+            // reset axe hit and setup short pain recovery
+            self.pain_finished = time + 0.8;
+            self.axhitme = 0;
+            mino_pain1();
+        }
+    }
 };
 
 //============================================================================
@@ -687,16 +687,16 @@ void() mino_death14 = [ $death25, mino_death14 ] {monster_deadbody_check();};
 //----------------------------------------------------------------------
 void() mino_die =
 {
-	// Pre-check routine to tidy up extra entities
-	monster_death_precheck();
-	minotaur_remove_attachment();
-	//delete_minionspace();
+    // Pre-check routine to tidy up extra entities
+    monster_death_precheck();
+    minotaur_remove_attachment();
+    //delete_minionspace();
 
-	// regular death
-	if (!self.gibbed) {
-		sound (self, CHAN_VOICE, "minotaur/death.wav", 1, ATTN_NORM);
-		mino_death1 ();
-	}
+    // regular death
+    if (!self.gibbed) {
+        sound (self, CHAN_VOICE, "minotaur/death.wav", 1, ATTN_NORM);
+        mino_death1 ();
+    }
 };
 
 /*======================================================================
@@ -704,128 +704,128 @@ QUAKED monster_minotaur (1 0 0) (-32 -32 -24) (32 32 64) Ambush
 ======================================================================*/
 void() monster_minotaur =
 {
-	// Check all spawn exceptions (monsters.qc)
-	if (monster_checkspawn() == TRUE) return;
+    // Check all spawn exceptions (monsters.qc)
+    if (monster_checkspawn() == TRUE) return;
 
-	self.mdl = "progs/mon_minotaur.mdl";
-	self.headmdl = "progs/h_minotaur.mdl";		// Large head
-	self.gib1mdl = "progs/gib_minoclaw1.mdl";	// Left claw
-	self.gib2mdl = "progs/gib_minoclaw2.mdl";	// Right claw
-	self.gib3mdl = "progs/gib_minoleg1.mdl";	// foot
-	self.gib4mdl = "progs/gib_minoleg2.mdl";	// foot
+    self.mdl = "progs/mon_minotaur.mdl";
+    self.headmdl = "progs/h_minotaur.mdl";      // Large head
+    self.gib1mdl = "progs/gib_minoclaw1.mdl";   // Left claw
+    self.gib2mdl = "progs/gib_minoclaw2.mdl";   // Right claw
+    self.gib3mdl = "progs/gib_minoleg1.mdl";    // foot
+    self.gib4mdl = "progs/gib_minoleg2.mdl";    // foot
 
-	precache_model (self.mdl);
-	precache_model (self.headmdl);
-	precache_model (MODEL_PROJ_MBALL);		// Creating attachment
-	precache_model (MODEL_PROJ_MPLASMA);	// Plasma bolt
-	precache_model (MODEL_PROJ_MPOISON);	// Poison bolt
-	precache_model (MODEL_PROJ_MBLOOD);		// Blood bolt
-	precache_model (self.gib1mdl);
-	precache_model (self.gib2mdl);
-	precache_model (self.gib3mdl);
-	precache_model (self.gib4mdl);
+    precache_model (self.mdl);
+    precache_model (self.headmdl);
+    precache_model (MODEL_PROJ_MBALL);      // Creating attachment
+    precache_model (MODEL_PROJ_MPLASMA);    // Plasma bolt
+    precache_model (MODEL_PROJ_MPOISON);    // Poison bolt
+    precache_model (MODEL_PROJ_MBLOOD);     // Blood bolt
+    precache_model (self.gib1mdl);
+    precache_model (self.gib2mdl);
+    precache_model (self.gib3mdl);
+    precache_model (self.gib4mdl);
 
-	// Randomly swap claws and legs around
-	self.lip = random();
-	if (self.lip < 0.25) self.gib1mdl = self.gib4mdl;
-	else if (self.lip < 0.5) self.gib2mdl = self.gib4mdl;
-	else if (self.lip < 0.75) self.gib3mdl = self.gib4mdl;
+    // Randomly swap claws and legs around
+    self.lip = random();
+    if (self.lip < 0.25) self.gib1mdl = self.gib4mdl;
+    else if (self.lip < 0.5) self.gib2mdl = self.gib4mdl;
+    else if (self.lip < 0.75) self.gib3mdl = self.gib4mdl;
 
-	self.idle_sound = "minotaur/idle1.wav";
-	self.idle_sound2 = "minotaur/idle2.wav";
-	self.idle_soundcom = "minotaur/idle1com.wav";
-	self.idle_soundcom2 = "minotaur/idle2com.wav";
-	precache_sound (self.idle_sound);
-	precache_sound (self.idle_sound2);
-	precache_sound (self.idle_soundcom);
-	precache_sound (self.idle_soundcom2);
+    self.idle_sound = "minotaur/idle1.wav";
+    self.idle_sound2 = "minotaur/idle2.wav";
+    self.idle_soundcom = "minotaur/idle1com.wav";
+    self.idle_soundcom2 = "minotaur/idle2com.wav";
+    precache_sound (self.idle_sound);
+    precache_sound (self.idle_sound2);
+    precache_sound (self.idle_soundcom);
+    precache_sound (self.idle_soundcom2);
 
-	precache_sound ("minotaur/swipe.wav");		// claw misses
-	precache_sound ("minotaur/strike1.wav");	// claw hit1
-	precache_sound ("minotaur/strike2.wav");	// claw hit2
+    precache_sound ("minotaur/swipe.wav");      // claw misses
+    precache_sound ("minotaur/strike1.wav");    // claw hit1
+    precache_sound ("minotaur/strike2.wav");    // claw hit2
 
-	precache_sound ("minotaur/attack1start.wav");	// Short roar
-	precache_sound ("minotaur/attack1end.wav");		// Short roar
-	precache_sound ("minotaur/attack1long.wav");	// Enter rage mode
-	precache_sound ("minotaur/bolt_fire.wav");		// fire projectile
-	precache_sound (SOUND_PLASMA_HIT);				// impact sounds
+    precache_sound ("minotaur/attack1start.wav");   // Short roar
+    precache_sound ("minotaur/attack1end.wav");     // Short roar
+    precache_sound ("minotaur/attack1long.wav");    // Enter rage mode
+    precache_sound ("minotaur/bolt_fire.wav");      // fire projectile
+    precache_sound (SOUND_PLASMA_HIT);              // impact sounds
 
-	precache_sound ("minotaur/death.wav");
-	self.pain_sound = "minotaur/pain1.wav";
-	self.pain_sound2 = "minotaur/pain2.wav";
-	precache_sound (self.pain_sound);
-	precache_sound (self.pain_sound2);
+    precache_sound ("minotaur/death.wav");
+    self.pain_sound = "minotaur/pain1.wav";
+    self.pain_sound2 = "minotaur/pain2.wav";
+    precache_sound (self.pain_sound);
+    precache_sound (self.pain_sound2);
 
-	self.sight_sound = "minotaur/sight1.wav";
-	precache_sound (self.sight_sound);
+    self.sight_sound = "minotaur/sight1.wav";
+    precache_sound (self.sight_sound);
 
-	self.solid = SOLID_NOT;			// No interaction with world
-	self.movetype = MOVETYPE_NONE;	// Static item, no movement
-	if (self.bboxtype < 1) self.bboxtype = BBOX_GIANT;
-	if (self.health < 1) self.health = 500;
-	self.gibhealth = -60;			// Same as Shambler
-	self.gibbed = FALSE;			// Still in one piece
-	self.pain_flinch = 200;			// Demon level
-	self.pain_longanim = TRUE;		// can be chopped with shadow axe
-	self.pain_timeout = 2;			// Does not repeat pain
-	// Double damage to other monsters
-	if (!self.infightextra) self.infightextra = 2;
-	self.steptype = FS_TYPELARGE;	// Giant sound
-	self.blockudeath = TRUE;		// No humanoid death
-	self.deathstring = " was gored by a Minotaur\n";
-	
-	// Default jump forward/up distance
-	if (CheckZeroVector(self.jumpdist)) self.jumpdist = '450 0 250';
-	if (self.jumprange_x <= 0) self.jumprange_x = MONAI_JUMPMINONEAR;
-	if (self.jumprange_y <= self.jumprange_x) self.jumprange_y = MONAI_JUMPMINOFAR;
+    self.solid = SOLID_NOT;         // No interaction with world
+    self.movetype = MOVETYPE_NONE;  // Static item, no movement
+    if (self.bboxtype < 1) self.bboxtype = BBOX_GIANT;
+    if (self.health < 1) self.health = 500;
+    self.gibhealth = -60;           // Same as Shambler
+    self.gibbed = FALSE;            // Still in one piece
+    self.pain_flinch = 200;         // Demon level
+    self.pain_longanim = TRUE;      // can be chopped with shadow axe
+    self.pain_timeout = 2;          // Does not repeat pain
+    // Double damage to other monsters
+    if (!self.infightextra) self.infightextra = 2;
+    self.steptype = FS_TYPELARGE;   // Giant sound
+    self.blockudeath = TRUE;        // No humanoid death
+    self.deathstring = " was gored by a Minotaur\n";
+    
+    // Default jump forward/up distance
+    if (CheckZeroVector(self.jumpdist)) self.jumpdist = '450 0 250';
+    if (self.jumprange_x <= 0) self.jumprange_x = MONAI_JUMPMINONEAR;
+    if (self.jumprange_y <= self.jumprange_x) self.jumprange_y = MONAI_JUMPMINOFAR;
 
-	// Always reset Ammo Resistance to be consistent
-	self.resist_shells = self.resist_nails = 0;
-	self.resist_rockets = 0; self.resist_cells = 0.5;
-	self.reflectlightning = TRUE;	// Reflect lightning strikes
-	self.reflectplasma = TRUE;		// Reflect plasma projectiles
+    // Always reset Ammo Resistance to be consistent
+    self.resist_shells = self.resist_nails = 0;
+    self.resist_rockets = 0; self.resist_cells = 0.5;
+    self.reflectlightning = TRUE;   // Reflect lightning strikes
+    self.reflectplasma = TRUE;      // Reflect plasma projectiles
 
-	self.th_checkattack = MinotaurCheckAttack;
-	self.th_stand = mino_stand1;
-	self.th_walk = mino_walk1;
-	self.th_run = mino_run;
-	self.th_melee = mino_melee;
-	self.th_missile = mino_magic;
-	self.th_pain = mino_pain;
-	self.th_die = mino_die;
-	self.th_jump = mino_jump1;
-	self.th_jumpexit = mino_jump10;
-	self.th_charge = mino_howl1;
-	
-	// Update Minotaur based on minions spawnflag
-	if (self.spawnflags & MON_MINOTAUR_MINIONS) {
-		if (self.poisonous < 0) {
-			self.poisonous = FALSE;			// Special version (blood/fire)
-			//precache_bloodgibs();			// precache gibs (in world.qc)
-			self.gibtype = GIBTYPE_BLOOD;	// blood trails
-			self.part_style = PARTICLE_BURST_RED;
-		}
-		else {
-			self.poisonous = TRUE;			// Poison version (default)
-			precache_poisongibs();			// precache gibs
-			self.gibtype = GIBTYPE_POISON;	// Poisonous blood trails
-			self.part_style = PARTICLE_BURST_GREEN;
-		}
-		self.exactskin = 1;				// Black skin + yellow eyes
-		self.gib1skin = self.gib2skin = self.gib3skin = 1;
-		// Reduce minions down to 3, gargoyles are tougher to kill
-		if (!self.minion_maxcount) self.minion_maxcount = 3;
-	}
-	else {
-		self.poisonous = FALSE;			// Default White version
-		//precache_bloodgibs();			// precache gibs (in world.qc)
-		self.gibtype = GIBTYPE_BLOOD;	// blood trails
-		self.part_style = PARTICLE_BURST_BLUE;
-	}
+    self.th_checkattack = MinotaurCheckAttack;
+    self.th_stand = mino_stand1;
+    self.th_walk = mino_walk1;
+    self.th_run = mino_run;
+    self.th_melee = mino_melee;
+    self.th_missile = mino_magic;
+    self.th_pain = mino_pain;
+    self.th_die = mino_die;
+    self.th_jump = mino_jump1;
+    self.th_jumpexit = mino_jump10;
+    self.th_charge = mino_howl1;
+    
+    // Update Minotaur based on minions spawnflag
+    if (self.spawnflags & MON_MINOTAUR_MINIONS) {
+        if (self.poisonous < 0) {
+            self.poisonous = FALSE;         // Special version (blood/fire)
+            //precache_bloodgibs();         // precache gibs (in world.qc)
+            self.gibtype = GIBTYPE_BLOOD;   // blood trails
+            self.part_style = PARTICLE_BURST_RED;
+        }
+        else {
+            self.poisonous = TRUE;          // Poison version (default)
+            precache_poisongibs();          // precache gibs
+            self.gibtype = GIBTYPE_POISON;  // Poisonous blood trails
+            self.part_style = PARTICLE_BURST_GREEN;
+        }
+        self.exactskin = 1;             // Black skin + yellow eyes
+        self.gib1skin = self.gib2skin = self.gib3skin = 1;
+        // Reduce minions down to 3, gargoyles are tougher to kill
+        if (!self.minion_maxcount) self.minion_maxcount = 3;
+    }
+    else {
+        self.poisonous = FALSE;         // Default White version
+        //precache_bloodgibs();         // precache gibs (in world.qc)
+        self.gibtype = GIBTYPE_BLOOD;   // blood trails
+        self.part_style = PARTICLE_BURST_BLUE;
+    }
 
-	self.classtype = CT_MONMINOTAUR;
-	self.classgroup = CG_DEMON;
-	self.classmove = MON_MOVEWALK;
-	
-	monster_start();
+    self.classtype = CT_MONMINOTAUR;
+    self.classgroup = CG_DEMON;
+    self.classmove = MON_MOVEWALK;
+    
+    monster_start();
 };
