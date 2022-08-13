@@ -2079,6 +2079,7 @@ void(vector virtmin, vector virtsize) Hud_DrawIntermission =
 //======================================================================
 void(vector virtsize, float showscores) CSQC_DrawHud =
 {
+    mousePosition = getmousepos();
     local vector pos, hudbar;
     local float oitems, omoditems, i;
     local float hudviewsize, hudlayout, hudreverse, hudgrid;
