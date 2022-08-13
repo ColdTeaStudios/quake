@@ -8,8 +8,6 @@ fteextensions.qc
 mathlib.qc
 
 csqc_defs.qc
-// Pick AD or ID1 vers
-csqc_hudad.qc
 
 subs.qc
 subs_soc.qc
