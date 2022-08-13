@@ -9,6 +9,7 @@ csqc/character_net_handler.qc
 csqc/character_provider.qc
 csqc/widgets/widget.qc
 csqc/widgets/tooltip.qc
+csqc/widgets/container.qc
 csqc/widgets/menu.qc
 csqc/menu/menu_controller.qc
 csqc_hudad.qc
