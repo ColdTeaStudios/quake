@@ -10,6 +10,9 @@ class Button : Widget
         font_size = 8;
         text = "Button";
         background_color = [0.169, 0.165, 0.2];
+        background_color_hover = [0.169, 0.165, 0.2];
+        background_color_opacity = 1.0;
+        background_color_opacity_hover = 1.0;
         border_color = [0.7, 0.7, 0.7];
         border_color_hover = [0.85, 0.85, 0.85];
         border_width = 1;
@@ -24,6 +27,8 @@ class Button : Widget
 
         float hovering = isMouseOver();
 
+        drawsetcliparea(xArea.x, yArea.x, xArea.y - xArea.x, yArea.y - yArea.x);
+
         drawstring(
             [xArea.x, yArea.x, 0],
             text,
@@ -32,6 +37,8 @@ class Button : Widget
             hovering ? opacity_hover : opacity,
             1
         );
+
+        drawresetcliparea();
     };
 
     virtual void() draw =
