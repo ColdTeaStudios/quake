@@ -218,6 +218,9 @@ string facead[4] = {
     "gfx/adf_evil.lmp", "gfx/adf_evilquad.lmp", "gfx/adf_evilpent.lmp", "gfx/adf_evilinv.lmp"
 };
 
+
+MenuController menuController;
+
 //----------------------------------------------------------------------
 // Stubs for extra CSQC functions (not all supported)
 //----------------------------------------------------------------------
@@ -232,6 +235,10 @@ float(string str) CSQC_ConsoleCommand = {
 // chary is the character code (chr2str to shove it into a string)
 // For mouse events then x+y are the mouse delta/position values
 float(float evtype, float scanx, float chary, float devid) CSQC_InputEvent = {
+    if (menuController.handleInput(evtype, scanx, chary) || menuController.current != world) {
+        return TRUE;
+    }
+
     return FALSE;
 };
 // This is linked to client dmg_take / dmg_save / dmg_inflictor fields
@@ -2079,6 +2086,8 @@ void(vector virtmin, vector virtsize) Hud_DrawIntermission =
 //======================================================================
 void(vector virtsize, float showscores) CSQC_DrawHud =
 {
+    menuController.draw();
+
     mousePosition = getmousepos();
     local vector pos, hudbar;
     local float oitems, omoditems, i;
@@ -2470,10 +2479,8 @@ __wrap void(float apilevel, string enginename, float engineversion) CSQC_Init =
     
     registercommand("+showscores");
     registercommand("+showscores");
-    // Different scoreboards for DM and Team DM
-    // AD is aimed at SP/Coop only, not included
-    //registercommand("+showteamscores");
-    //registercommand("+showteamscores");
+
+    menuController = spawn(MenuController);
 };
 
 //----------------------------------------------------------------------

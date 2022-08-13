@@ -12,5 +12,6 @@ csqc/widgets/tooltip.qc
 csqc/widgets/container.qc
 csqc/widgets/button.qc
 csqc/widgets/menu.qc
+csqc/menu/character/ch_start.qc
 csqc/menu/menu_controller.qc
 csqc_hudad.qc
