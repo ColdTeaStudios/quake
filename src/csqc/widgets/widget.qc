@@ -12,7 +12,7 @@ enum backgroundSizeMode
 
 class Widget
 {
-    entity parent;
+    Widget parent;
 
     vector position;
     vector size;
@@ -76,7 +76,7 @@ class Widget
 
         vector temp = position;
         if(parent != world) {
-            temp += parent.origin;
+            temp += parent.position;
         }
 
         if(mousePosition_x >= temp_x && mousePosition_x <= temp_x + size_x
@@ -92,7 +92,7 @@ class Widget
     {
         vector temp = position;
         if(parent != world) {
-            temp += parent.origin;
+            temp += parent.position;
         }
 
         vector tl = temp;
@@ -115,7 +115,7 @@ class Widget
             tr,
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
-            1
+            0
         );
 
         drawline(
@@ -124,7 +124,7 @@ class Widget
             br,
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
-            1
+            0
         );
 
         drawline(
@@ -133,7 +133,7 @@ class Widget
             bl,
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
-            1
+            0
         );
 
         drawline(
@@ -142,7 +142,7 @@ class Widget
             tl,
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
-            1
+            0
         );
     };
 
@@ -150,7 +150,7 @@ class Widget
     {
         vector tmpPos = position;
         if (parent != world) {
-            tmpPos += parent.origin;
+            tmpPos += parent.position;
         }
 
         vector tmpSize = size;
@@ -168,7 +168,7 @@ class Widget
             tmpSize,
             hovering ? background_color_hover : background_color,
             hovering ? background_color_opacity_hover * opacity : background_color_opacity * opacity,
-            1
+            0
         );
     };
 
@@ -180,7 +180,7 @@ class Widget
 
         vector tmpPos = position;
         if (parent != world) {
-            tmpPos += parent.origin;
+            tmpPos += parent.position;
         }
 
         vector tmpSize = size;
@@ -204,9 +204,9 @@ class Widget
                 tmpPos,
                 background_image,
                 tmpSize,
-                '1 1 1',
+                [1, 1, 1],
                 hovering ? background_image_hover_opacity * opacity : background_image_opacity * opacity,
-                1
+                0
             );
         } else if (background_size_mode == W_BG_SZ_COVER) {
             vector imgSize = draw_getimagesize(background_image);
@@ -233,9 +233,9 @@ class Widget
                 tmpPos,
                 background_image,
                 drawSize,
-                '1 1 1',
+                [1, 1, 1],
                 hovering ? background_image_hover_opacity * opacity : background_image_opacity * opacity,
-                1
+                0
             );
         } else if (background_size_mode == W_BG_SZ_PIXELS) {
             float xRepeats = 1;
@@ -267,9 +267,9 @@ class Widget
                         repeatPos,
                         background_image,
                         imgSize,
-                        '1 1 1',
+                        [1, 1, 1],
                         hovering ? background_image_hover_opacity * opacity : background_image_opacity * opacity,
-                        1
+                        0
                     );
                 }
             }
@@ -295,9 +295,9 @@ class Widget
                         repeatPos,
                         background_image,
                         [xSize, ySize, 0],
-                        '1 1 1',
+                        [1, 1, 1],
                         hovering ? background_image_hover_opacity * opacity : background_image_opacity * opacity,
-                        1
+                        0
                     );
                 }
             }
@@ -410,7 +410,7 @@ class Widget
 
         vector tmpPos = position;
         if (parent != world) {
-            tmpPos += parent.origin;
+            tmpPos += parent.position;
         }
 
         tmpPos = [tmpPos.x, tmpPos.x + size.x, 0];
@@ -446,10 +446,10 @@ class Widget
 
         vector tmpPos = position;
         if (parent != world) {
-            tmpPos += parent.origin;
+            tmpPos += parent.position;
         }
 
-        tmpPos = [tmpPos.x, tmpPos.x + size.x, 0];
+        tmpPos = [tmpPos.y, tmpPos.y + size.y, 0];
 
         if (this.border_width > 0) {
             tmpPos.x += border_width;

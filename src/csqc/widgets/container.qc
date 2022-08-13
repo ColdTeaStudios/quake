@@ -18,6 +18,9 @@ class Container : Widget
 
     virtual void() draw =
     {
+        drawBackgroundColor();
+        drawBorder();
+
         Widget child = children;
         while (child != world) {
             child.draw();
