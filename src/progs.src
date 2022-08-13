@@ -3,6 +3,7 @@
 defs.qc
 defscustom.qc
 defsclass.qc
+character/defs.qc
 fteextensions.qc
 mathlib.qc
 

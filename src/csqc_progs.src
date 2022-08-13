@@ -3,4 +3,7 @@
 csqc_defsclient.qc
 csqc_defs.qc
 fteextensions.qc
+shared/packets.qc
+csqc/character_net_handler.qc
+csqc/character_provider.qc
 csqc_hudad.qc

@@ -737,6 +737,17 @@ entity() SelectSpawnPoint =
     return spot;
 };
 
+void() sendTestPacket =
+{
+    if (client_ent && client_ent.flags & FL_CLIENT) {
+        WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+        WriteByte(MSG_MULTICAST, 36);
+        WriteByte(MSG_MULTICAST, 44);
+        msg_entity = client_ent;
+        multicast(client_ent.origin, MULTICAST_ONE_R);
+    }
+}
+
 //----------------------------------------------------------------------
 // PutClientInServer - called each time a player is spawned
 //----------------------------------------------------------------------
@@ -775,10 +786,6 @@ void() PutClientInServer =
     if (spot.cameratarget) self.cameratarget = spot.cameratarget;
 
     self.headmdl = MODEL_PLAYER_HEAD;
-    self.takedamage = DAMAGE_AIM;
-    self.solid = SOLID_SLIDEBOX;
-    self.movetype = MOVETYPE_WALK;
-    self.classmove = MON_MOVEWALK;
     self.show_hostile = 0;
     self.gibhealth = -40;
     self.gibbed = FALSE;
@@ -792,8 +799,25 @@ void() PutClientInServer =
     self.steptype = FS_TYPEMEDIUM;      // Standard feet sounds
     self.suppressCenterPrint = FALSE;   // No centerprint active
 
+    // Player is a flying ghost until they load a character
+    if (self.loginState == NO_CHARACTER) {
+        self.solid = SOLID_NOT;
+        self.classmove = MON_MOVEFLY;
+        self.movetype = MOVETYPE_NOCLIP;
+        self.takedamage = DAMAGE_NO;
+    } else if (self.loginState == IN_CHARACTER) {
+        self.classmove = MON_MOVEWALK;
+        self.takedamage = DAMAGE_AIM;
+        self.solid = SOLID_SLIDEBOX;
+        self.movetype = MOVETYPE_WALK;
+    }
+
+    self.loginState = IN_CHARACTER;
+
     // Check if Arcane Key Inventory message is blocked/suppressed
-    if (world.ckeyhint == TRUE) self.ckeyhint = TRUE;
+    if (world.ckeyhint == TRUE) {
+        self.ckeyhint = TRUE;
+    }
     
     ResetPowerSystem(self,0,FALSE);     // Remove powerup effects (not vania)
     ResetDebuffSystem(self);            // Reset/initialize debuff system
@@ -811,6 +835,8 @@ void() PutClientInServer =
     
     self.deadflag = DEAD_NO;            // The player is alive!
     self.pausetime = 0;                 // make sure player has 0 velocity when spawning
+
+    sendTestPacket();
 
     update_hud_totals(HUD_MONSTERS);    // Make screen total is correct
     update_hud_totals(HUD_SECRETS);     // Update monsters and secrets

@@ -240,11 +240,22 @@ float(float save, float take, vector dir) CSQC_Parse_Damage = {
     painfinishtime = time + 0.2;
     return FALSE;
 };
+
 // Can query/check server MSG events
 // CSQC_Parse_Event is called when the client sees a
 // #define svcfte_cgamepacket (83) message from the server
 // Not supported for DP, is called from only QSS/FTE
-void() CSQC_Parse_Event = { };
+void() CSQC_Parse_Event = {
+
+    dprint("\b[CSQC]\b CSQC_Parse_Event\n");
+    float ev = ReadByte();
+    float ev2 = ReadByte();
+    //float ev3 = ReadByte();
+
+    print(strcat("ev: ", ftos(ev), "\n"));
+    print(strcat("ev2: ", ftos(ev2), "\n"));
+    //float ev3 = ReadByte();
+};
 
 // Can intercept printed messages from the server (top of screen)
 // printlvl (text filtering) 0=low, 1=medium, 2=high, 3=chat
