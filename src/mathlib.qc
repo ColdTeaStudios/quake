@@ -23,7 +23,6 @@ float(float num) mathlib_sin;
 float(float num) mathlib_cos;
 float(float a, float b) mathlib_fast_pow;
 float (float number, float exp) mathlib_bitshift;
-float(float a, float b) mod;
 float(float v) anglemod;
 float (float y1, float y2) angcomp;
 float (float a, float b) mathlib_min;
@@ -273,17 +272,6 @@ float(float trnum, float topbit, float botbit) mathlib_truncate =
     trnum = trnum / tr_pow;
     // Final result
     return trnum;
-};
-
-/*----------------------------------------------------------------------
-Remainder
-
-Similar to C's % operator, but deals with
-negative numbers differently.
-----------------------------------------------------------------------*/
-float(float a, float b) mod =
-{
-    return a - (floor(a / b) * b);
 };
 
 /*======================================================================

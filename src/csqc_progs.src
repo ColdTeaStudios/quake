@@ -2,6 +2,5 @@
 
 csqc_defsclient.qc
 csqc_defs.qc
-// Pick AD or ID1 vers
+fteextensions.qc
 csqc_hudad.qc
-//csqc_hudvanilla.qc

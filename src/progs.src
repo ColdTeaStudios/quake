@@ -3,13 +3,12 @@
 defs.qc
 defscustom.qc
 defsclass.qc
-dpextensions.qc
+fteextensions.qc
 mathlib.qc
 
 csqc_defs.qc
 // Pick AD or ID1 vers
 csqc_hudad.qc
-//csqc_hudvanilla.qc
 
 subs.qc
 subs_soc.qc
