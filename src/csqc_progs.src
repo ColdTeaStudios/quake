@@ -8,4 +8,5 @@ shared/packets.qc
 csqc/character_net_handler.qc
 csqc/character_provider.qc
 csqc/widgets/widget.qc
+csqc/widgets/tooltip.qc
 csqc_hudad.qc

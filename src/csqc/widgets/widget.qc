@@ -1,4 +1,3 @@
-
 enum backgroundSizeMode
 {
     // backgroundSize in pixels (x, y)
@@ -53,6 +52,8 @@ class Widget
     float mouse_events;
 
     float draggable; // bool
+
+    Widget tooltip;
 
     void() Widget =
     {
@@ -313,6 +314,10 @@ class Widget
 
     virtual var float(Widget target) onDragFinish;
 
+    virtual var float(Widget target) onHover;
+
+    virtual var float(Widget target) onStopHover;
+
     virtual float() click =
     {
         if (!mouse_events) {
@@ -350,6 +355,40 @@ class Widget
         }
 
         return onDragFinish(this);
+    };
+
+    virtual float() hover =
+    {
+        if (!mouse_events) {
+            return FALSE;
+        }
+
+        if (tooltip != world) {
+            tooltip.hover();
+        }
+
+        if (!onHover) {
+            return FALSE;
+        }
+
+        return onHover(this);
+    };
+
+    virtual float() stopHover =
+    {
+        if (!mouse_events) {
+            return FALSE;
+        }
+
+        if (tooltip != world) {
+            tooltip.stopHover();
+        }
+
+        if (!onStopHover) {
+            return FALSE;
+        }
+
+        return onStopHover(this);
     };
 
     /**
