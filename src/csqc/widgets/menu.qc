@@ -45,4 +45,6 @@ class Menu
             child.next_element = widget;
         }
     };
+
+    virtual void() onOpen = {};
 };

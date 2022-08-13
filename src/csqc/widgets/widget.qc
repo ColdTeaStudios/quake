@@ -22,7 +22,7 @@ class Widget
 
 	Widget first_element;
 	Widget next_element;
-	Widget previous_element;
+	Widget prev_element;
 
     vector border_color;
     vector border_color_hover;
@@ -57,6 +57,7 @@ class Widget
 
     void() Widget =
     {
+        dprint("Widget constructor called\n");
         // Set some basic defaults
         color = [1, 1, 1];
         color_hover = [1, 1, 1];
@@ -69,6 +70,10 @@ class Widget
 
     virtual float() isMouseOver = 
     {
+        if (!mouse_events) {
+            return FALSE;
+        }
+
         vector temp = position;
         if(parent != world) {
             temp += parent.origin;
@@ -77,10 +82,10 @@ class Widget
         if(mousePosition_x >= temp_x && mousePosition_x <= temp_x + size_x
             && mousePosition_y >= temp_y && mousePosition_y <= temp_y + size_y)
         {
-            return 1;
+            return TRUE;
         }
 
-        return 0;
+        return FALSE;
     };
 
     virtual void() drawBorder =
