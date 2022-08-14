@@ -25,8 +25,6 @@ class Button : Widget
         vector xArea = getInternalDrawAreaX();
         vector yArea = getInternalDrawAreaY();
 
-        float hovering = isMouseOver();
-
         drawsetcliparea(xArea.x, yArea.x, xArea.y - xArea.x, yArea.y - yArea.x);
 
         drawstring(

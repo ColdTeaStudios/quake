@@ -1,21 +1,5 @@
 class Container : Widget
 {
-    Widget children;
-
-    virtual float(float evType, float scanCode, float char) handleInput =
-    {
-        float handled = FALSE;
-
-        Widget child = children;
-        while (child != world && !handled) {
-            // TODO actual event handling
-
-            child = children.next_element;
-        }
-
-        return handled;
-    };
-
     virtual void() draw =
     {
         drawBackgroundColor();

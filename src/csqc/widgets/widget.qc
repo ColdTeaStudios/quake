@@ -10,19 +10,52 @@ enum backgroundSizeMode
     W_BG_SZ_SCALE = 3
 };
 
+enum positionMode
+{
+    // The parent will dictate the position based on the flow model
+    W_POS_STATIC,
+    // Widget will be positioned absolute (in px) and exist 'outside' of the parent flow
+    W_POS_ABSOLUTE,
+    // The widget will remain in the same place on the viewport, positioned relative to the nearest parent Container.
+    // This is useful for elements that you want to 'remain' while scrolling containers etc.
+    W_POS_FIXED = 2,
+};
+
+enum scrollMode
+{
+    // Elements that overflow will be hidden. This is the default.
+    W_SCR_HIDDEN,
+    // Elements will be visible if drawn outside of this element, this is useful for custom image borders for example.
+    W_SCR_VISIBLE,
+    // Elements will overflow, causing the container to render a scrollbar. Only `Container`s can scroll.
+    W_SCR_SCROLL,
+    W_SCR_SCROLL_X,
+    W_SCR_SCROLL_Y = 4,
+};
+
 class Widget
 {
     Widget parent;
 
+    // If you set a position with W_POS_RELATIVE, it will be ignored. Use absolute if you want manual positioning.
     vector position;
+    positionMode position_mode;
+
+    scrollMode scroll_mode;
+
     vector size;
 
     vector padding; // X/Y, no separate left/right or top/bottom
     vector margin;  // X/Y, no separate left/right or top/bottom
 
-	Widget first_element;
-	Widget next_element;
-	Widget prev_element;
+	Widget first_element; // First sibling on the current level
+	Widget next_element; // Next sibling on the current level
+	Widget prev_element; // Prev sibling on the current level
+
+    Widget children; // Child elements
+
+    float hovering;
+    float active; // bool
 
     vector border_color;
     vector border_color_hover;
@@ -44,7 +77,6 @@ class Widget
     float background_repeat; // bool
     float background_image_hover_opacity;
 
-    float active; // bool
     float opacity; // 0.0 - 1.0
     float opacity_hover; // 0.0 - 1.0
 
@@ -66,26 +98,10 @@ class Widget
         opacity_hover = 1.0;
         mouse_events = TRUE;
         draggable = FALSE;
-    };
+        position_mode = W_POS_STATIC;
+        scroll_mode = W_SCR_HIDDEN;
 
-    virtual float() isMouseOver = 
-    {
-        if (!mouse_events) {
-            return FALSE;
-        }
-
-        vector temp = position;
-        if(parent != world) {
-            temp += parent.position;
-        }
-
-        if(mousePosition_x >= temp_x && mousePosition_x <= temp_x + size_x
-            && mousePosition_y >= temp_y && mousePosition_y <= temp_y + size_y)
-        {
-            return TRUE;
-        }
-
-        return FALSE;
+        dprint(strcat("CLASSNAME: ", classname, "\n"));
     };
 
     virtual void() drawBorder =
@@ -106,8 +122,6 @@ class Widget
 
         vector bl = temp;
         bl.y += size.y;
-
-        float hovering = isMouseOver();
 
         drawline(
             border_width,
@@ -161,8 +175,6 @@ class Widget
             tmpSize.y -= border_width*2;
         }
 
-        float hovering = isMouseOver();
-
         drawfill(
             tmpPos,
             tmpSize,
@@ -194,8 +206,6 @@ class Widget
         if (tmpSize.x <= 0 || tmpSize.y <= 0) {
             return;
         }
-
-        float hovering = isMouseOver();
 
         drawsetcliparea(tmpPos.x, tmpPos.y, tmpSize.x, tmpSize.y);
 
@@ -368,6 +378,8 @@ class Widget
             return FALSE;
         }
 
+        hovering = TRUE;
+
         if (tooltip != world) {
             tooltip.hover();
         }
@@ -384,6 +396,8 @@ class Widget
         if (!mouse_events) {
             return FALSE;
         }
+
+        hovering = FALSE;
 
         if (tooltip != world) {
             tooltip.stopHover();
@@ -409,8 +423,10 @@ class Widget
         }
 
         vector tmpPos = position;
-        if (parent != world) {
-            tmpPos += parent.position;
+        Widget p = parent;
+        while (p != world) {
+            tmpPos += p.position;
+            p = p.parent;
         }
 
         tmpPos = [tmpPos.x, tmpPos.x + size.x, 0];
@@ -445,8 +461,10 @@ class Widget
         }
 
         vector tmpPos = position;
-        if (parent != world) {
-            tmpPos += parent.position;
+        Widget p = parent;
+        while (p != world) {
+            tmpPos += p.position;
+            p = p.parent;
         }
 
         tmpPos = [tmpPos.y, tmpPos.y + size.y, 0];
@@ -466,5 +484,133 @@ class Widget
         }
 
         return tmpPos;
+    };
+
+    // This is a temp field used for stepping through the tree correctly to drill down to this widget (top-down).
+    Widget next_chain;
+
+    // Returns available [xpos1, xpos2, 0]
+    virtual vector() getWidgetBoundsX =
+    {
+        vector extent = [position.x, 0];
+
+        // Get the absolute position (bounds) of this element.
+        Widget p = parent;
+        Widget root = this;
+        while (p != world) {
+            extent[0] += p.position.x;
+            p.next_chain = root;
+            root = p;
+            p = p.parent;
+        }
+
+        extent[1] = extent[0] + size.x;
+
+        // Traverse the tree again, top-down, and limit our bounds by any parent containers
+        float pX = 0;
+        p = root;
+        while (p != this) {
+            pX += p.position.x;
+
+            if (pX > extent[0]) {
+                extent[0] = pX;
+            }
+
+            if (pX + p.size.x < extent[1]) {
+                extent[1] = pX + p.size.x;
+            }
+
+            p = p.next_chain;
+        }
+
+        return extent;
+    };
+
+    // Returns available [ypos1, ypos2, 0]
+    virtual vector() getWidgetBoundsY =
+    {
+        vector extent = [position.y, 0];
+
+        // Get the absolute position (bounds) of this element.
+        Widget p = parent;
+        Widget root = this;
+        while (p != world) {
+            extent[0] += p.position.y;
+            p.next_chain = root;
+            root = p;
+            p = p.parent;
+        }
+
+        extent[1] = extent[0] + size.y;
+
+        // Traverse the tree again, top-down, and limit our bounds by any parent containers
+        float pY = 0;
+        p = root;
+        while (p != this) {
+            pY += p.position.y;
+
+            if (pY > extent[0]) {
+                extent[0] = pY;
+            }
+
+            if (pY + p.size.y < extent[1]) {
+                extent[1] = pY + p.size.y;
+            }
+
+            p = p.next_chain;
+        }
+
+        return extent;
+    };
+
+    virtual float(float evType, float scanCodeX, float charY) handleInput =
+    {
+        //dprint(strcat("evType: ", ftos(evType), "   ", "scanCode: ", ftos(scanCodeX), "\n"));
+        // We need to get the extent, as we don't want to push events to elements where el.size has overflowed
+        // beyond the scope of the container (TODO: unless overflow is set to visible).
+        vector boundsX = getWidgetBoundsX();
+        vector boundsY = getWidgetBoundsY();
+        if (boundsX[1] <= boundsX[0] || boundsY[1] <= boundsY[0]) {
+            return FALSE;
+        }
+
+        // We want events to bubble up (specificity first), rather than drill down, so check if any children elements
+        // handle our event before we do.
+        if (children != world) {
+            Widget child = children;
+            while (child != world) {
+                if (child.handleInput(evType, scanCodeX, charY)) {
+                    return TRUE;
+                }
+
+                child = child.next_element;
+            }
+        }
+
+        // Handle mouse move events
+        if (evType == IE_MOUSEABS) {
+            // Allow hover at every point in the tree, so return false.
+            if (mousePosition.x >= boundsX[0] && mousePosition.x <= boundsX[1]
+                && mousePosition.y >= boundsY[0] && mousePosition.y <= boundsY[1]) {
+                hover();
+            } else {
+                if (hovering) {
+                    stopHover();
+                }
+            }
+
+            return FALSE;
+        }
+
+        if (evType == IE_KEYDOWN) {
+            if (scanCodeX == K_MOUSE1) {
+                if (hovering && onClick) {
+                    onClick(this);
+                    return TRUE;
+                }
+            }
+        }
+
+        return FALSE;
     };
 };

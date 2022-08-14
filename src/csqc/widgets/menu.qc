@@ -9,14 +9,13 @@ class Menu
     // Linked list of children
     Widget children;
 
-    virtual float(float evType, float scanCode, float char) handleInput =
+    virtual float(float evType, float scanCodeX, float charY) handleInput =
     {
         float handled = FALSE;
 
         Widget child = children;
         while (child != world && !handled) {
-            // TODO actual event handling
-
+            handled = child.handleInput(evType, scanCodeX, charY);
             child = children.next_element;
         }
 
