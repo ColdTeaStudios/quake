@@ -19,6 +19,7 @@ class Container : Widget
     virtual void() draw =
     {
         drawBackgroundColor();
+        drawBackgroundImage();
         drawBorder();
 
         Widget child = children;

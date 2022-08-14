@@ -6,6 +6,15 @@ class MenuController
     // Linked list of all menus.
     Menu list;
 
+    virtual void(float enable) setCursor =
+    {
+        if (enable) {
+            setcursormode(TRUE, "textures/hud/cursor_16.tga", [0, 0, 0], 128.0);
+        } else {
+            setcursormode(FALSE);
+        }
+    };
+
     /**
      * Finds a menu within the linked list with a matching `name` and sets it as the active menu.
      * Returns FALSE if no matching menu found.
@@ -15,6 +24,7 @@ class MenuController
         if (!menuName) {
             last = current;
             current = (Menu) world;
+            setCursor(FALSE);
 
             return TRUE;
         }
@@ -24,6 +34,8 @@ class MenuController
             if (menu.name == menuName) {
                 last = current;
                 current = menu;
+
+                setCursor(TRUE);
 
                 return TRUE;
             }
@@ -44,9 +56,11 @@ class MenuController
 
     virtual void() draw =
     {
-        if (current != world) {
-            current.draw();
+        if (current == world) {
+            return;
         }
+
+        current.draw();
     };
 
     /**
