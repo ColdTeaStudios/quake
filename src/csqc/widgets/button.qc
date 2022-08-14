@@ -44,5 +44,10 @@ class Button : Widget
         drawBackgroundColor();
         drawBorder();
         drawText();
+
+
+        if (tooltip) {
+            tooltip.draw();
+        }
     };
 };

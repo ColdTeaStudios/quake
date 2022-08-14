@@ -36,6 +36,9 @@ class CharacterStartMenu : Menu
         btnClose.size = [64, 16, 0];
         btnClose.text = "Spectate";
         container.addWidget(btnClose);
+
+        btnClose.tooltip = NewTooltip("This is a tooltip!");
+        btnClose.tooltip.parent = btnClose;
     };
 
     virtual void() onOpen = {

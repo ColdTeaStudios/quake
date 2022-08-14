@@ -39,6 +39,7 @@ class Widget
 
     // If you set a position with W_POS_RELATIVE, it will be ignored. Use absolute if you want manual positioning.
     vector position;
+
     positionMode position_mode;
 
     scrollMode scroll_mode;
@@ -56,6 +57,7 @@ class Widget
 
     float hovering;
     float active; // bool
+    float hoverStartTime;
 
     vector border_color;
     vector border_color_hover;
@@ -100,16 +102,28 @@ class Widget
         draggable = FALSE;
         position_mode = W_POS_STATIC;
         scroll_mode = W_SCR_HIDDEN;
+    };
 
-        dprint(strcat("CLASSNAME: ", classname, "\n"));
+    virtual vector() getAbsolutePos =
+    {
+        // Haha grosssssss
+        if (this.classname == "Tooltip") {
+            return [mousePosition.x, mousePosition.y - size.y];
+        }
+
+        vector tmpPos = position;
+        Widget p = parent;
+        while (p != world) {
+            tmpPos += p.position;
+            p = p.parent;
+        }
+
+        return tmpPos;
     };
 
     virtual void() drawBorder =
     {
-        vector temp = position;
-        if(parent != world) {
-            temp += parent.position;
-        }
+        vector temp = getAbsolutePos();
 
         vector tl = temp;
 
@@ -162,10 +176,7 @@ class Widget
 
     virtual void() drawBackgroundColor =
     {
-        vector tmpPos = position;
-        if (parent != world) {
-            tmpPos += parent.position;
-        }
+        vector tmpPos = getAbsolutePos();
 
         vector tmpSize = size;
         if (border_width > 0) {
@@ -321,6 +332,10 @@ class Widget
         drawBackgroundColor();
         drawBackgroundImage();
         drawBorder();
+
+        if (tooltip) {
+            tooltip.draw();
+        }
     };
 
     virtual var float(Widget target) onClick;
@@ -379,6 +394,9 @@ class Widget
         }
 
         hovering = TRUE;
+        if (!hoverStartTime) {
+            hoverStartTime = time;
+        }
 
         if (tooltip != world) {
             tooltip.hover();
@@ -398,6 +416,7 @@ class Widget
         }
 
         hovering = FALSE;
+        hoverStartTime = 0;
 
         if (tooltip != world) {
             tooltip.stopHover();
@@ -422,12 +441,7 @@ class Widget
             return [0, 0, 0];
         }
 
-        vector tmpPos = position;
-        Widget p = parent;
-        while (p != world) {
-            tmpPos += p.position;
-            p = p.parent;
-        }
+        vector tmpPos = getAbsolutePos();
 
         tmpPos = [tmpPos.x, tmpPos.x + size.x, 0];
 
@@ -460,12 +474,7 @@ class Widget
             return [0, 0, 0];
         }
 
-        vector tmpPos = position;
-        Widget p = parent;
-        while (p != world) {
-            tmpPos += p.position;
-            p = p.parent;
-        }
+        vector tmpPos = getAbsolutePos();
 
         tmpPos = [tmpPos.y, tmpPos.y + size.y, 0];
 

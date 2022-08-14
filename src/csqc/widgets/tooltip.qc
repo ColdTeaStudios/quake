@@ -2,23 +2,11 @@ class Tooltip : Widget
 {
     string text;
 
-    float hovering;
-    float hoverTime;
-
     float delay;
 
     float font_size;
 
-    void() Tooltip =
-    {
-        delay = 0.5;
-        padding = [8, 4, 0];
-        background_color = [0.169, 0.165, 0.2];
-        border_color = [0, 1, 0];
-        border_width = 1;
-        color = [0.85, 0.85, 0.85];
-        font_size = 8;
-    };
+    vector last_mouse_pos;
 
     virtual void() drawText =
     {
@@ -30,13 +18,15 @@ class Tooltip : Widget
 
     virtual void() draw =
     {
-        if (!text) {
+        if (!text || !hovering) {
             return;
         }
 
-        if (hoverTime < delay) {
+        if (time < hoverStartTime + delay) {
             return;
         }
+
+        //dprint(strcat(ftos(time), " < ", ftos(startTime), " + ", ftos(delay), "\n"));
 
         // Calculate position/size dynamically from mouse pos
         float strWidth = stringwidth(text, TRUE, [font_size, font_size, 0]);
@@ -48,23 +38,34 @@ class Tooltip : Widget
         drawText();
     };
 
-    virtual void() think =
+    virtual float(Widget target) onHover =
     {
-        hoverTime += 0.1;
-    };
+        if (mousePosition != last_mouse_pos) {
+            hoverStartTime = time;
+        }
 
-    virtual float() hover =
-    {
-        hovering = TRUE;
+        last_mouse_pos = mousePosition;
 
-        return TRUE;
-    };
-
-    virtual float() stopHover =
-    {
-        hovering = FALSE;
-        hoverTime = 0;
-
-        return TRUE;
+        return FALSE;
     };
 };
+
+Tooltip(string text) NewTooltip =
+{
+    Tooltip tooltip = spawn(Tooltip);
+
+    tooltip.delay = 0.6;
+    tooltip.padding = [6, 4, 0];
+    tooltip.background_color = [0.169, 0.165, 0.2];
+    tooltip.background_color_hover = [0.169, 0.165, 0.2];
+    tooltip.background_color_opacity = 1;
+    tooltip.background_color_opacity_hover = 1;
+    tooltip.border_color = [0, 1, 0];
+    tooltip.border_color_hover = [0, 1, 0];
+    tooltip.border_width = 1;
+    tooltip.color = [0.85, 0.85, 0.85];
+    tooltip.font_size = 5;
+    tooltip.text = text;
+
+    return tooltip;
+}
