@@ -61,7 +61,7 @@ class UIElement
 
     vector border_color;
     vector border_color_hover;
-    float border_width;
+    float border_width[4];
 
     vector color; // foreground color
     vector color_hover;
@@ -224,8 +224,8 @@ class UIElement
 
         vector boundsX = getElementBoundsX();
 
-        boundsX[0] += border_width;
-        boundsX[1] -= border_width;
+        boundsX[0] += border_width[3];
+        boundsX[1] -= border_width[1];
 
         boundsX[0] += padding[3];
         boundsX[1] -= padding[1];
@@ -251,8 +251,8 @@ class UIElement
 
         vector boundsY = getElementBoundsY();
 
-        boundsY[0] += border_width;
-        boundsY[1] -= border_width;
+        boundsY[0] += border_width[0];
+        boundsY[1] -= border_width[2];
 
         boundsY[0] += padding[0];
         boundsY[1] -= padding[2];
@@ -296,23 +296,23 @@ class UIElement
 
         drawfill(
             temp,
-            [size.x, border_width],
+            [size.x, border_width[0]],
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
             0
         );
 
         drawfill(
-            [temp.x + size.x - border_width, temp.y],
-            [border_width, size.y],
+            [temp.x + size.x - border_width[1], temp.y],
+            [border_width[1], size.y],
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
             0
         );
 
         drawfill(
-            [temp.x, temp.y + size.y - border_width],
-            [size.x, border_width],
+            [temp.x, temp.y + size.y - border_width[2]],
+            [size.x, border_width[2]],
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
             0
@@ -320,7 +320,7 @@ class UIElement
 
         drawfill(
             [temp.x, temp.y],
-            [border_width, size.y],
+            [border_width[3], size.y],
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
             0
@@ -343,12 +343,10 @@ class UIElement
         }
 
         vector tmpSize = size;
-        if (border_width > 0) {
-            tmpPos.x += border_width;
-            tmpPos.y += border_width;
-            tmpSize.x -= border_width*2;
-            tmpSize.y -= border_width*2;
-        }
+        tmpPos.x += border_width[1];
+        tmpPos.y += border_width[0];
+        tmpSize.x -= border_width[1] + border_width[3];
+        tmpSize.y -= border_width[0] + border_width[2];
 
         drawfill(
             tmpPos,
@@ -374,10 +372,8 @@ class UIElement
         vector boundsY = getElementBoundsY();
 
         vector tmpSize = size;
-        if (border_width > 0) {
-            tmpSize.x -= border_width*2;
-            tmpSize.y -= border_width*2;
-        }
+        tmpSize.x -= (border_width[1] + border_width[3]);
+        tmpSize.y -= (border_width[0] + border_width[2]);
 
         if (tmpSize.x <= 0 || tmpSize.y <= 0) {
             return;
@@ -667,5 +663,13 @@ class UIElement
         margin[1] = r;
         margin[2] = b;
         margin[3] = l;
+    };
+
+    virtual void(float t, float r, float b, float l) setBorderWidth =
+    {
+        border_width[0] = t;
+        border_width[1] = r;
+        border_width[2] = b;
+        border_width[3] = l;
     };
 };

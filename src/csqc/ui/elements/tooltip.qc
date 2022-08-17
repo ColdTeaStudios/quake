@@ -28,8 +28,8 @@ class Tooltip : UIElement
 
         // Calculate position/size dynamically from mouse pos
         float strWidth = stringwidth(text, TRUE, [font_size, font_size, 0]);
-        size.x = strWidth + (border_width * 2) + padding[1] + padding[3];
-        size.y = font_size + (border_width * 2) + padding[0] + padding[2];
+        size.x = strWidth + (border_width[1] + border_width[3]) + padding[1] + padding[3];
+        size.y = font_size + (border_width[0] + border_width[2]) + padding[0] + padding[2];
 
         drawBackgroundColor();
         drawBorder();

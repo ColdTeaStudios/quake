@@ -14,7 +14,7 @@ class Button : UIElement
         background_color_opacity_hover = 1.0;
         border_color = [0.7, 0.7, 0.7];
         border_color_hover = [0.85, 0.85, 0.85];
-        border_width = 1;
+        setBorderWidth(1, 1, 1, 1);
     };
 
     virtual void() drawText =
