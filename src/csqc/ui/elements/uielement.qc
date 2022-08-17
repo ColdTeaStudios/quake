@@ -46,8 +46,8 @@ class UIElement
 
     vector size;
 
-    vector padding; // X/Y, no separate left/right or top/bottom
-    vector margin;  // X/Y, no separate left/right or top/bottom
+    float padding[4]; // Top Right Bottom Left
+    float margin[4]; // Top Right Bottom Left
 
 	UIElement first_element; // First sibling on the current level
 	UIElement next_element; // Next sibling on the current level
@@ -224,15 +224,11 @@ class UIElement
 
         vector boundsX = getElementBoundsX();
 
-        if (this.border_width > 0) {
-            boundsX[0] += border_width;
-            boundsX[1] -= border_width;
-        }
+        boundsX[0] += border_width;
+        boundsX[1] -= border_width;
 
-        if (this.padding.x > 0) {
-            boundsX[0] += padding.x;
-            boundsX[1] -= padding.x;
-        }
+        boundsX[0] += padding[3];
+        boundsX[1] -= padding[1];
 
         if (boundsX[0] >= boundsX[1]) {
             return [0, 0, 0];
@@ -255,15 +251,11 @@ class UIElement
 
         vector boundsY = getElementBoundsY();
 
-        if (this.border_width > 0) {
-            boundsY[0] += border_width;
-            boundsY[1] -= border_width;
-        }
+        boundsY[0] += border_width;
+        boundsY[1] -= border_width;
 
-        if (this.padding.y > 0) {
-            boundsY[0] += padding.y;
-            boundsY[1] -= padding.y;
-        }
+        boundsY[0] += padding[0];
+        boundsY[1] -= padding[2];
 
         if (boundsY[0] >= boundsY[1]) {
             return [0, 0, 0];
@@ -659,5 +651,21 @@ class UIElement
         }
 
         return FALSE;
+    };
+
+    virtual void(float t, float r, float b, float l) setPadding =
+    {
+        padding[0] = t;
+        padding[1] = r;
+        padding[2] = b;
+        padding[3] = l;
+    };
+
+    virtual void(float t, float r, float b, float l) setMargin =
+    {
+        margin[0] = t;
+        margin[1] = r;
+        margin[2] = b;
+        margin[3] = l;
     };
 };

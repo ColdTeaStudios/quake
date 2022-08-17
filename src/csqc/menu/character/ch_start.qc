@@ -1,4 +1,3 @@
-
 class CharacterStartMenu : Menu
 {
     virtual float(UIElement target) mainMenuOnClick =
@@ -18,8 +17,8 @@ class CharacterStartMenu : Menu
         name = "ch_start";
 
         Container container = spawn(Container);
-        container.position = [320, 200, 0];
-        container.size = [320, 240, 0];
+        container.position = [320, 200];
+        container.size = [320, 240];
         container.border_width = 1;
         container.border_color = [95, 71, 7];
         container.border_color_hover = [107, 75, 11];
@@ -27,7 +26,7 @@ class CharacterStartMenu : Menu
         container.background_color_hover = [0.169, 0.165, 0.2];
         container.background_color_opacity = 1.0;
         container.background_color_opacity_hover = 1.0;
-        container.padding = [32, 32, 0];
+        container.setPadding(32, 32, 32, 32);
 
         container.background_image = "gfx/conback.lmp";
         container.background_image_opacity = 1;
