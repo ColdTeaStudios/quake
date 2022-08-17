@@ -85,13 +85,15 @@ class UIElement
     // bool, if FALSE, element will not capture mouse events (hover, click), useful for drawing overlays etc.
     float mouse_events;
 
+    // bool, if TRUE will allow the element to draw outside of any inherited bounds, e.g tooltips
+    float ignore_overflow;
+
     float draggable; // bool
 
     UIElement tooltip;
 
     void() UIElement =
     {
-        dprint("UIElement constructor called\n");
         // Set some basic defaults
         color = [1, 1, 1];
         color_hover = [1, 1, 1];
@@ -121,78 +123,17 @@ class UIElement
         return tmpPos;
     };
 
-    /**
-     * Returns the internal draw area (X axis) after factoring in border & padding.
-     * This is similar to CSS border-box box-sizing.
-     * x: startX, y: startX + available width, z: unused
-     * Minimum values will be clamped to 0
-     */ 
-    virtual vector() getInternalDrawAreaX =
-    {
-        if (size.x <= 0 || size.y <= 0) {
-            return [0, 0, 0];
-        }
-
-        vector tmpPos = getAbsolutePos();
-
-        tmpPos = [tmpPos.x, tmpPos.x + size.x, 0];
-
-        if (this.border_width > 0) {
-            tmpPos.x += border_width;
-            tmpPos.y -= border_width * 2;
-        }
-
-        if (this.padding.x > 0) {
-            tmpPos.x += padding.x;
-            tmpPos.y -= padding.x * 2;
-        }
-
-        if (tmpPos.x > tmpPos.y) {
-            return [0, 0, 0];
-        }
-
-        return tmpPos;
-    };
-
-    /**
-     * Returns the internal draw area (X axis) after factoring in border & padding.
-     * This is similar to CSS border-box box-sizing.
-     * x: startY, y: startY + available height, z: unused
-     * Minimum values will be clamped to 0
-     */ 
-    virtual vector() getInternalDrawAreaY =
-    {
-        if (size.x <= 0 || size.y <= 0) {
-            return [0, 0, 0];
-        }
-
-        vector tmpPos = getAbsolutePos();
-
-        tmpPos = [tmpPos.y, tmpPos.y + size.y, 0];
-
-        if (this.border_width > 0) {
-            tmpPos.x += border_width;
-            tmpPos.y -= border_width * 2;
-        }
-
-        if (this.padding.y > 0) {
-            tmpPos.x += padding.y;
-            tmpPos.y -= padding.y * 2;
-        }
-
-        if (tmpPos.x > tmpPos.y) {
-            return [0, 0, 0];
-        }
-
-        return tmpPos;
-    };
-
     // This is a temp field used for stepping through the tree correctly to drill down to this element (top-down).
     UIElement next_chain;
 
     // Returns available [xpos1, xpos2, 0]
     virtual vector() getElementBoundsX =
     {
+        // Haha grosssssss
+        if (this.classname == "Tooltip") {
+            return [mousePosition.x, mousePosition.x + size.x];
+        }
+
         vector extent = [position.x, 0];
 
         // Get the absolute position (bounds) of this element.
@@ -230,6 +171,11 @@ class UIElement
     // Returns available [ypos1, ypos2, 0]
     virtual vector() getElementBoundsY =
     {
+        // Haha grosssssss
+        if (this.classname == "Tooltip") {
+            return [mousePosition.y - size.y, mousePosition.y];
+        }
+
         vector extent = [position.y, 0];
 
         // Get the absolute position (bounds) of this element.
@@ -264,6 +210,68 @@ class UIElement
         return extent;
     };
 
+    /**
+     * Returns the internal draw area (X axis) after factoring in border & padding.
+     * This is similar to CSS border-box box-sizing.
+     * x: startX, y: startX + available width, z: unused
+     * Minimum values will be clamped to 0
+     */ 
+    virtual vector() getInternalDrawAreaX =
+    {
+        if (size.x <= 0 || size.y <= 0) {
+            return [0, 0, 0];
+        }
+
+        vector boundsX = getElementBoundsX();
+
+        if (this.border_width > 0) {
+            boundsX[0] += border_width;
+            boundsX[1] -= border_width;
+        }
+
+        if (this.padding.x > 0) {
+            boundsX[0] += padding.x;
+            boundsX[1] -= padding.x;
+        }
+
+        if (boundsX[0] >= boundsX[1]) {
+            return [0, 0, 0];
+        }
+
+        return boundsX;
+    };
+
+    /**
+     * Returns the internal draw area (X axis) after factoring in border & padding.
+     * This is similar to CSS border-box box-sizing.
+     * x: startY, y: startY + available height, z: unused
+     * Minimum values will be clamped to 0
+     */ 
+    virtual vector() getInternalDrawAreaY =
+    {
+        if (size.x <= 0 || size.y <= 0) {
+            return [0, 0, 0];
+        }
+
+        vector boundsY = getElementBoundsY();
+
+        if (this.border_width > 0) {
+            boundsY[0] += border_width;
+            boundsY[1] -= border_width;
+        }
+
+        if (this.padding.y > 0) {
+            boundsY[0] += padding.y;
+            boundsY[1] -= padding.y;
+        }
+
+        if (boundsY[0] >= boundsY[1]) {
+            return [0, 0, 0];
+        }
+
+        return boundsY;
+    };
+
     virtual void() drawBorder =
     {
         vector temp = getAbsolutePos();
@@ -271,7 +279,28 @@ class UIElement
         vector boundsX = getElementBoundsX();
         vector boundsY = getElementBoundsY();
 
-        drawsetcliparea(boundsX[0], boundsY[0], boundsX[1] - boundsX[0], boundsY[1] - boundsY[0]);
+        if (!ignore_overflow) {
+            drawsetcliparea(boundsX[0], boundsY[0], boundsX[1] - boundsX[0], boundsY[1] - boundsY[0]);
+        }
+
+        if (border_color[0] > 1.0) {
+            border_color[0] /= 255;
+        }
+        if (border_color[1] > 1.0) {
+            border_color[1] /= 255;
+        }
+        if (border_color[2] > 1.0) {
+            border_color[2] /= 255;
+        }
+        if (border_color_hover[0] > 1.0) {
+            border_color_hover[0] /= 255;
+        }
+        if (border_color_hover[1] > 1.0) {
+            border_color_hover[1] /= 255;
+        }
+        if (border_color_hover[2] > 1.0) {
+            border_color_hover[2] /= 255;
+        }
 
         drawfill(
             temp,
@@ -305,12 +334,21 @@ class UIElement
             0
         );
 
-        drawresetcliparea();
+        if (!ignore_overflow) {
+            drawresetcliparea();
+        }
     };
 
     virtual void() drawBackgroundColor =
     {
         vector tmpPos = getAbsolutePos();
+
+        vector boundsX = getElementBoundsX();
+        vector boundsY = getElementBoundsY();
+
+        if (!ignore_overflow) {
+            drawsetcliparea(boundsX[0], boundsY[0], boundsX[1] - boundsX[0], boundsY[1] - boundsY[0]);
+        }
 
         vector tmpSize = size;
         if (border_width > 0) {
@@ -327,6 +365,10 @@ class UIElement
             hovering ? background_color_opacity_hover * opacity : background_color_opacity * opacity,
             0
         );
+
+        if (!ignore_overflow) {
+            drawresetcliparea();
+        }
     };
 
     virtual void() drawBackgroundImage =
@@ -335,15 +377,12 @@ class UIElement
             return;
         }
 
-        vector tmpPos = position;
-        if (parent != world) {
-            tmpPos += parent.position;
-        }
+        vector tmpPos = getAbsolutePos();
+        vector boundsX = getElementBoundsX();
+        vector boundsY = getElementBoundsY();
 
         vector tmpSize = size;
         if (border_width > 0) {
-            tmpPos.x += border_width;
-            tmpPos.y += border_width;
             tmpSize.x -= border_width*2;
             tmpSize.y -= border_width*2;
         }

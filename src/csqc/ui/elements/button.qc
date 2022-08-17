@@ -32,7 +32,7 @@ class Button : UIElement
             [font_size, font_size, 0],
             hovering ? color_hover : color,
             hovering ? opacity_hover : opacity,
-            1
+            0
         );
 
         drawresetcliparea();

@@ -20,31 +20,30 @@ class CharacterStartMenu : Menu
         Container container = spawn(Container);
         container.position = [320, 200, 0];
         container.size = [320, 240, 0];
-        container.border_width = 16;
-        container.border_color = [0.6, 0.6, 0.6];
-        container.border_color_hover = [0.8, 0.8, 0.8];
+        container.border_width = 1;
+        container.border_color = [95, 71, 7];
+        container.border_color_hover = [107, 75, 11];
         container.background_color = [0.169, 0.165, 0.2];
         container.background_color_hover = [0.169, 0.165, 0.2];
         container.background_color_opacity = 1.0;
         container.background_color_opacity_hover = 1.0;
         container.padding = [32, 32, 0];
 
-        container.background_image = "gfx/adsb_shells.lmp";
+        container.background_image = "gfx/conback.lmp";
         container.background_image_opacity = 1;
         container.background_image_hover_opacity = 1;
-        container.background_size_mode = W_BG_SZ_PIXELS;
+        container.background_size_mode = W_BG_SZ_COVER;
         container.background_repeat = TRUE;
         addElement(container);
 
         Button btnClose = spawn(Button);
-        btnClose.position = [32, 32, 0];
+        btnClose.position = [300, 32, 0];
         btnClose.onClick = closeOnClick;
         btnClose.size = [64, 16, 0];
         btnClose.text = "Spectate";
         container.addElement(btnClose);
 
         btnClose.tooltip = NewTooltip("This is a tooltip!");
-        btnClose.tooltip.parent = btnClose;
     };
 
     virtual void() onOpen = {

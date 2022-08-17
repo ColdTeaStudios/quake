@@ -13,7 +13,7 @@ class Tooltip : UIElement
         vector xArea = getInternalDrawAreaX();
         vector yArea = getInternalDrawAreaY();
 
-        drawstring([xArea.x, yArea.x, 0], text, [font_size, font_size, 0], color, opacity, 1);
+        drawstring([xArea.x, yArea.x, 0], text, [font_size, font_size, 0], color, opacity, 0);
     };
 
     virtual void() draw =
@@ -52,15 +52,13 @@ Tooltip(string text) NewTooltip =
 {
     Tooltip tooltip = spawn(Tooltip);
 
+    tooltip.ignore_overflow = TRUE;
     tooltip.delay = 0.6;
     tooltip.padding = [6, 4, 0];
-    tooltip.background_color = [0.169, 0.165, 0.2];
-    tooltip.background_color_hover = [0.169, 0.165, 0.2];
+    tooltip.background_color = [0.1, 0.1, 0.1];
+    tooltip.background_color_hover = [0.1, 0.1, 0.1];
     tooltip.background_color_opacity = 1;
     tooltip.background_color_opacity_hover = 1;
-    tooltip.border_color = [0, 1, 0];
-    tooltip.border_color_hover = [0, 1, 0];
-    tooltip.border_width = 1;
     tooltip.color = [0.85, 0.85, 0.85];
     tooltip.font_size = 5;
     tooltip.text = text;
