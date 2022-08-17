@@ -2391,12 +2391,6 @@ void(float vwidth, float vheight, float notmenu) CSQC_UpdateView =
     // Revert back to using engine HUD?
     if (nocsqc > 0) return;
     
-    // Required for DP engine
-    if (detectDP == TRUE) {
-        ssize_x = cvar("vid_conwidth");
-        ssize_y = cvar("vid_conheight");
-    }
-    
     // Used on intermission screen later
     if (!intermission) intermission_time = time;
     // Read deathmatch variable and create csprogs coop variable

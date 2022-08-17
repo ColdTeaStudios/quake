@@ -6,7 +6,6 @@ class Button : UIElement
 
     void() Button =
     {
-        dprint("Button constructor called\n");
         font_size = 8;
         text = "Button";
         background_color = [0.169, 0.165, 0.2];

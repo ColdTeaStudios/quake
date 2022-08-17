@@ -121,57 +121,191 @@ class UIElement
         return tmpPos;
     };
 
+    /**
+     * Returns the internal draw area (X axis) after factoring in border & padding.
+     * This is similar to CSS border-box box-sizing.
+     * x: startX, y: startX + available width, z: unused
+     * Minimum values will be clamped to 0
+     */ 
+    virtual vector() getInternalDrawAreaX =
+    {
+        if (size.x <= 0 || size.y <= 0) {
+            return [0, 0, 0];
+        }
+
+        vector tmpPos = getAbsolutePos();
+
+        tmpPos = [tmpPos.x, tmpPos.x + size.x, 0];
+
+        if (this.border_width > 0) {
+            tmpPos.x += border_width;
+            tmpPos.y -= border_width * 2;
+        }
+
+        if (this.padding.x > 0) {
+            tmpPos.x += padding.x;
+            tmpPos.y -= padding.x * 2;
+        }
+
+        if (tmpPos.x > tmpPos.y) {
+            return [0, 0, 0];
+        }
+
+        return tmpPos;
+    };
+
+    /**
+     * Returns the internal draw area (X axis) after factoring in border & padding.
+     * This is similar to CSS border-box box-sizing.
+     * x: startY, y: startY + available height, z: unused
+     * Minimum values will be clamped to 0
+     */ 
+    virtual vector() getInternalDrawAreaY =
+    {
+        if (size.x <= 0 || size.y <= 0) {
+            return [0, 0, 0];
+        }
+
+        vector tmpPos = getAbsolutePos();
+
+        tmpPos = [tmpPos.y, tmpPos.y + size.y, 0];
+
+        if (this.border_width > 0) {
+            tmpPos.x += border_width;
+            tmpPos.y -= border_width * 2;
+        }
+
+        if (this.padding.y > 0) {
+            tmpPos.x += padding.y;
+            tmpPos.y -= padding.y * 2;
+        }
+
+        if (tmpPos.x > tmpPos.y) {
+            return [0, 0, 0];
+        }
+
+        return tmpPos;
+    };
+
+    // This is a temp field used for stepping through the tree correctly to drill down to this element (top-down).
+    UIElement next_chain;
+
+    // Returns available [xpos1, xpos2, 0]
+    virtual vector() getElementBoundsX =
+    {
+        vector extent = [position.x, 0];
+
+        // Get the absolute position (bounds) of this element.
+        UIElement p = parent;
+        UIElement root = this;
+        while (p != world) {
+            extent[0] += p.position.x;
+            p.next_chain = root;
+            root = p;
+            p = p.parent;
+        }
+
+        extent[1] = extent[0] + size.x;
+
+        // Traverse the tree again, top-down, and limit our bounds by any parent containers
+        float pX = 0;
+        p = root;
+        while (p != this) {
+            pX += p.position.x;
+
+            if (pX > extent[0]) {
+                extent[0] = pX;
+            }
+
+            if (pX + p.size.x < extent[1]) {
+                extent[1] = pX + p.size.x;
+            }
+
+            p = p.next_chain;
+        }
+
+        return extent;
+    };
+
+    // Returns available [ypos1, ypos2, 0]
+    virtual vector() getElementBoundsY =
+    {
+        vector extent = [position.y, 0];
+
+        // Get the absolute position (bounds) of this element.
+        UIElement p = parent;
+        UIElement root = this;
+        while (p != world) {
+            extent[0] += p.position.y;
+            p.next_chain = root;
+            root = p;
+            p = p.parent;
+        }
+
+        extent[1] = extent[0] + size.y;
+
+        // Traverse the tree again, top-down, and limit our bounds by any parent containers
+        float pY = 0;
+        p = root;
+        while (p != this) {
+            pY += p.position.y;
+
+            if (pY > extent[0]) {
+                extent[0] = pY;
+            }
+
+            if (pY + p.size.y < extent[1]) {
+                extent[1] = pY + p.size.y;
+            }
+
+            p = p.next_chain;
+        }
+
+        return extent;
+    };
+
     virtual void() drawBorder =
     {
         vector temp = getAbsolutePos();
 
-        vector tl = temp;
+        vector boundsX = getElementBoundsX();
+        vector boundsY = getElementBoundsY();
 
-        vector tr = temp;
-        tr.x += size.x;
+        drawsetcliparea(boundsX[0], boundsY[0], boundsX[1] - boundsX[0], boundsY[1] - boundsY[0]);
 
-        vector br = temp;
-        br.x += size.x;
-        br.y += size.y;
-
-        vector bl = temp;
-        bl.y += size.y;
-
-        drawline(
-            border_width,
-            tl,
-            tr,
+        drawfill(
+            temp,
+            [size.x, border_width],
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
             0
         );
 
-        drawline(
-            border_width,
-            tr,
-            br,
+        drawfill(
+            [temp.x + size.x - border_width, temp.y],
+            [border_width, size.y],
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
             0
         );
 
-        drawline(
-            border_width,
-            br,
-            bl,
+        drawfill(
+            [temp.x, temp.y + size.y - border_width],
+            [size.x, border_width],
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
             0
         );
 
-        drawline(
-            border_width,
-            bl,
-            tl,
+        drawfill(
+            [temp.x, temp.y],
+            [border_width, size.y],
             hovering ? border_color_hover : border_color,
             hovering ? opacity_hover * opacity : opacity,
             0
         );
+
+        drawresetcliparea();
     };
 
     virtual void() drawBackgroundColor =
@@ -433,149 +567,6 @@ class UIElement
         }
 
         return onStopHover(this);
-    };
-
-    /**
-     * Returns the internal draw area (X axis) after factoring in border & padding.
-     * This is similar to CSS border-box box-sizing.
-     * x: startX, y: startX + available width, z: unused
-     * Minimum values will be clamped to 0
-     */ 
-    virtual vector() getInternalDrawAreaX =
-    {
-        if (size.x <= 0 || size.y <= 0) {
-            return [0, 0, 0];
-        }
-
-        vector tmpPos = getAbsolutePos();
-
-        tmpPos = [tmpPos.x, tmpPos.x + size.x, 0];
-
-        if (this.border_width > 0) {
-            tmpPos.x += border_width;
-            tmpPos.y -= border_width * 2;
-        }
-
-        if (this.padding.x > 0) {
-            tmpPos.x += padding.x;
-            tmpPos.y -= padding.x * 2;
-        }
-
-        if (tmpPos.x > tmpPos.y) {
-            return [0, 0, 0];
-        }
-
-        return tmpPos;
-    };
-
-    /**
-     * Returns the internal draw area (X axis) after factoring in border & padding.
-     * This is similar to CSS border-box box-sizing.
-     * x: startY, y: startY + available height, z: unused
-     * Minimum values will be clamped to 0
-     */ 
-    virtual vector() getInternalDrawAreaY =
-    {
-        if (size.x <= 0 || size.y <= 0) {
-            return [0, 0, 0];
-        }
-
-        vector tmpPos = getAbsolutePos();
-
-        tmpPos = [tmpPos.y, tmpPos.y + size.y, 0];
-
-        if (this.border_width > 0) {
-            tmpPos.x += border_width;
-            tmpPos.y -= border_width * 2;
-        }
-
-        if (this.padding.y > 0) {
-            tmpPos.x += padding.y;
-            tmpPos.y -= padding.y * 2;
-        }
-
-        if (tmpPos.x > tmpPos.y) {
-            return [0, 0, 0];
-        }
-
-        return tmpPos;
-    };
-
-    // This is a temp field used for stepping through the tree correctly to drill down to this element (top-down).
-    UIElement next_chain;
-
-    // Returns available [xpos1, xpos2, 0]
-    virtual vector() getElementBoundsX =
-    {
-        vector extent = [position.x, 0];
-
-        // Get the absolute position (bounds) of this element.
-        UIElement p = parent;
-        UIElement root = this;
-        while (p != world) {
-            extent[0] += p.position.x;
-            p.next_chain = root;
-            root = p;
-            p = p.parent;
-        }
-
-        extent[1] = extent[0] + size.x;
-
-        // Traverse the tree again, top-down, and limit our bounds by any parent containers
-        float pX = 0;
-        p = root;
-        while (p != this) {
-            pX += p.position.x;
-
-            if (pX > extent[0]) {
-                extent[0] = pX;
-            }
-
-            if (pX + p.size.x < extent[1]) {
-                extent[1] = pX + p.size.x;
-            }
-
-            p = p.next_chain;
-        }
-
-        return extent;
-    };
-
-    // Returns available [ypos1, ypos2, 0]
-    virtual vector() getElementBoundsY =
-    {
-        vector extent = [position.y, 0];
-
-        // Get the absolute position (bounds) of this element.
-        UIElement p = parent;
-        UIElement root = this;
-        while (p != world) {
-            extent[0] += p.position.y;
-            p.next_chain = root;
-            root = p;
-            p = p.parent;
-        }
-
-        extent[1] = extent[0] + size.y;
-
-        // Traverse the tree again, top-down, and limit our bounds by any parent containers
-        float pY = 0;
-        p = root;
-        while (p != this) {
-            pY += p.position.y;
-
-            if (pY > extent[0]) {
-                extent[0] = pY;
-            }
-
-            if (pY + p.size.y < extent[1]) {
-                extent[1] = pY + p.size.y;
-            }
-
-            p = p.next_chain;
-        }
-
-        return extent;
     };
 
     virtual float(float evType, float scanCodeX, float charY) handleInput =

@@ -20,9 +20,9 @@ class CharacterStartMenu : Menu
         Container container = spawn(Container);
         container.position = [320, 200, 0];
         container.size = [320, 240, 0];
-        container.border_width = 1;
-        container.border_color = [0.7, 0.7, 0.7];
-        container.border_color_hover = [0.7, 0.7, 0.7];
+        container.border_width = 16;
+        container.border_color = [0.6, 0.6, 0.6];
+        container.border_color_hover = [0.8, 0.8, 0.8];
         container.background_color = [0.169, 0.165, 0.2];
         container.background_color_hover = [0.169, 0.165, 0.2];
         container.background_color_opacity = 1.0;
