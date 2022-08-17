@@ -1,4 +1,4 @@
-class Tooltip : Widget
+class Tooltip : UIElement 
 {
     string text;
 
@@ -26,8 +26,6 @@ class Tooltip : Widget
             return;
         }
 
-        //dprint(strcat(ftos(time), " < ", ftos(startTime), " + ", ftos(delay), "\n"));
-
         // Calculate position/size dynamically from mouse pos
         float strWidth = stringwidth(text, TRUE, [font_size, font_size, 0]);
         size.x = strWidth + (border_width * 2) + (padding.x * 2);
@@ -38,7 +36,7 @@ class Tooltip : Widget
         drawText();
     };
 
-    virtual float(Widget target) onHover =
+    virtual float(UIElement target) onHover =
     {
         if (mousePosition != last_mouse_pos) {
             hoverStartTime = time;

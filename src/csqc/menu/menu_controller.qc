@@ -70,14 +70,15 @@ class MenuController
     {
         if (list == world) {
             list = menu;
-        } else {
-            Menu start = list;
-            while (start.next != world) {
-                start = start.next;
-            }
-
-            start.next = menu;
+            return;
         }
+
+        Menu start = list;
+        while (start.next != world) {
+            start = start.next;
+        }
+
+        start.next = menu;
     };
 
     /**

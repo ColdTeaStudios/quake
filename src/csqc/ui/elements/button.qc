@@ -1,5 +1,5 @@
-// A button is just a widget with a label and default hover settings!
-class Button : Widget
+// A button is just a UIElement with a label and default hover settings!
+class Button : UIElement
 {
     string text;
     float font_size;

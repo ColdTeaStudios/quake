@@ -7,13 +7,13 @@ class Menu
     string name;
 
     // Linked list of children
-    Widget children;
+    UIElement children;
 
     virtual float(float evType, float scanCodeX, float charY) handleInput =
     {
         float handled = FALSE;
 
-        Widget child = children;
+        UIElement child = children;
         while (child != world && !handled) {
             handled = child.handleInput(evType, scanCodeX, charY);
             child = children.next_element;
@@ -24,25 +24,26 @@ class Menu
 
     virtual void() draw =
     {
-        Widget child = children;
+        UIElement child = children;
         while (child != world) {
             child.draw();
             child = child.next_element;
         }
     };
 
-    virtual void(Widget widget) addWidget =
+    virtual void(UIElement el) addElement =
     {
         if (children == world) {
-            children = widget;
-        } else {
-            Widget child = children;
-            while (child.next_element != world) {
-                child = child.next_element;
-            }
-
-            child.next_element = widget;
+            children = el;
+            return;
         }
+
+        UIElement child = children;
+        while (child.next_element != world) {
+            child = child.next_element;
+        }
+
+        child.next_element = el;
     };
 
     virtual void() onOpen = {};

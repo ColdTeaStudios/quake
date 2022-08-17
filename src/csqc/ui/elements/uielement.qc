@@ -4,7 +4,7 @@ enum backgroundSizeMode
     W_BG_SZ_PIXELS,
     // backgroundSize in % (x, y)
     W_BG_SZ_PCT,
-    // Crop, so the smallest image axis fits the widget, the excess in the other axis will be cropped
+    // Crop, so the smallest image axis fits the element, the excess in the other axis will be cropped
     W_BG_SZ_COVER,
     // Stretch the image to the container x/y
     W_BG_SZ_SCALE = 3
@@ -14,9 +14,9 @@ enum positionMode
 {
     // The parent will dictate the position based on the flow model
     W_POS_STATIC,
-    // Widget will be positioned absolute (in px) and exist 'outside' of the parent flow
+    // will be positioned absolute (in px) and exist 'outside' of the parent flow
     W_POS_ABSOLUTE,
-    // The widget will remain in the same place on the viewport, positioned relative to the nearest parent Container.
+    // The element will remain in the same place on the viewport, positioned relative to the nearest parent Container.
     // This is useful for elements that you want to 'remain' while scrolling containers etc.
     W_POS_FIXED = 2,
 };
@@ -33,9 +33,9 @@ enum scrollMode
     W_SCR_SCROLL_Y = 4,
 };
 
-class Widget
+class UIElement
 {
-    Widget parent;
+    UIElement parent;
 
     // If you set a position with W_POS_RELATIVE, it will be ignored. Use absolute if you want manual positioning.
     vector position;
@@ -49,11 +49,11 @@ class Widget
     vector padding; // X/Y, no separate left/right or top/bottom
     vector margin;  // X/Y, no separate left/right or top/bottom
 
-	Widget first_element; // First sibling on the current level
-	Widget next_element; // Next sibling on the current level
-	Widget prev_element; // Prev sibling on the current level
+	UIElement first_element; // First sibling on the current level
+	UIElement next_element; // Next sibling on the current level
+	UIElement prev_element; // Prev sibling on the current level
 
-    Widget children; // Child elements
+    UIElement children; // Child elements
 
     float hovering;
     float active; // bool
@@ -82,16 +82,16 @@ class Widget
     float opacity; // 0.0 - 1.0
     float opacity_hover; // 0.0 - 1.0
 
-    // bool, if FALSE, widget will not capture mouse events (hover, click), useful for drawing overlays etc.
+    // bool, if FALSE, element will not capture mouse events (hover, click), useful for drawing overlays etc.
     float mouse_events;
 
     float draggable; // bool
 
-    Widget tooltip;
+    UIElement tooltip;
 
-    void() Widget =
+    void() UIElement =
     {
-        dprint("Widget constructor called\n");
+        dprint("UIElement constructor called\n");
         // Set some basic defaults
         color = [1, 1, 1];
         color_hover = [1, 1, 1];
@@ -112,7 +112,7 @@ class Widget
         }
 
         vector tmpPos = position;
-        Widget p = parent;
+        UIElement p = parent;
         while (p != world) {
             tmpPos += p.position;
             p = p.parent;
@@ -338,15 +338,21 @@ class Widget
         }
     };
 
-    virtual var float(Widget target) onClick;
+    virtual var float(UIElement target) onClick;
 
-    virtual var float(Widget target) onDragStart;
+    virtual var float(UIElement target) onRightClick;
 
-    virtual var float(Widget target) onDragFinish;
+    virtual var float(UIElement target) onKeyDown;
 
-    virtual var float(Widget target) onHover;
+    virtual var float(UIElement target) onKeyUp;
 
-    virtual var float(Widget target) onStopHover;
+    virtual var float(UIElement target) onDragStart;
+
+    virtual var float(UIElement target) onDragFinish;
+
+    virtual var float(UIElement target) onHover;
+
+    virtual var float(UIElement target) onStopHover;
 
     virtual float() click =
     {
@@ -495,17 +501,17 @@ class Widget
         return tmpPos;
     };
 
-    // This is a temp field used for stepping through the tree correctly to drill down to this widget (top-down).
-    Widget next_chain;
+    // This is a temp field used for stepping through the tree correctly to drill down to this element (top-down).
+    UIElement next_chain;
 
     // Returns available [xpos1, xpos2, 0]
-    virtual vector() getWidgetBoundsX =
+    virtual vector() getElementBoundsX =
     {
         vector extent = [position.x, 0];
 
         // Get the absolute position (bounds) of this element.
-        Widget p = parent;
-        Widget root = this;
+        UIElement p = parent;
+        UIElement root = this;
         while (p != world) {
             extent[0] += p.position.x;
             p.next_chain = root;
@@ -536,13 +542,13 @@ class Widget
     };
 
     // Returns available [ypos1, ypos2, 0]
-    virtual vector() getWidgetBoundsY =
+    virtual vector() getElementBoundsY =
     {
         vector extent = [position.y, 0];
 
         // Get the absolute position (bounds) of this element.
-        Widget p = parent;
-        Widget root = this;
+        UIElement p = parent;
+        UIElement root = this;
         while (p != world) {
             extent[0] += p.position.y;
             p.next_chain = root;
@@ -577,8 +583,8 @@ class Widget
         //dprint(strcat("evType: ", ftos(evType), "   ", "scanCode: ", ftos(scanCodeX), "\n"));
         // We need to get the extent, as we don't want to push events to elements where el.size has overflowed
         // beyond the scope of the container (TODO: unless overflow is set to visible).
-        vector boundsX = getWidgetBoundsX();
-        vector boundsY = getWidgetBoundsY();
+        vector boundsX = getElementBoundsX();
+        vector boundsY = getElementBoundsY();
         if (boundsX[1] <= boundsX[0] || boundsY[1] <= boundsY[0]) {
             return FALSE;
         }
@@ -586,10 +592,12 @@ class Widget
         // We want events to bubble up (specificity first), rather than drill down, so check if any children elements
         // handle our event before we do.
         if (children != world) {
-            Widget child = children;
+            UIElement child = children;
             while (child != world) {
                 if (child.handleInput(evType, scanCodeX, charY)) {
                     return TRUE;
+
+                    // TODO fixme hover below?
                 }
 
                 child = child.next_element;
@@ -598,7 +606,6 @@ class Widget
 
         // Handle mouse move events
         if (evType == IE_MOUSEABS) {
-            // Allow hover at every point in the tree, so return false.
             if (mousePosition.x >= boundsX[0] && mousePosition.x <= boundsX[1]
                 && mousePosition.y >= boundsY[0] && mousePosition.y <= boundsY[1]) {
                 hover();
@@ -608,6 +615,7 @@ class Widget
                 }
             }
 
+            // Allow hover at every point in the tree, so return false.
             return FALSE;
         }
 

@@ -1,4 +1,4 @@
-class Container : Widget
+class Container : UIElement
 {
     virtual void() draw =
     {
@@ -6,29 +6,29 @@ class Container : Widget
         drawBackgroundImage();
         drawBorder();
 
-        Widget child = children;
+        UIElement child = children;
         while (child != world) {
             child.draw();
             child = child.next_element;
         }
     };
 
-    virtual void(Widget widget) addWidget =
+    virtual void(UIElement el) addElement =
     {
         if (children == world) {
-            children = widget;
-            widget.first_element = widget;
+            children = el;
+            el.first_element = el;
         } else {
-            Widget child = children;
+            UIElement child = children;
             while (child.next_element != world) {
                 child = child.next_element;
             }
 
-            widget.prev_element = child;
-            widget.first_element = children;
-            child.next_element = widget;
+            el.prev_element = child;
+            el.first_element = children;
+            child.next_element = el;
         }
 
-        widget.parent = this;
+        el.parent = this;
     };
 };
