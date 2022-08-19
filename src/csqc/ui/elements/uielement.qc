@@ -46,6 +46,9 @@ class UIElement
 
     vector size;
 
+    vector scroll_size;
+    vector scroll_position;
+
     float padding[4]; // Top Right Bottom Left
     float margin[4]; // Top Right Bottom Left
 
@@ -499,6 +502,72 @@ class UIElement
         }
     };
 
+    virtual void (UIElement el) fitElement =
+    {
+        if (el.position_mode != W_POS_STATIC) {
+            return;
+        }
+
+        // Everything is assumed to be inline-block.
+        vector tmpPos = [padding[3], padding[0]];
+
+        // Get the last element added
+        UIElement lastChild = children;
+        while (lastChild && lastChild.next_element != world) {
+            lastChild = lastChild.next_element;
+        }
+
+        // roll back to the last "static" positioned element
+        while (lastChild != world && lastChild.position_mode != W_POS_STATIC) {
+            lastChild = lastChild.prev_element;
+        }
+
+        // Try to fit the element next to the last element.
+        if (lastChild && lastChild != el) {
+            tmpPos = [lastChild.position.x + lastChild.size.x, lastChild.position.y];
+            tmpPos.x += lastChild.margin[1] > el.margin[3] ? lastChild.margin[1] : el.margin[3];
+
+            // Push it down if it doesn't fit between the last element, and the right of the container (- right padding)
+            if (tmpPos.x + el.size.x > size.x - padding[1]) {
+                tmpPos = [padding[3], lastChild.position.y + lastChild.size.y + lastChild.margin[2]];
+            }
+        }
+
+        // Does the child extend the internal bounds? Update scroll_size.
+        if (tmpPos.x + el.size.x > scroll_size.x) {
+            scroll_size.x = tmpPos.x + el.size.x + padding[1];
+        }
+
+        if (tmpPos.y + el.size.y > scroll_size.y) {
+            scroll_size.y = tmpPos.y + el.size.y + padding[2];
+        }
+
+        el.position = tmpPos;
+    };
+
+    virtual void() reflow =
+    {
+        UIElement element = children;
+
+        if (element == world) {
+            return;
+        }
+
+        children = world;
+        fitElement(element);
+        children = element;
+
+        while (element.next_element != world) {
+            UIElement next = element.next_element;
+            element.next_element = world;
+
+            fitElement(next);
+
+            element.next_element = next;
+            element = element.next_element;
+        }
+    };
+
     virtual var float(UIElement target) onClick;
 
     virtual var float(UIElement target) onRightClick;
@@ -663,6 +732,10 @@ class UIElement
         margin[1] = r;
         margin[2] = b;
         margin[3] = l;
+
+        if (parent != world) {
+            parent.reflow();
+        }
     };
 
     virtual void(float t, float r, float b, float l) setBorderWidth =
@@ -671,5 +744,10 @@ class UIElement
         border_width[1] = r;
         border_width[2] = b;
         border_width[3] = l;
+    };
+
+    virtual void(vector _size) setSize =
+    {
+        size = _size;
     };
 };
