@@ -494,7 +494,7 @@ class UIElement
         drawresetcliparea();
     };
 
-    static void() draw =
+    virtual void() draw =
     {
         drawBackgroundColor();
         drawBackgroundImage();
