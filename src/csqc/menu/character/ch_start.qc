@@ -12,6 +12,47 @@ class CharacterStartMenu : Menu
         return TRUE;
     };
 
+    virtual float(UIElement target) addButtonOnClick =
+    {
+        dprint("AddButtonOnClick\n");
+
+        vector bgColor = [random(), random(), random()];
+
+        UIElement el = spawn(UIElement);
+        el.setSize([32, 32]);
+        el.setMargin(8, 8, 8, 8);
+        el.background_color = bgColor;
+        el.background_color_hover = bgColor;
+        el.background_color_opacity = 1.0;
+        el.background_color_opacity_hover = 1.0;
+        ((Container) target.parent).addElement(el);
+        dprint("adding\n");
+
+        return TRUE;
+    };
+
+    virtual float(UIElement target) marginUpOnClick =
+    {
+        UIElement el = target.parent.children;
+        while (el != world) {
+            el.setMargin(el.margin[0], el.margin[1]+1, el.margin[2], el.margin[3]+1);
+            el = el.next_element;
+        }
+
+        return TRUE;
+    };
+
+    virtual float(UIElement target) marginDownOnClick =
+    {
+        UIElement el = target.parent.children;
+        while (el != world) {
+            el.setMargin(el.margin[0], el.margin[1]-1, el.margin[2], el.margin[3]-1);
+            el = el.next_element;
+        }
+
+        return TRUE;
+    };
+
     void() CharacterStartMenu =
     {
         name = "ch_start";
@@ -36,11 +77,28 @@ class CharacterStartMenu : Menu
         addElement(container);
 
         Button btnClose = spawn(Button);
-        btnClose.position = [300, 32, 0];
-        btnClose.onClick = closeOnClick;
-        btnClose.size = [64, 16, 0];
-        btnClose.text = "Spectate";
+        btnClose.position = [8, 8];
+        btnClose.position_mode = W_POS_ABSOLUTE;
+        btnClose.onClick = addButtonOnClick;
+        btnClose.size = [32, 16, 0];
+        btnClose.text = "Add";
         container.addElement(btnClose);
+
+        Button btnMarginUp = spawn(Button);
+        btnMarginUp.position = [48, 8];
+        btnMarginUp.position_mode = W_POS_ABSOLUTE;
+        btnMarginUp.onClick = marginUpOnClick;
+        btnMarginUp.size = [16, 16, 0];
+        btnMarginUp.text = "+";
+        container.addElement(btnMarginUp);
+
+        Button btnMarginDown = spawn(Button);
+        btnMarginDown.position = [72, 8];
+        btnMarginDown.position_mode = W_POS_ABSOLUTE;
+        btnMarginDown.onClick = marginDownOnClick;
+        btnMarginDown.size = [16, 16, 0];
+        btnMarginDown.text = "-";
+        container.addElement(btnMarginDown);
 
         btnClose.tooltip = NewTooltip("This is a tooltip!");
     };

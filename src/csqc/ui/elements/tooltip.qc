@@ -16,7 +16,7 @@ class Tooltip : UIElement
         drawstring([xArea.x, yArea.x, 0], text, [font_size, font_size, 0], color, opacity, 0);
     };
 
-    virtual void() draw =
+    /* virtual void() draw =
     {
         if (!text || !hovering) {
             return;
@@ -34,7 +34,7 @@ class Tooltip : UIElement
         drawBackgroundColor();
         drawBorder();
         drawText();
-    };
+    }; */
 
     virtual float(UIElement target) onHover =
     {

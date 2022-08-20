@@ -95,6 +95,9 @@ class UIElement
 
     UIElement tooltip;
 
+    // Unique identifier for this element
+    string elementId;
+
     void() UIElement =
     {
         // Set some basic defaults
@@ -491,14 +494,34 @@ class UIElement
         drawresetcliparea();
     };
 
-    virtual void() draw =
+    static void() draw =
     {
         drawBackgroundColor();
         drawBackgroundImage();
         drawBorder();
 
-        if (tooltip) {
+        if (this.tooltip) {
             tooltip.draw();
+        }
+
+        UIElement child = this.children;
+
+        float _i = 0;
+        while (child != world) {
+            if (classname == "Container") {
+                dprint(strcat(classname, "\n"));
+
+                child.draw();
+
+                if (this == world) { // `this` changes from a Container to world after child.draw() !!
+                    dprint("we be nullin :(\n");
+                }
+                dprint(strcat(classname, "\n"));
+            }
+
+            // child.draw();
+            child = child.next_element;
+            _i++;
         }
     };
 
@@ -716,6 +739,27 @@ class UIElement
         }
 
         return FALSE;
+    };
+
+    virtual void(UIElement el) addElement =
+    {
+        fitElement(el);
+        el.parent = this;
+
+        if (children == world) {
+            children = el;
+            el.first_element = el;
+            return;
+        }
+
+        UIElement child = children;
+        while (child.next_element != world) {
+            child = child.next_element;
+        }
+
+        el.prev_element = child;
+        el.first_element = children;
+        child.next_element = el;
     };
 
     virtual void(float t, float r, float b, float l) setPadding =

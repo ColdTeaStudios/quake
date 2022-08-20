@@ -38,7 +38,7 @@ class Button : UIElement
         drawresetcliparea();
     };
 
-    virtual void() draw =
+    /* virtual void() draw =
     {
         drawBackgroundColor();
         drawBorder();
@@ -48,5 +48,5 @@ class Button : UIElement
         if (tooltip) {
             tooltip.draw();
         }
-    };
+    }; */
 };
