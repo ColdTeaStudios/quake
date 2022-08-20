@@ -507,10 +507,11 @@ class UIElement
         UIElement child = this.children;
         while (child != world) {
             if (classname == "Container") {
-                dprint(strcat(classname, "\n"));
+                dprint(strcat(classname, "\n")); // Prints "Container"
 
                 child.draw();
 
+                dprint(strcat(classname, "\n")); // Prints "", as we are now `world`
                 if (this == world) { // `this` changes from a Container to world after child.draw() !!
                     dprint("we be nullin :(\n");
                 }
