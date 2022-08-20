@@ -120,6 +120,7 @@ class UIElement
         UIElement p = parent;
         while (p != world) {
             tmpPos += p.position;
+            tmpPos -= p.scroll_position;
             p = p.parent;
         }
 
@@ -185,7 +186,7 @@ class UIElement
         UIElement p = parent;
         UIElement root = this;
         while (p != world) {
-            extent[0] += p.position.y;
+            extent[0] += p.position.y - p.scroll_position.y;
             p.next_chain = root;
             root = p;
             p = p.parent;
@@ -565,13 +566,21 @@ class UIElement
             c = children;
 
             while (c != world) {
+                if (c.position_mode != W_POS_STATIC) {
+                    c = c.next_element;
+                    continue;
+                }
+
                 if (c.position.y + c.size.y > lowest.position.y + lowest.size.y) {
                     lowest = c;
                 }
                 c = c.next_element;
             }
 
-            tmpPos = [padding[3], lowest.position.y + lowest.size.y + lowest.margin[2]];
+            tmpPos = [
+                padding[3],
+                lowest.position.y + lowest.size.y + (lowest.margin[2] > el.margin[0] ? lowest.margin[2] : el.margin[0])
+            ];
         }
 
 
@@ -776,6 +785,23 @@ class UIElement
                     return TRUE;
                 }
             }
+
+            if (scanCodeX == K_MWHEELUP) {
+                if (hovering) {
+                    scroll_position.y = scroll_position.y - 4 < 0 ? 0 : scroll_position.y - 4;
+                    return TRUE;
+                }
+            }
+
+            if (scanCodeX == K_MWHEELDOWN) {
+                if (hovering) {
+                    if (scroll_mode == W_SCR_SCROLL || scroll_mode == W_SCR_SCROLL_Y) {
+                        float max_scroll = scroll_size.y - size.y;
+                        scroll_position.y = scroll_position.y + 4 > max_scroll ? max_scroll : scroll_position.y + 4;
+                        return TRUE;
+                    }
+                }
+            }
         }
 
         return FALSE;
@@ -812,5 +838,11 @@ class UIElement
     virtual void(vector _size) setSize =
     {
         size = _size;
+        scroll_size = _size;
+        reflow();
+
+        if (parent != world) {
+            parent.reflow();
+        }
     };
 };
