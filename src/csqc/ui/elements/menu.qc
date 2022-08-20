@@ -22,11 +22,32 @@ class Menu
         return handled;
     };
 
+    // Hehe.
     virtual void() draw =
     {
         UIElement child = children;
         while (child != world) {
             child.draw();
+            UIElement c2 = child.children;
+            while (c2 != world) {
+                c2.draw();
+                UIElement c3 = c2.children;
+                while (c3 != world) {
+                    c3.draw();
+                    UIElement c4 = c3.children;
+                    while (c4 != world) {
+                        c4.draw();
+                        UIElement c5 = c4.children;
+                        while (c5 != world) {
+                            c5.draw();
+                            c5 = c5.next_element;
+                        }
+                        c4 = c4.next_element;
+                    }
+                    c3 = c3.next_element;
+                }
+                c2 = c2.next_element;
+            }
             child = child.next_element;
         }
     };

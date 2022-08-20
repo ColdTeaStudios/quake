@@ -512,28 +512,70 @@ class UIElement
         vector tmpPos = [padding[3], padding[0]];
 
         // Get the last element added
-        UIElement lastChild = children;
-        while (lastChild && lastChild.next_element != world) {
-            lastChild = lastChild.next_element;
-        }
+        UIElement c = children;
 
-        // roll back to the last "static" positioned element
-        while (lastChild != world && lastChild.position_mode != W_POS_STATIC) {
-            lastChild = lastChild.prev_element;
-        }
+        float fits = FALSE;
 
-        // Try to fit the element next to the last element.
-        if (lastChild && lastChild != el) {
-            tmpPos = [lastChild.position.x + lastChild.size.x, lastChild.position.y];
-            tmpPos.x += lastChild.margin[1] > el.margin[3] ? lastChild.margin[1] : el.margin[3];
-
-            // Push it down if it doesn't fit between the last element, and the right of the container (- right padding)
-            if (tmpPos.x + el.size.x > size.x - padding[1]) {
-                tmpPos = [padding[3], lastChild.position.y + lastChild.size.y + lastChild.margin[2]];
+        while (c != world) {
+            if (c.position_mode != W_POS_STATIC) {
+                c = c.next_element;
+                continue;
             }
+
+            // Try to fit to the right of
+            tmpPos = [c.position.x + c.size.x, c.position.y];
+            tmpPos.x += c.margin[1] > el.margin[3] ? c.margin[1] : el.margin[3];
+
+            // Fits within bounds of container? if not, next element
+            if (tmpPos.x + el.size.x > size.x - padding[1]) {
+                c = c.next_element;
+                continue;
+            }
+
+            // Are we on top of any other elements? If so, next element.
+            UIElement c2 = children;
+            float cont = FALSE;
+            while (c2 != world) {
+                if (c2.position_mode != W_POS_STATIC) {
+                    c2 = c2.next_element;
+                    continue;
+                }
+
+                if(tmpPos.x >= c2.position.x && tmpPos.x < c2.position.x + c2.size.x
+                    && tmpPos.y >= c2.position.y && tmpPos.y < c2.position.y + c2.size.y) {
+                    cont = TRUE;
+                    break;
+                }
+
+                c2 = c2.next_element;
+            }
+
+            if (cont) {
+                c = c.next_element;
+                continue;
+            }
+
+            fits = TRUE;
+            break;
         }
 
-        // Does the child extend the internal bounds? Update scroll_size.
+        // Doesn't fit next to any element. Find the tallest element and create a new row below it.
+        if (!fits && children) {
+            UIElement lowest = children;
+            c = children;
+
+            while (c != world) {
+                if (c.position.y + c.size.y > lowest.position.y + lowest.size.y) {
+                    lowest = c;
+                }
+                c = c.next_element;
+            }
+
+            tmpPos = [padding[3], lowest.position.y + lowest.size.y + lowest.margin[2]];
+        }
+
+
+        // Does the new element extend the internal bounds? Update scroll_size.
         if (tmpPos.x + el.size.x > scroll_size.x) {
             scroll_size.x = tmpPos.x + el.size.x + padding[1];
         }
@@ -543,6 +585,27 @@ class UIElement
         }
 
         el.position = tmpPos;
+    };
+
+    virtual void(UIElement el) addElement =
+    {
+        fitElement(el);
+        el.parent = this;
+
+        if (children == world) {
+            children = el;
+            el.first_element = el;
+            return;
+        }
+
+        UIElement child = children;
+        while (child.next_element != world) {
+            child = child.next_element;
+        }
+
+        el.prev_element = child;
+        el.first_element = children;
+        child.next_element = el;
     };
 
     virtual void() reflow =
