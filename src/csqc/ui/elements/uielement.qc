@@ -505,8 +505,6 @@ class UIElement
         }
 
         UIElement child = this.children;
-
-        float _i = 0;
         while (child != world) {
             if (classname == "Container") {
                 dprint(strcat(classname, "\n"));
@@ -521,7 +519,6 @@ class UIElement
 
             // child.draw();
             child = child.next_element;
-            _i++;
         }
     };
 
