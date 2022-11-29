@@ -35,7 +35,6 @@ void() display_playinfo;    // Display Player information
 void() display_version;     // Display MOD information
 void() display_mapvar;      // Display Map Variables
 void() display_customkeys;  // Display Custom Key inventory
-void() CycleThroughHuds;    // Cycle through different custom HUDS
 void() CycleParticleDebug;  // Cycle particle debug messages
 
 void(float sigil_bit) givesigil;    // Gives runes
@@ -158,46 +157,6 @@ void() display_customkeys =
 };
 
 /*======================================================================
- Cycle through all custom HUDs using scratch1 cvar
-======================================================================*/
-void() CycleThroughHuds =
-{
-    local float hudact;
-    if (impulse_playeronly()) return;       // Player only
-    // Is the CSQC functionality enabled/disabled?
-    // This entity key is updated (on client) by CSQC when active
-    // spike has broken this check in qss dev builds :(
-    if (self.ext_csqc == FALSE) {
-        sprint(self, "[IMPULSE] Custom HUDS not supported!\n");
-        return;
-    }
-    // Have the HUDs been disabled on purpose?
-    if (cvar("cl_nocsqc") == 1 || cvar("scratch1") < 0) {
-        sprint(self, "[IMPULSE] Custom HUDS are disabled!\n");
-        return;
-    }
-    // Reset input buffer
-    self.impulse = 0;   
-    // Read current custom hud
-    hudact = cvar("scratch1");
-    // Move forward 1 hud and check range
-    hudact = hudact + 1;
-    if (hudact > 9) hudact = 0;
-    cvar_set("scratch1", ftos(hudact));
-    // Let the player know what hud is active
-    if (hudact == 1) centerprint(self, "1 = Inventory Around middle\n");
-    else if (hudact == 2) centerprint(self, "2 = Inventory on Screen Sides\n");
-    else if (hudact == 3) centerprint(self, "3 = Blank\n");
-    else if (hudact == 4) centerprint(self, "4 = Classic Doom Inspired!\n");
-    else if (hudact == 5) centerprint(self, "5 = Quake Champions Inspired!\n");
-    else if (hudact == 6) centerprint(self, "6 = Extra Wide Single Bar\n");
-    else if (hudact == 7) centerprint(self, "7 = Clustered Around Crosshair\n");
-    else if (hudact == 8) centerprint(self, "8 = Blank\n");
-    else if (hudact == 9) centerprint(self, "9 = Blank\n");
-    else centerprint(self, "0 = Classic Quake HUD!\n");
-};
-
-/*======================================================================
  Standard error reporting
 ======================================================================*/
 float() impulse_playeronly =
@@ -291,6 +250,8 @@ float() impulse_skill03only =
     else return FALSE;
 };
 
+void() sendTestPacket;
+
 /*======================================================================
  ImpulseCommands
 ======================================================================*/
@@ -299,6 +260,8 @@ void() ImpulseCommands =
     if (self.impulse >= 1 && self.impulse <= 8) W_ChangeWeapon (self);
     else if (self.impulse == 10) CycleWeaponCommand();
     else if (self.impulse == 12) CycleWeaponReverseCommand();
+
+    else if (self.impulse == 35) sendTestPacket();
 
     // Only these MOD options can be changed via the console
     else if (self.impulse == 100) toggleautoaim();      // Toggle auto aim
@@ -327,7 +290,6 @@ void() ImpulseCommands =
     else if (self.impulse == 168) togglenomwheelskip(); // Toggle no mouse wheel skip
     else if (self.impulse == 170) togglebodyremoval();  // Toggle monster body fade/removal
     else if (self.impulse == 175) display_customkeys(); // Display Custom Key inventory
-    else if (self.impulse == 178) CycleThroughHuds();   // Cycle through different custom HUDS
 
     else if (self.impulse == 180) display_secrets();    // Display a list of secret locations
     else if (self.impulse == 182) display_secretlocs(); // Display secret locations
@@ -578,15 +540,6 @@ void() display_configflag =
     if (query_weathersystem() == TRUE) dprint("+ Weather System enabled\n");
     else dprint("- Weather System disabled\n");
     
-    // Advanced engines active?
-    if (ext_active) {
-        // Check for CSQC disabled console variable?
-        if (cvar("cl_nocsqc") == 1) dprint("- Client Server QC HUD disabled\n");
-        else if (self.ext_csqc > 0) dprint("+ Client Server QC HUD enabled\n");
-    }
-    // Default = CSQC not supported
-    else dprint("* Server side engine HUD active\n");
-
     // Check for scratch1-4 variables
     if (cvar("scratch1") > 0) {
         dprint("+ Scratch1 CSQC Hud ("); 

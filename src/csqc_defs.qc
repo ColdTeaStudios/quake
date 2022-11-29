@@ -259,7 +259,7 @@ float(float framenum) getinputstate = #345;
 // Perform the engine's standard player movement prediction upon
 // the given entity using the input_* globals to describe movement
 // this may or may not take a player ent
-void(...) runstandardplayerphysics = #347;
+// void(...) runstandardplayerphysics = #347;
 // Sets the position of the view, as far as the audio subsystem is
 // concerned. This should be called once per CSQC_UpdateView as it
 // will otherwise revert to default. For reverbtype,

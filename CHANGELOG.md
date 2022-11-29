@@ -7,8 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - [Internal] Refactor src directory, move monsters and ai to subfolders.
+- [Internal] Switch from dpextensions to fteextensions
+
+### Removed
 - Remove 'Chaos Mode' inherited from AD.
 - Remove all non-base monsters for now.
+
+### Added
+- Implement initial ui element system.
+- Implement initial menu system.
+- Implement first pass at 'Character' creation/loading/saving.
 
 ## [0.0.1] - 2022-08-08
 ### Changed

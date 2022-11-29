@@ -218,6 +218,9 @@ string facead[4] = {
     "gfx/adf_evil.lmp", "gfx/adf_evilquad.lmp", "gfx/adf_evilpent.lmp", "gfx/adf_evilinv.lmp"
 };
 
+
+MenuController menuController;
+
 //----------------------------------------------------------------------
 // Stubs for extra CSQC functions (not all supported)
 //----------------------------------------------------------------------
@@ -232,6 +235,10 @@ float(string str) CSQC_ConsoleCommand = {
 // chary is the character code (chr2str to shove it into a string)
 // For mouse events then x+y are the mouse delta/position values
 float(float evtype, float scanx, float chary, float devid) CSQC_InputEvent = {
+    if (menuController.handleInput(evtype, scanx, chary) || menuController.current != world) {
+        return TRUE;
+    }
+
     return FALSE;
 };
 // This is linked to client dmg_take / dmg_save / dmg_inflictor fields
@@ -240,11 +247,22 @@ float(float save, float take, vector dir) CSQC_Parse_Damage = {
     painfinishtime = time + 0.2;
     return FALSE;
 };
+
 // Can query/check server MSG events
 // CSQC_Parse_Event is called when the client sees a
 // #define svcfte_cgamepacket (83) message from the server
 // Not supported for DP, is called from only QSS/FTE
-void() CSQC_Parse_Event = { };
+void() CSQC_Parse_Event = {
+
+    dprint("\b[CSQC]\b CSQC_Parse_Event\n");
+    float ev = ReadByte();
+    float ev2 = ReadByte();
+    //float ev3 = ReadByte();
+
+    print(strcat("ev: ", ftos(ev), "\n"));
+    print(strcat("ev2: ", ftos(ev2), "\n"));
+    //float ev3 = ReadByte();
+};
 
 // Can intercept printed messages from the server (top of screen)
 // printlvl (text filtering) 0=low, 1=medium, 2=high, 3=chat
@@ -2068,6 +2086,9 @@ void(vector virtmin, vector virtsize) Hud_DrawIntermission =
 //======================================================================
 void(vector virtsize, float showscores) CSQC_DrawHud =
 {
+    menuController.draw();
+
+    mousePosition = getmousepos();
     local vector pos, hudbar;
     local float oitems, omoditems, i;
     local float hudviewsize, hudlayout, hudreverse, hudgrid;
@@ -2370,12 +2391,6 @@ void(float vwidth, float vheight, float notmenu) CSQC_UpdateView =
     // Revert back to using engine HUD?
     if (nocsqc > 0) return;
     
-    // Required for DP engine
-    if (detectDP == TRUE) {
-        ssize_x = cvar("vid_conwidth");
-        ssize_y = cvar("vid_conheight");
-    }
-    
     // Used on intermission screen later
     if (!intermission) intermission_time = time;
     // Read deathmatch variable and create csprogs coop variable
@@ -2458,10 +2473,8 @@ __wrap void(float apilevel, string enginename, float engineversion) CSQC_Init =
     
     registercommand("+showscores");
     registercommand("+showscores");
-    // Different scoreboards for DM and Team DM
-    // AD is aimed at SP/Coop only, not included
-    //registercommand("+showteamscores");
-    //registercommand("+showteamscores");
+
+    menuController = spawn(MenuController);
 };
 
 //----------------------------------------------------------------------

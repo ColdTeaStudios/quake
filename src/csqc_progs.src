@@ -2,6 +2,16 @@
 
 csqc_defsclient.qc
 csqc_defs.qc
-// Pick AD or ID1 vers
+csqc/customdefs.qc
+fteextensions.qc
+shared/packets.qc
+csqc/character_net_handler.qc
+csqc/character_provider.qc
+csqc/ui/elements/uielement.qc
+csqc/ui/elements/tooltip.qc
+csqc/ui/elements/container.qc
+csqc/ui/elements/button.qc
+csqc/ui/elements/menu.qc
+csqc/menu/character/ch_start.qc
+csqc/menu/menu_controller.qc
 csqc_hudad.qc
-//csqc_hudvanilla.qc

@@ -613,15 +613,15 @@ void() worldspawn =
         // FTE/QSS use clientstat, DP use addstat (same function)
         // The addstat is defined in dpextensions.qc
         // void(float index, float type, ...) addstat = #232;
-        addstat(CLIENT_MODITEMS, EV_FLOAT, moditems); 
-        addstat(CLIENT_CKEYNAME1, EV_STRING, ckeyname1); 
-        addstat(CLIENT_CKEYNAME2, EV_STRING, ckeyname2); 
-        addstat(CLIENT_CKEYNAME3, EV_STRING, ckeyname3); 
-        addstat(CLIENT_CKEYNAME4, EV_STRING, ckeyname4); 
-        addstat(CLIENT_CKEYSKIN1, EV_FLOAT, ckeyskin1); 
-        addstat(CLIENT_CKEYSKIN2, EV_FLOAT, ckeyskin2); 
-        addstat(CLIENT_CKEYSKIN3, EV_FLOAT, ckeyskin3); 
-        addstat(CLIENT_CKEYSKIN4, EV_FLOAT, ckeyskin4);     
+        clientstat(CLIENT_MODITEMS, EV_FLOAT, moditems); 
+        clientstat(CLIENT_CKEYNAME1, EV_STRING, ckeyname1); 
+        clientstat(CLIENT_CKEYNAME2, EV_STRING, ckeyname2); 
+        clientstat(CLIENT_CKEYNAME3, EV_STRING, ckeyname3); 
+        clientstat(CLIENT_CKEYNAME4, EV_STRING, ckeyname4); 
+        clientstat(CLIENT_CKEYSKIN1, EV_FLOAT, ckeyskin1); 
+        clientstat(CLIENT_CKEYSKIN2, EV_FLOAT, ckeyskin2); 
+        clientstat(CLIENT_CKEYSKIN3, EV_FLOAT, ckeyskin3); 
+        clientstat(CLIENT_CKEYSKIN4, EV_FLOAT, ckeyskin4);     
     }
 
     dprint("\n\b[ENGINE]\b ");
@@ -925,22 +925,4 @@ void() trigger_onlyregistered =
 {
     InitTrigger ();
     self.touch = trigger_onlyregistered_touch;
-};
-
-//----------------------------------------------------------------------
-// A function that supresses compiler errors
-//----------------------------------------------------------------------
-void() dpcompiler_errors =
-{
-    worldstatus = "";
-    gettaginfo_parent = 0;
-    gettaginfo_name = "";
-    gettaginfo_offset = '0 0 0';
-    gettaginfo_forward = '0 0 0';
-    gettaginfo_right = '0 0 0';
-    gettaginfo_up = '0 0 0';
-    trace_dpstartcontents = 0;
-    trace_dphitcontents = 0;
-    trace_dphitq3surfaceflags = 0;
-    trace_dphittexturename = "";
 };
